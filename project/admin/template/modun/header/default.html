@@ -1,0 +1,542 @@
+<div class="navbar navbar-fixed-top bs-docs-nav" role="banner">  
+    <div class="conjtainer">
+      <!-- Menu button for smallar screens -->
+      <div class="navbar-header">
+        <button class="navbar-toggle btn-navbar" type="button" data-toggle="collapse" data-target=".bs-navbar-collapse">
+          <span>Menu</span>
+        </button>
+        <!-- Site name for smallar screens -->
+        <div class="imagelogo"><img  src="img/logo.png" style="margin-top:5px; margin-right: 60px;"></img></div>
+      </div>    
+
+      <!-- Navigation starts -->
+      <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">         
+
+        <ul class="nav navbar-nav">  
+
+          <!-- Upload to server link. Class "dropdown-big" creates big dropdown -->
+          <li class="dropdown dropdown-big ">
+            <a class="dropdown-toggle mnqldx" data-toggle="dropdown"><span class="label label-danger" style="color:#346C9B;"><i class="fa fa-wifi"></i></span> Quản lý đo xa</a>
+            <!-- Dropdown -->
+            <ul class="dropdown-menu">
+              <li>
+                <!-- Using "icon-spin" class to rotate icon. -->
+                <a data-page="qldx" data-name="htdx" class="doxa htdx" style="padding:5px 0px;"><span class="label label-sub-3" ><i class="fa fa-globe"></i></span> Các điểm trên hệ thống đo xa</a>
+                <hr />
+             <!--      <p><span class="label label-sub-3" ><i class="fa fa-cloud"></i></span> <a data-page="qldx" data-name="tbcb" class="doxa tbcb">Các thông báo cảnh báo</a></p>
+                <hr />
+              Dropdown menu footer -->
+                <div class="drop-foot">
+                </div>
+
+              </li>
+            </ul>         
+          </li>
+
+          <!-- Sync to server link -->
+          <li class="dropdown dropdown-big">
+            <a  class="dropdown-toggle mntkvh" data-toggle="dropdown" ><span class="label label-danger" style="color:#346C9B;"><i class="fa fa-line-chart"></i></span> Thống kê vận hành</a>
+            <!-- Dropdown -->
+            <ul class="dropdown-menu">
+              <li>
+                <!-- Using "icon-spin" class to rotate icon. -->
+                <a data-page="tkvh" data-name="tsvh" class="doxa manager_instant_meter tsvh" style="padding:5px 0px;" ><span  class="label label-sub-3" ><i class="fa fa-bar-chart"></i></span> Thông số vận hành (15 phút)</a>
+                <hr />
+                <a data-page="tkvh" data-name="tspt" class="doxa manager_profile_meter tspt" style="padding:5px 0px;" ><span  class="label label-sub-3" ><i class="fa fa-pie-chart"></i></span> Thông số phụ tải(30 phút)</a>
+                <hr />
+                <a data-page="tkvh" data-name="tscs" class="doxa manager_current_meter tscs" style="padding:5px 0px;" > <span  class="label label-sub-3" ><i class="fa fa-area-chart"></i></span>Thông số chỉ số (60 phút) </a>       
+                <hr />
+                <a data-page="tkvh" data-name="tscsngay" class="doxa manager_current_meter tscsngay" style="padding:5px 0px;" ><span  class="label label-sub-3" ><i class="fa fa-area-chart"></i></span> Báo cáo chốt chỉ số ngày  </a>        
+                <hr />				
+                <!-- Dropdown menu footer -->
+                <div class="drop-foot">
+                </div>
+
+              </li>
+            </ul>
+          </li>
+          
+          <!-- Sync to server link -->
+          <li class="dropdown dropdown-big">
+            <a class="dropdown-toggle mncsdl" data-toggle="dropdown"><span class="label label-danger" style="color:#346C9B;"><i class="fa fa-pencil-square-o"></i></span> Chỉ số đo lường</a>
+            <!-- Dropdown -->
+            <ul class="dropdown-menu">
+              <li>
+                <!-- Using "icon-spin" class to rotate icon. -->
+                <a data-page="csdl" data-name="csct" class="doxa manager_h1_meter csct" style="padding:5px 0px;" ><span  class="label label-sub-3" ><i class="fa fa-database"></i></span> Chỉ số chốt tháng </a>
+                <hr />
+                   <a data-page="csdl" data-name="tonghop" class="doxa manager_sum_h1_meter tonghop" style="padding:5px 0px;" ><span  class="label label-sub-3"><i class="fa fa-th"></i></span> Báo cáo tổng hợp </a>
+                <hr />
+              <!--   <p><span style="padding:5px 0px;" class="label label-sub-3"><i class="fa fa-usd "></i></span><a data-page="csdl" data-name="giambd" class="doxa manager_price giambd"> Giá mua bán điện </a></p>
+                <hr />
+             Dropdown menu footer -->
+                <div class="drop-foot">
+                </div>
+              </li>
+            </ul>
+          </li>
+          <!-- Sync to server link -->
+          <li class="dropdown dropdown-big">
+            <a class="dropdown-toggle mnqlnm" data-toggle="dropdown"><span class="label label-danger" style="color:#346C9B;"><i class="fa fa-folder-open-o"></i></span> Quản lý nhà máy</a>
+            <!-- Dropdown -->
+            <ul class="dropdown-menu">
+              <li>
+                <!-- Using "icon-spin" class to rotate icon. -->
+                <a data-page="qlnm" data-name="qlcsnm" style="padding:5px 0px;" class="qlnm qlcsnm manager_dataipp" ><span class="label label-sub-3"  ><i class="fa fa-database"></i></span> Quản lý thông tin chốt chỉ số</a>
+                <hr />
+				<a data-page="qlnm" data-name="qlttpc" style="padding:5px 0px;" class="qlnm qlttpc manager_dataipp " ><span class="label label-sub-3"  ><i class="fa fa-file-text-o"></i></span> Quản lý thông tin điện lực</a>
+                <hr />
+				<a data-page="qlnm" data-name="qlttinv" style="padding:5px 0px;" class="qlnm qlttinv manager_dataipp " ><span class="label label-sub-3"  ><i class="fa fa-file-text-o"></i></span> Quản lý thông tin chủ đầu tư</a>
+                <hr />
+                <a data-page="qlnm" data-name="qlttnm" style="padding:5px 0px;" class="qlnm qlttnm manager_dataipp " ><span class="label label-sub-3"  ><i class="fa fa-file-text-o"></i></span> Quản lý thông tin nhà máy</a>
+                <hr />
+                <a data-page="qlnm" data-name="qltbdl" style="padding: 5px 0px;" class="qlnm qltbdl manager_equipmentipp qltbdl" ><span class="label label-sub-3"><i class="fa fa-file-text-o"></i></span> Quản lý thiết bị đo lường</a>
+                <hr />
+                <a data-page="qlnm" data-name="qlhsnm" style="padding:5px 0px;" class="qlnm qlhsnm manager_fileipp " ><span class="label label-sub-3"><i class="fa fa-file-text-o"></i></span> Quản lý hồ sơ nhà máy</a>
+                <hr />
+				<a data-page="qlnm" data-name="qluserconfig" style="padding:5px 0px;" class="qlnm qluserconfig manager_fileipp " ><span class="label label-sub-3"><i class="fa fa-file-text-o"></i></span> Quản lý hồ sơ người dùng</a>
+                <hr />
+                <!-- Dropdown menu footer -->
+                <div class="drop-foot">
+                </div>
+              </li>
+            </ul>
+          </li>
+          <!-- Sync to server link -->
+          <li class="dropdown dropdown-big">
+            <a class="dropdown-toggle mnhd" data-toggle="dropdown"><span class="label label-danger" style="color:#346C9B;"><i class="fa fa-folder-open-o"></i></span> Hỗ trợ</a>
+            <!-- Dropdown -->
+            <ul class="dropdown-menu">
+              <li>
+                <!-- Using "icon-spin" class to rotate icon. 
+                <a data-page="qlhd" data-name="qlweb" style="padding:5px 0px;" class="qlnm qlweb " ><span class="label label-sub-3"  ><i class="fa fa-database"></i></span> Quản trị Website</a>
+                <hr /> -->
+                <a data-page="qlhd" data-name="qlhdsd" style="padding:5px 0px;" class="qlnm qlhdsd " ><span class="label label-sub-3"  ><i class="fa fa-database"></i></span> Hướng dẫn sử dụng</a>
+                <hr />				
+                <!-- Dropdown menu footer -->
+                <div class="drop-foot">
+                </div>
+              </li>
+            </ul>
+          </li>		  
+        </ul>
+
+        <!-- Links -->
+        <ul class="nav navbar-nav pull-right">
+          <li class="dropdown pull-right">            
+            <a data-toggle="dropdown" class="dropdown-toggle mnuser" >
+              <i class="fa fa-user"></i> <span><?php if(isset($_SESSION['fullname'])){ echo $_SESSION['fullname'];} else { echo 'Người dùng';} ?> <b class="caret"></b>              
+            </a>
+            <!-- Dropdown menu -->
+            <ul class="dropdown-menu">
+              <li><a class="qlnm qluser usermenu" data-page="user" data-name="qluser"><i class="fa fa-user"></i> Hồ sơ</a></li>
+              <li><a class="qlnm qlpost usermenu" data-page="user" data-name="qlpost"><i class="fa fa-cogs"></i> Gửi ý kiến</a></li>
+              <li><a href="index.php?page=login" class="usermenu"><i class="fa fa-sign-out"></i> <span class="userlogout">Đăng xuất</span></a></li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+    </div>
+</div>
+<!-- Header starts -->
+  <header>
+    <div class="container">
+      <div class="row">
+        <!-- buffer data -->
+        <div class="col-md-3">  
+	
+          <div class="logo" style="display:inline-block; vertical-align:midle;">
+            <h3><a href="index.php?page=doxa&menu=qldx"><span class="bold">mdms.npc.com.vn</span></a></h3>
+            <p class="meta">Quản lý các nhà máy thủy điện IPP</p>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="header-data">
+            <!-- Traffic data -->
+            <div class="hdata green_icon">
+              <div class="mcol-left">
+                <!-- Icon with red background -->
+                <i class="fa fa-signal "></i> 
+              </div>
+              <div class="mcol-right">
+                <!-- Number of visitors -->
+                <span >Tổng số nhà máy: </span><span class="" style="font-weight:bold" ><span class="num_all_nmonline">--</span> </span>        
+              </div>
+              <div class="clearfix"></div>
+            </div>
+            <!-- Members data -->
+            <div class="hdata blue_icon">
+              <div class="mcol-left">
+                <!-- Icon with blue background -->
+                <i class="fa fa-check-circle "></i> 
+              </div>
+              <div class="mcol-right">
+                <!-- Number of visitors -->
+                <span >Nhà máy Online: <span class="num_nmonline">--</span></span><span class="sub_online" style="font-weight:bold" > </span> 
+              </div>
+              <div class="clearfix"></div>
+            </div>
+            <!-- revenue data -->
+            <div class="hdata red_icon">
+              <div class="mcol-left">
+                <!-- Icon with green background -->
+                <i class="fa fa-check-circle-o  "></i> 
+              </div>
+              <div class="mcol-right">
+                <!-- Number of visitors -->
+                <span >Nhà máy Offline: <span class="num_nmoffline">--</span></span><span class="sub_offline" style="font-weight:bold" > 
+              </div>
+              <div class="clearfix"></div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 header-data"  >  
+          <p style="float:right; text-align:center; color:#167CAC; "> Thời gian hệ thống: <span id="miniclock"> </span></p>
+        </div>
+        <!-- Data section -->
+      </div>
+    </div>
+  </header>
+  <div id="enableshowhide" class="showhidesidebar">  
+	<i class="fa fa-bars"></i>	
+  </div>	
+
+<!-- Header ends -->
+<script src="js/jquery.js"></script> <!-- jQuery -->
+<script src="js/clock.js"></script> <!-- jQuery -->
+<script>
+
+api_link='http://mdms.npc.com.vn/mdms2015/apis';
+userid = <?php echo $userid; ?>;
+token = "<?php echo $token; ?>";
+crpage = "<?php echo  $crpage; ?>";
+crmenu = "<?php echo $crmenu; ?>";
+crpcid = parseInt(<?php echo $crpcid; ?>) ;
+crsubid = parseInt(<?php echo $crsubid; ?>);
+crmeter = "<?php echo  $crmeter; ?>";
+crnamesub = "<?php echo $crnamesub; ?>";
+menu_left = <?php echo $menuleft; ?>;
+htmlpath = "<?php echo $htmlpath; ?>";
+writable = <?php echo (int)$_SESSION['writable']; ?>;
+editable = <?php echo (int)$_SESSION['editable']; ?>;
+usertype = <?php echo (int)$_SESSION['usertype']; ?>;
+full_name = "<?php if(isset($_SESSION['fullname'])){ echo $_SESSION['fullname'];} else { echo 'Người dùng';} ?>";
+
+var checktoken = <?php echo $checktoken ?>;
+
+if (<?php echo $checktoken ?>!=1) { 
+    alert('Tài khoản của bạn đã đăng nhập ở thiết bị khác, bạn hãy đăng nhập lại để tiếp tục!'); 
+    window.location = "index.php?page=login";
+}
+
+  var underheadpage = '<div class="bread-crumb pull-right"><a href="index.php?page=qldx"><i class="fa fa-home"></i> Home</a><span class="divider">/</span><a href="index.php?page=doxa" class="bread-current">Dashboard</a></div><div class="clearfix"></div>';
+
+autotoggle = function (){
+
+    $('#nav ul.list_sub li').each(function(){
+      if ($(this).data('id')==crsubid) {
+	  
+		$('#nav li').removeClass("open");
+        var menu_li = $(this).parent("ul").parent('li');
+        var menu_ul = $(this).parent("ul");
+        menu_ul.slideDown(350);
+		menu_li.addClass("open");
+        //$('#nav li').addClass("open");//style active pc ở đây!
+        $(this).addClass('current');
+      }
+    });
+
+  }
+//************************ Check Status Sub Function*************************************
+checknnoline = function(userid, token){
+
+    $.ajax({
+      url:api_link+'/nmonline.php',
+      type:"POST",
+      data:{id: userid, token: token},
+      success:function(data){
+        //console.log('e '+data);
+        data = JSON.parse(data);
+        $('.num_nmonline').html(data[0]);
+        $('.num_nmoffline').html(data[1]);
+        $('.num_all_nmonline').html((parseInt(data[0])+parseInt(data[1])));
+      }, 
+      error: function(e){ console.log('e '+e); }
+    }); 
+
+}
+
+//************************ Update satatus Substation ***********************************
+setInterval(function(){ checknnoline(userid, token);}, 60000);
+//************************ Check Status Sub Function*************************************
+
+checknnoline(userid, token);
+
+generate_menuleft = function(menu_left){
+  console.log('generate_menuleft ',menu_left);
+    $.each(menu_left, function(index, value){
+      var sub = value[1];
+
+      
+
+      var html = '<ul class="list_sub">';
+      $.each(sub, function(index, val){
+        html +='<li class="offlinesub'+val["status"]+'" data-id="'+val["id_sub"] +'" data-status="'+val["status"] +'" data-name="'+val["name_sub"] +'"><a >'+val["name_sub"]+'</a></li>';
+      });
+      html +='</ul>';
+      $('#nav').append( '<li class="has_sub">'+
+                  '<a><i class="fa fa-star"></i>'+value[0]["name_pwc"]+'<span class="pull-right"><i class="fa fa-chevron-right"></i></span></a>'+html+       
+                  '</li>'); 
+    });
+    crpage = getpage();
+    crmenu = getdefaulthash();
+    $('.mainmenu').text(namepage[crpage]);
+    $('.listmenu').text(submenu[crmenu]);
+}
+
+
+namepage = new Array();
+namepage["qldx"]  = "Quản lý đo xa";
+namepage["tkvh"]  = "Thống kê vận hành";
+namepage["csdl"]  = "Chỉ số đo lường";
+namepage["qlnm"]  = "Quản lý nhà máy";
+namepage["qlhd"]  = "Hỗ trợ";
+namepage["user"]  = "Người dùng";
+
+submenu = new Array();
+submenu["htdx"]  = "Các điểm trên hệ thống đo xa";
+submenu["tbcb"]  = "Thông báo cảnh báo";
+submenu["tsvh"]  = "Thông số vận hành (15 phút)";
+submenu["tspt"]  = "Thông số phụ tải (30 phút)";
+submenu["tscs"]  = "Thông số chỉ số (60 phút)";
+submenu["tscnngay"]  = "Báo cáo chốt chỉ số ngày";
+submenu["csct"]  = "Chỉ số chốt tháng";
+submenu["tonghop"]  = "Báo cáo tổng hợp";
+submenu["giambd"]  = "Mua bán điện";
+submenu["qlttnm"]  = "Quản lý thông tin nhà máy";
+submenu["qlttpc"]  = "Quản lý thông tin điện lực";
+submenu["qlttinv"]  = "Quản lý thông tin chủ đầu tư";
+submenu["qltbdl"]  = "Quản lý thiết bị đo lường";
+submenu["qlhsnm"]  = "Quản lý hồ sơ nhà máy";
+submenu["qluserconfig"]  = "Quản lý hồ sơ nhà máy";
+submenu["qlcsnm"]  = "Quản lý thông tin chốt chỉ số";
+submenu["qlweb"]  = "Quản trị hệ thống";
+submenu["qlhdsd"]  = "Hướng dẫn sử dụng";
+submenu["qluser"]  = "Hồ sơ";
+submenu["qlpost"]  = "Gửi ý kiến";
+
+$('a.doxa, a.qlnm').click(function(){
+
+  if ($(this).hasClass('htdx')) {crmenu = 'htdx' }
+    else if ($(this).hasClass('tbcb')) {crmenu = 'tbcb'}
+      else if ($(this).hasClass('tsvh')) {crmenu = 'tsvh'}
+        else if ($(this).hasClass('tspt')) {crmenu = 'tspt'}
+          else if ($(this).hasClass('tscs')) {crmenu = 'tscs'}
+		  	else if ($(this).hasClass('tscsngay')) {crmenu = 'tscsngay'}
+				else if ($(this).hasClass('csct')) {crmenu = 'csct'}
+				  else if ($(this).hasClass('tonghop')) {crmenu = 'tonghop'}
+					else if ($(this).hasClass('giambd')) {crmenu = 'giambd'}
+					  else if ($(this).hasClass('qlttnm')) {crmenu = 'qlttnm'}
+						else if ($(this).hasClass('qlttpc')) {crmenu = 'qlttpc'}
+							else if ($(this).hasClass('qlttinv')) {crmenu = 'qlttinv'}
+								else if ($(this).hasClass('qltbdl')) {crmenu = 'qltbdl'}
+								  else if ($(this).hasClass('qlhsnm')) {crmenu = 'qlhsnm'}
+									else if ($(this).hasClass('qluserconfig')) {crmenu = 'qluserconfig'}
+										else if ($(this).hasClass('qlcsnm')) {crmenu = 'qlcsnm'}
+											else if ($(this).hasClass('qlweb')) {crmenu = 'qlweb'}
+												else if ($(this).hasClass('qlhdsd')) {crmenu = 'qlhdsd'}
+													else if ($(this).hasClass('qluser')) {crmenu = 'qluser'}
+														else if ($(this).hasClass('qlpost')) {crmenu = 'qlpost'}
+
+                        //var page = $(this).data('page');
+                        
+
+      var page = $(this).data('page');
+      crpage = page;
+      var url  = window.location.href;
+      var n = url.indexOf('page='+page);
+      //var name = $(this).data('name');
+      
+      if (n>0){ 
+        //alert('in page - ajax in page ->'+$(this).data('name'));
+        //alert(page+ '  =  '+crmenu);
+        loadinpage(page, crmenu);
+        document.location.hash = crmenu;
+		
+      } else {
+        //alert('goto other page');
+        window.location = "index.php?page="+page+"#"+crmenu;
+		
+      }
+
+      sendcrpos();
+
+});
+
+getpage = function(){
+
+  var url  = window.location.href;
+  var page = url.split('page='); 
+  page = page[1].split('#'); 
+  page = page[0];
+  return page;
+}
+
+if (getpage()=='qldx'){
+      $('.mnqldx').addClass('active_menu');
+    } else if (getpage()=='tkvh'){
+      $('.mntkvh').addClass('active_menu');
+    } else if (getpage()=='csdl'){
+      $('.mncsdl').addClass('active_menu');
+    } else if (getpage()=='qlnm'){
+      $('.mnqlnm').addClass('active_menu');
+    }else if (getpage()=='qlhd'){
+      $('.mnhd').addClass('active_menu');
+    }else if (getpage()=='user'){
+      $('.mnuser').addClass('active_menu');
+    }
+
+getdefaulthash = function(){
+
+  var hashValue = location.hash;  
+  hashValue = hashValue.replace(/^#/, '');  
+
+  if (hashValue!=null&&hashValue!=''&&hashValue!=undefined){
+    
+  } else {
+    if (getpage()=='qldx'){
+      hashValue = 'htdx';
+    } else if (getpage()=='tkvh'){
+      hashValue = 'tsvh';
+    } else if (getpage()=='csdl'){
+      hashValue = 'csct';
+    } else if (getpage()=='qlnm'){
+      hashValue = 'qlttnm';
+    }else if (getpage()=='qlhd'){
+      hashValue = 'qlhdsd';
+    }else if (getpage()=='user'){
+      hashValue = 'qluser';
+    }
+  }
+  return hashValue;
+}
+
+window.onhashchange = function(){
+    //alert(document.location.hash);
+    var hashValue = location.hash;  
+    hashValue = hashValue.replace(/^#/, '');
+    //alert(hashValue);
+    //crmenu = hashValue;
+    //sendcrpos();
+    loadinpage(getpage(), hashValue);    
+}
+
+
+$(document).ready(function(){  
+	loadinpage(getpage(), getdefaulthash());
+  autotoggle(); 
+  
+  
+});
+
+$('#enableshowhide').click(function(){
+	//alert($this);
+	//checkshowmenu($this);
+});
+
+$('.showhidesidebar').click(function(){
+	var $this = $(this);
+	if (crpage!= 'qlnm'){
+		checkshowmenu($this);
+	}
+	
+});
+function checkshowmenu($this){
+
+	if (!$this.hasClass('.show_checked')) { 
+		$this.addClass('.show_checked'); 
+		//$('.mainbar').css('margin-left','0px');
+		$( '.mainbar' ).animate({ "margin-left": "0px" }, "slow" );
+		//$('.sidebar').css('left','-230px');		
+		$( '.sidebar' ).animate({ "left": "-230px" }, "slow" );
+		//alert ('tru'+countmeterreport);
+	} 
+	else {		
+		$this.removeClass('.show_checked'); 
+		$( '.mainbar' ).animate({ "margin-left": "230px" }, "slow" );		
+		$( '.sidebar' ).animate({ "left": "0px" }, "slow" );		
+	}
+}
+
+function loadinpage(page, name){
+  //alert(name);
+  $('.matter').load(htmlpath+'/'+name+'.html');
+}
+
+var sendcrpos = function(callback){
+
+  var url  = window.location.href;
+  var tmp = url.split("php?page=");
+  var tmp1 = tmp[1].split('#');
+  var value = tmp1[0] +','+crmenu+','+crpcid +','+crsubid+','+crmeter+','+crnamesub;
+  //alert(value);
+  $.ajax({
+    url:api_link+'/currentpos.php',
+    type:"POST",
+    data:{id: userid, token: token, value:value},
+    success:function(data){
+      if (typeof callback === "function"){ callback(); }
+      //console.log('e '+data);
+    }, error: function(e){
+      //console.log('e '+e);
+    }
+  }); 
+}
+
+function showalert(title, content, zindex, height, width){
+
+    if (!$('.alertdialog').length) {
+      if (title==undefined){ title = 'Thông Báo'; }
+      if (content==undefined){ content = 'Nội Dung Thông Báo'; }
+      if (zindex==undefined){ zindex = 10000; }
+      if (height==undefined){ height = 180; }
+      if (width==undefined){ width = 400; }
+      var $divbg = $('<div id="alertdialog" class="alertdialog" style="height: 100%;background-color: rgba(0,0,0,0.5);position: fixed;top: 0px;left: 0px;right: 0px;z-index: '+zindex+';"></div>').appendTo('body');
+      var $divcontent = $('<div id="alertdialogcontent" style="position: absolute;left: 50%;top: 50%;transform: translate(-50%, -50%);background-color: rgb(255,255,255);height: '+height+'px;width: '+width+'px;z-index: 10001;border-radius: 3px;"><div id="alertdialoginner" style="position: relative; width:100%; height:100%"></div></div>').appendTo($('#alertdialog'));
+      var $alerttitle = $('<div style="height: 50px; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: gray; text-align: center; font-weight: 500; font-size: 18px; padding-top: 13px;">'+title+'</div>').appendTo($('#alertdialoginner'));
+      var $alertcontent = $('<div style="height: 50px; text-align: center; font-weight: 400; font-size: 16px; padding: 13px;">'+content+'</div>').appendTo($('#alertdialoginner'));
+      var $btnalert = $('<div id="btnalert" class="btnalert btn btn-info" style="position: absolute;left: 120px;right: 120px;bottom: 15px;">OK</div>').appendTo($('#alertdialoginner'));
+      //$(".btnalert").focus();
+      //document.getElementById('btnalert').scrollIntoView();
+      $(".btnalert").click(function(){$("#alertdialog").remove(); return false;});
+    } 
+  }
+
+  
+function showalert_withcallback(title, content, zindex, functioncallback){
+
+    if (!$('.alertdialog').length) {
+      if (title==undefined){ title = 'Thông Báo'; }
+      if (content==undefined){ content = 'Nội Dung Thông Báo'; }
+      if (zindex==undefined){ zindex = 10000; }
+      var height = 180, width = 400; 
+      var $divbg = $('<div id="alertdialog" class="alertdialog" style="height: 100%;background-color: rgba(0,0,0,0.5);position: fixed;top: 0px;left: 0px;right: 0px;z-index: '+zindex+';"></div>').appendTo('body');
+      var $divcontent = $('<div id="alertdialogcontent" style="position: absolute;left: 50%;top: 50%;transform: translate(-50%, -50%);background-color: rgb(255,255,255);height: '+height+'px;width: '+width+'px;z-index: 10001;border-radius: 3px;"><div id="alertdialoginner" style="position: relative; width:100%; height:100%"></div></div>').appendTo($('#alertdialog'));
+      var $alerttitle = $('<div style="height: 50px; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: gray; text-align: center; font-weight: 500; font-size: 18px; padding-top: 13px;">'+title+'</div>').appendTo($('#alertdialoginner'));
+      var $alertcontent = $('<div style="height: 50px; text-align: center; font-weight: 400; font-size: 16px; padding: 13px;">'+content+'</div>').appendTo($('#alertdialoginner'));
+      var $btnalert = $('<div id="btnalert" class="btnalert btn btn-info" style="position: absolute;left: 120px;right: 120px;bottom: 15px;">OK</div>').appendTo($('#alertdialoginner'));
+      //$(".btnalert").focus();
+      //document.getElementById('btnalert').scrollIntoView();
+      $(".btnalert").click(function(){
+          $("#alertdialog").remove(); 
+          if (typeof functioncallback === 'function') { functioncallback(); }
+          //return false;
+      });
+    } 
+  }
+
+  
+</script>
+
+
+

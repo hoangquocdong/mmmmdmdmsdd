@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <!-- Title and other stuffs -->
+  <title>IPP Monitoring</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  <meta name="author" content="">
+  <!-- Stylesheets -->
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <!-- Font awesome icon -->
+  <link rel="stylesheet" href="css/font-awesome.min.css"> 
+  <!-- jQuery UI -->
+  <link rel="stylesheet" href="css/jquery-ui.css"> 
+  <!-- Data tables -->
+  <link rel="stylesheet" href="css/jquery.dataTables.css"> 
+  <!-- Bootstrap toggle -->
+  <link rel="stylesheet" href="css/jquery.onoff.css">
+  <!-- Main stylesheet -->
+  <link href="css/style.css" rel="stylesheet">
+  <!-- Widgets stylesheet -->
+  <link href="css/widgets.css" rel="stylesheet">   
+   <!-- Widgets stylesheet -->
+  <link href="css/dataTables.tableTools.css" rel="stylesheet">   
+  
+  
+  <!--[if lt IE 9]>
+  <script src="js/html5shiv.js"></script>
+  <![endif]-->
+  <!-- Favicon -->
+  <link rel="shortcut icon" href="img/favicon/favicon.png">
+</head>
+
+<body>
+
+<?php echo $modunheader; ?>
+<!-- Main content starts -->
+<div class="content">
+
+    <!-- Sidebar ends -->
+  	<!-- Main bar -->
+  	<div class="mainbar" style="  margin-left: 0px;">
+        <!-- Page heading -->
+	    <div class="page-head ">
+			
+			<h2 class="pull-left name_sub_head" style="padding-right:5px; padding-top: 20px;"></h2>
+			<div class="bread-crumb pull-right label label-primary" style=" position: absolute; top: -10px;right: 15px; margin-top: 0px; color:#FFFFFF">
+			  <a style="color:#FFFFFF" ><i class="fa fa-home"></i> Home</a> 
+			  <!-- Divider -->
+			  <span class="divider" >/</span> 
+			  <a class="mainmenu " style="color:#FFFFFF">...</a>
+			  <span class="divider">/</span> 
+			  <a class="listmenu " style="color:#FFFFFF">...</a>
+			</div>
+		    <ul class="page1_meter">
+                <!-- List #1 -->
+                                                                                                                             
+            </ul> 
+			<div class="clearfix"></div>
+	    </div>
+	    <!-- Page heading ends -->
+	    <!-- Matter -->
+	    <div class="matter">
+			
+		</div>	
+<!-- Content ends -->
+<!-- Footer starts -->
+
+
+<footer>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<!-- Copyright info -->
+				<p class="copy">NPCIT Copyright &copy; 2015 | <a href="#">mdms.npc.com.vn</a> </p>
+			</div>
+		</div>
+	</div>
+
+</footer> 	
+<!-- Footer ends -->
+<!-- Scroll to top -->
+<span class="totop"><a href="#"><i class="fa fa-chevron-up"></i></a></span> 
+
+
+<!-- Menu left + header for All Pages -->
+<script>
+	//************************ Start of index common js *********************************
+	var firstsub = menu_left[0][1][0]['id_sub'];
+	var firstnamesub = menu_left[0][1][0]['name_sub'];
+	
+	if (parseInt(crsubid) == 0) {crsubid = firstsub}
+	if (crnamesub== '') {crnamesub = firstnamesub}	
+
+	//************************ Alert Log   **********************************************
+	$('.doxa .thongbao').click(function(){
+		console.log('Log nha may online offline hoac mot canh bao gi do');
+	});
+
+	//************************ Generate menu left  *****************************************
+
+	//************************ End of Load first default meter information *****************************
+	
+</script>
+
+<!-- JS -->
+<script src="js/bootstrap.min.js"></script> <!-- Bootstrap -->
+<script src="js/jquery-ui.min.js"></script> <!-- jQuery UI -->
+<script src="js/fullcalendar.min.js"></script> <!-- Full Google Calendar - Calendar -->
+<script src="js/jquery.rateit.min.js"></script> <!-- RateIt - Star rating -->
+<script src="js/jquery.prettyPhoto.js"></script> <!-- prettyPhoto -->
+<script src="js/jquery.slimscroll.min.js"></script> <!-- jQuery Slim Scroll -->
+<script src="js/jquery.dataTables.min.js"></script> <!-- Data tables -->
+
+<!--script src="js/jquery.noty.js"></script>  jQuery Notify -->
+<script src="js/themes/default.js"></script> <!-- jQuery Notify -->
+<script src="js/layouts/bottom.js"></script> <!-- jQuery Notify -->
+<script src="js/layouts/topRight.js"></script> <!-- jQuery Notify -->
+<script src="js/layouts/top.js"></script> <!-- jQuery Notify -->
+<!-- jQuery Notification ends -->
+
+<script src="js/jquery.cleditor.min.js"></script> <!-- CLEditor -->
+<script src="js/bootstrap-datetimepicker.min.js"></script> <!-- Date picker -->
+<script src="js/jquery.onoff.min.js"></script> <!-- Bootstrap Toggle -->
+<script src="js/filter.js"></script> <!-- Filter for support page -->
+<script src="js/custom.js"></script> <!-- Custom codes -->
+<script src="js/filtertable.js"></script> <!-- Custom codes -->
+<!-- Script for this page -->
+</body>
+</html>

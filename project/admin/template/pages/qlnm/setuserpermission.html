@@ -1,0 +1,212 @@
+
+<style type="text/css">
+    .status1 {
+        color: green;
+    }
+    .status0 {
+        color: red;
+    }
+    .pwcname1, input[type=checkbox]{
+        cursor: pointer;
+    }
+</style>
+
+<div id="container" style="width: 100%; height: 100%; position: relative; overflow-x: hidden;">
+
+    <div class="header" style="padding: 20px;">
+        <p>DANH SÁCH CÁC ĐIỆN LỰC VÀ NHÀ MÁY</p>
+        <p class="guildline">* Chọn danh sách các nhà máy & điện lực, Submit để lựa chọn danh sách trước khi Close</p>
+        <hr>
+    </div>
+    
+	<ul class="list_pwc">
+		<li class="list_sub"><input type="checkbox"><span class="pwcname" style="cursor: pointer;">pwcname</span>
+			<ul class="pwcname">
+				<li class="name_sub"><input type="checkbox">namesub</li>
+				<li class="name_sub"><input type="checkbox">namesub</li>
+				<li class="name_sub"><input type="checkbox">namesub</li>
+			</ul>
+		</li>
+		<li class="list_sub"><span class="pwcname"><input type="checkbox">pwcname</span>
+			<ul class="pwcname">
+				<li class="name_sub"><input type="checkbox">namesub</li>
+				<li class="name_sub"><input type="checkbox">namesub</li>
+				<li class="name_sub"><input type="checkbox">namesub</li>
+			</ul>
+		</li>
+	</ul>
+
+    <div style="padding: 20px;">
+        <button  class="btn btn-primary submit" style="margin: 5px;"> Submit </button>
+        <!--button  class="btn btn-primary close_permission_dialog" style="margin: 5px;"> Close </button-->
+        <!--button class="submit">Click me</button> <button class="close_permission_dialog">Close</button-->
+    </div>
+    
+
+</div>
+
+<!--script type="text/javascript" src="js/jquery.js"></script-->
+<script type="text/javascript">
+    $('.close_permission_dialog').click(function(){
+        $('.permissiondialog').remove();
+    });
+	$.ajax({
+            url:'http://mdms.npc.com.vn/mdms2015/apis/permissionlist.php',
+            type:"POST",
+            data:{},
+            success:function(data){
+                //console.log(data);
+            	var data = JSON.parse(data);
+                //console.log(data);
+                var html = '';
+                $.each(data, function(index, val){
+                	var inner = '';
+                	var idpc = val['id_pwc'];
+                	$.each(val['sub'], function(index1, val1){
+                		inner+='<li class="name_sub status'+val1['status']+'"><input data-idpc="'+idpc+'" data-id="'+val1['id_sub']+'" class = "name_sub1" type="checkbox">'+val1['name_sub']+'</li>';
+                	});
+                	html+=	'<li class="list_sub status'+val['status']+'" ><input data-id="'+val['id_pwc']+'" class = "pwcnamei" type="checkbox"><span class="pwcname1" >'+val['name_pwc']+'</span>'+
+								'<ul class="pwcname">'+
+									inner+
+								'</ul>'+
+							'</li>';
+                });
+                $('.list_pwc').html(html);
+
+                $('.pwcname').toggle();
+                
+                $('.pwcname1').click(function(){
+                    $(this).parent().find('.pwcname').toggle('fadeOut');
+                });
+                
+
+                $("input[type='checkbox']").change(function () {
+			        $(this).siblings('ul')
+			            .find("input[type='checkbox']")
+			            .prop('checked', this.checked);
+			    });
+
+                $(".name_sub1").click(function(){
+        			$(this).parent().parent().parent().closest('li').find('.pwcnamei').prop('checked', true);
+                    //alert($(this).parent().parent().find('pwcname').html());
+                    //if(!$(this).parent().parent().find('pwcname').find('name_sub1').is(':checked')){alert('none');}
+        		});
+
+                
+
+                $('.submit').click(function(){
+
+                    return_value();
+
+                    $('.permissiondialog').remove();
+
+                	//http://mdms.npc.com.vn/mdms2015/apis/setpermission.php?id=34&token=1&value=[null,null,null,null,null,null,[16,17,18,22,23,19,20,24]]
+           //      	$.ajax({
+			        //     url:'http://mdms.npc.com.vn/mdms2015/apis/setpermission.php',
+			        //     type:"POST",
+			        //     //data:{id:34,token:'1',value:value},
+           //              data:{id:edit_userid,value:value},
+			        //     success:function(data){
+			        //     	//alert(data);
+			        //     	if (data == 1){ 
+           //                      alert('set permission successful');
+           //                  } else { alert('set permission fail');}
+			        //     },error: function(e){
+			        //         console.log('e '+e);
+			        //     }
+			        // }); 
+
+
+                });
+
+
+                // $.each($('.pwcnamei'), function(index, val){
+                //     $(this).prop('checked', true);
+                // });
+                
+                load_current_permission();
+
+            },
+            error: function(e){
+                console.log('e '+e);
+            }
+        	
+        	
+        }); 
+
+    function load_current_permission(){
+
+        $.ajax({
+
+            url:'http://mdms.npc.com.vn/mdms2015/admin/apis/loadpermission.php',
+            
+            type:"POST",
+            
+            data:{userid:edit_userid},
+            
+            success:function(data){
+
+                data = JSON.parse(data);
+
+                $.each(data,function(index, value){
+                    //console.log(value);
+                    $.each($('.pwcnamei'), function(index, val){
+                        if ($(this).data('id')==value[0]){  
+                            $(this).prop('checked', true);
+                        }
+                    });
+                    $.each(value[1], function(index, val){
+                        $.each($('.name_sub1'), function(indexx, valx){
+                            if ($(this).data('id')==val){  
+                                $(this).prop('checked', true);
+                            }
+                        });
+                    });
+                    
+                });
+
+            },error: function(e){
+                console.log('e '+e);
+            }
+        });
+    }
+
+    function return_value(){
+
+        var pwcarray = [],subarray = [];
+        var increase = 0;
+        $.each($(".list_pwc .pwcnamei"), function(index, val){
+            if($(this).is(':checked')){
+                //console.log(index);
+                pwcarray[$(this).data("id")]=[];
+                increase++;
+            }
+        });
+        increase = 0;
+        $.each($(".list_pwc .name_sub1"), function(index, val){
+            if($(this).is(':checked')){
+                //console.log(index);
+                pwcarray[$(this).data("idpc")].push($(this).data("id"));
+                subarray[increase]=$(this).data("id");
+                increase++;
+            }
+        });
+
+        var arrayval = [];
+        $.each(pwcarray, function(key, value) {
+              //console.log(key, value)
+              if (value!=null){
+                var tmp = [];
+                tmp.push(key);
+                tmp.push(value);
+                arrayval.push(tmp);
+              }
+        });
+
+        //console.log(JSON.stringify(arrayval));
+        var value = JSON.stringify(arrayval);
+
+        $('#user_permission').html('<input class="input_user_permission" type="text" value="'+value+'">');
+
+    }
+</script>

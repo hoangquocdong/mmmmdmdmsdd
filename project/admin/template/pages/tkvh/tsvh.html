@@ -1,0 +1,291 @@
+
+<!-- Matter -->
+<!--div class="matter"-->
+<div class="container">
+	<!-- Today status ends -->
+	<!-- Date Picker -->
+	<div class="row">
+		<div class="col-md-4" style="margin-top: 5px;">			
+				<h4 style="display: inline-block; float: left; margin-right: 10px;">Thời gian đầu</h4>
+				 <div id="datetimepicker1" class="input-append input-group dtpicker">
+					<input id="datetimepicker123"  data-format="dd-MM-yyyy" type="text" class="form-control"> 
+					<span class="input-group-addon add-on">
+						<i data-time-icon="fa fa-times" data-date-icon="fa fa-calendar" class="fa fa-calendar"></i>
+					</span>
+				</div>
+		</div>		
+		<div class="col-md-4" style="margin-top: 5px;">	
+				<h4 style="display: inline-block; float: left; margin-right: 10px;">Thời gian cuối</h4>
+				 <div id="datetimepicker3" class="input-append input-group dtpicker">
+					<input id="datetimepicker456" data-format="dd-MM-yyyy" type="text" class="form-control">
+					<span class="input-group-addon add-on">
+						<i data-time-icon="fa fa-times" data-date-icon="fa fa-calendar" class="fa fa-calendar"></i>
+					</span>
+				</div>
+		</div>	
+		<button type="submit" class="btn btn-info tspt_xemdl_btn" style="margin-top: 5px;">Xem dữ liệu</button>
+	</div>    
+	<!-- Dashboard Graph starts -->
+	<div class="row">
+		<div class="col-md-12">
+			<!-- Widget -->
+			<div class="widget">
+			<!-- Widget head -->
+			<div class="widget-head">
+			<div class="nav nav-pills pull-left graphmenu">
+				<!-- Comment button with number of latest comments count -->
+				<li class="Ampe">
+					<div >Dòng điện </div>
+				</li>
+			<!-- Message button with number of latest messages count-->
+				<li class="Voltage">
+					<div >Điện áp </div>
+				</li>
+			<!-- Message button with number of latest messages count-->
+				<li class="Frequency">
+					<div >Tần số </div>
+				</li>	
+			</div>
+			
+			<div class="widget-icons pull-right">
+			<span class="showmeter label label-warning"></span>
+			<a href="#" class="wminimize"><i class="fa fa-chevron-up"></i></a> 
+			<a href="#" class="wclose"><i class="fa fa-times"></i></a>
+			</div>  
+			<div class="clearfix"></div>
+			</div>              
+
+			<!-- Widget content -->
+			<div class="widget-content">
+			<div id="container" style="min-width: 310px; height: 350px; margin: 0 auto"></div>
+			</div>
+			<!-- Widget ends -->
+
+			</div>
+			</div>
+	</div>
+	<!-- Dashboard graph ends -->
+	<!-- Chats, File upload and Recent Comments -->
+	<div class="row">
+		<div class="col-md-12">
+			<div class="widget">
+				<div class="widget-head">
+					<div class="pull-left">Bảng dữ liệu chi tiết  <span class="showmeter label label-warning"></span></div>
+					<div class="widget-icons pull-right">
+						<a href="#" class="wminimize"><i class="fa fa-chevron-up"></i></a> 
+						<a href="#" class="wclose"><i class="fa fa-times"></i></a>
+					</div>  
+					<div class="clearfix"></div>
+				</div>
+				<div class="widget-content">
+					<div class="padd">
+						<!-- Table Page -->
+						<div class="page-tables" >
+							<!-- Table -->
+							<div class="table-responsive">
+							<div class="clearfix"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="widget-foot">
+				<!-- Footer goes here -->
+				</div>
+			</div>
+		</div>             
+	</div>
+</div>
+<script src="js/jquery-ui.min.js"></script> <!-- jQuery UI -->
+<script src="js/bootstrap-datetimepicker.min.js"></script> <!-- Date picker -->
+<script src="js/custom.js"></script> 
+<script src="js/themes/sand-signika.js"></script>
+<!-- Menu left + content Page 1 -->
+<script>
+//************************Select Date and Time ***************** ***********************************	
+	st='', et = '';
+	$('#datetimepicker1').on('changeDate', function() {
+		st = $("#datetimepicker1").data('date');
+		$('#datetimepicker1').datetimepicker('hide');
+	});
+
+	$('#datetimepicker3').on('changeDate', function() {
+		et = $("#datetimepicker3").data('date');
+		$('#datetimepicker3').datetimepicker('hide');
+	});
+
+	$('.tspt_xemdl_btn').click(function(){
+		
+		//showalert();
+
+		gettimestamp(st);
+		if (st==''||et=='') { 
+			showalert('Thông Báo','Bạn hãy chọn thời gian bắt đầu và thời gian kết thúc');
+			//alert('Bạn hãy chọn thời gian bắt đầu và thời gian kết thúc'); 
+			return false;
+		}
+
+		if ((gettimestamp(et) - gettimestamp(st))>7*86400){ 
+			showalert('Thông Báo','Thời gian bắt đầu và kết thúc không được quá 7 ngày');
+			//alert('Thời gian bắt đầu và kết thúc không được quá 7 ngày'); 
+			return false;
+		}
+
+		chart(crmeter);
+	});
+
+	function gettimestamp(dateinput){
+		var dateParts = dateinput.split('-');
+
+		date = new Date(parseInt(dateParts[2]), parseInt(dateParts[1]), parseInt(dateParts[0]));
+
+		return date.getTime()/1000;
+
+		// alert(date);
+		// console.log(date.getTime()); //1379426880000
+		// alert(date.getTime());
+	}
+
+//************************Function  Apply data to Table ***************** ***********************************		
+      
+page1_meter(crsubid);		  
+function data_table(dataSet){
+$('.table-responsive').html( '<table cellpadding="0" cellspacing="0" border="0" class="display" id="example"></table>' );
+ 
+    $('#example').dataTable( {
+        "data": dataSet,
+		//		"scrollY":        "300px",
+       // "scrollCollapse": false,
+		
+        "columns": [
+            { "title": "Ngày giờ" },
+            { "title": "Ia" },
+            { "title": "Ib" },
+            { "title": "Ic", "class": "center" },
+            { "title": "Ua", "class": "center" },
+			{ "title": "Ub" },
+			{ "title": "Uc" },
+			{ "title": "Fa" },
+			{ "title": "Fb" },
+			{ "title": "Fc" },
+			{ "title": "Cosa" },
+			{ "title": "Cosb" },
+			{ "title": "Cosc" },
+			{ "title": "pa" },
+			{ "title": "pb" },
+			{ "title": "pc" },
+			{ "title": "ppka" },
+			{ "title": "ppkb" },
+			{ "title": "ppkc" }
+        ]
+
+    } );  
+		
+}
+
+
+//************************Function  Draw Chart ***************** ***********************************	
+	var drawchart = function(dt,elementID,namegraph){
+	
+		Highcharts.setOptions({
+			global: {
+				useUTC: false
+			}
+		});
+		
+		$(elementID).highcharts('StockChart',{
+			chart : {
+				type: 'column',
+				zoomType: 'x'
+            },
+			xAxis: {
+				type: 'datetime',
+				tickInterval: 24 * 3600 * 1000, // one hour
+				tickWidth: 0,
+				gridLineWidth: 1,
+				
+			},
+			rangeSelector : {
+				buttons: [{
+					type: 'day',
+					count: 1,
+					text: '1d'
+				}, {
+					type: 'day',
+					count: 3,
+					text: '3d'
+				}, {
+					type: 'day',
+					count: 5,
+					text: '5d'
+				}, {
+					type: 'day',
+					count: 7,
+					text: '7d'
+				}, {
+					type: 'all',
+					text: 'All'
+				}],
+				inputEnabled: true, // it supports only days
+				selected : 1 // all
+			},
+			navigator: {
+				height: 20
+			},
+			title: {
+				text: ''
+			},
+
+			series: [{
+				name: namegraph,
+				data: dt, //dt.pgiao[0],
+				type: 'line',
+				tooltip: {
+					valueDecimals: 2
+				}
+			}]
+		});	
+	}
+//************************Function  Call Data and Call Chart ***************** ***********************************	
+
+var chart = function(serial){
+	dt =[], dt0 =[], dt1 =[];
+	$('.showmeter').text(crmeter);
+	$.ajax({
+            url:api_link+'/page2_instant.php',
+            type:"POST",
+            data:{serial: serial, st: st, et: et},
+            success:function(data){
+            	//alert(data); 
+				dt = JSON.parse(data);
+					var array_finish =[];
+					$.each(dt.dulieu,function(index,value){ 
+						arr = $.map(value, function(el) { return  el; });
+						array_finish.push(arr);
+					});	
+					$('.graphmenu > li > div' ).removeClass('activedgraph');
+					$('.Ampe > div').addClass('activedgraph');	
+					drawchart(dt.dongdien[0],'#container','Dòng điện');
+					data_table (array_finish);
+					$(".Ampe").click(function(){
+						$('.graphmenu > li > div' ).removeClass('activedgraph');
+						$('.Ampe > div').addClass('activedgraph');
+						drawchart(dt.dongdien[0],'#container','Dòng điện');
+					});
+					$(".Voltage").click(function(){
+						$('.graphmenu > li > div').removeClass('activedgraph');
+						$('.Voltage > div').addClass('activedgraph');
+						drawchart(dt.dienap[0],'#container','Điện áp');
+					});
+					$(".Frequency").click(function(){
+						$('.graphmenu > li > div').removeClass('activedgraph');
+						$('.Frequency > div').addClass('activedgraph');
+						drawchart(dt.tanso[0],'#container','Tần số');
+					});						
+            }, error: function(e){
+                console.log('e '+e);
+            }        
+        });
+}
+	
+</script>
+

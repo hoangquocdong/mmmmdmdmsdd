@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <!-- Title and other stuffs -->
+  <title>IPP NPC Monitoring</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content=" thủy điện IPP">
+  <meta name="keywords" content="NPC thủy điện IPP">
+  <meta name="author" content="NPCIT">
+  <!-- Stylesheets -->
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <!-- Font awesome icon -->
+  <link rel="stylesheet" href="css/font-awesome.min.css"> 
+  <!-- jQuery UI -->
+  <link rel="stylesheet" href="css/jquery-ui.css"> 
+  <!-- Data tables -->
+  <link rel="stylesheet" href="css/jquery.dataTables.css"> 
+  <!-- Main stylesheet -->
+  <link href="css/style.css" rel="stylesheet">
+  <!-- Widgets stylesheet -->
+  <link href="css/widgets.css" rel="stylesheet">
+  <!--[if lt IE 9]>
+  <script src="js/html5shiv.js"></script>
+  <![endif]-->
+  <!-- Favicon -->
+  <link rel="shortcut icon" href="img/favicon/favicon.png">
+</head>
+
+<body>
+
+<?php echo $modunheader; ?>
+<!-- Main content starts -->
+<div class="content">
+  	<!-- Sidebar: Menuleft sẽ tự động add khi load page -->
+    <div class="sidebar">
+        <div class="sidebar-dropdown"><a href="#">Navigation</a></div>
+        <!--- Sidebar navigation -->
+        <!-- If the main navigation has sub navigation, then add the class "has_sub" to "li" of main navigation. -->
+        <ul id="nav">
+          <!-- Main menu with font awesome icon -->
+          <li><a class=" headmenu"><i class="fa fa-home"></i> Nhà máy IPP đo xa</a>
+          </li>          
+        </ul>
+    </div>
+    <!-- Sidebar ends -->
+  	<!-- Main bar -->
+  	<div class="mainbar">
+        <!-- Page heading -->
+	    <div class="page-head ">
+			<!-- Add tên nhà máy -->
+			<h2 class="pull-left name_sub_head" style="padding-right:5px; padding-top: 20px;"></h2>
+			<!-- Add vị trí hiện tại của trang -->
+			<div class="bread-crumb pull-right label label-primary" style=" position: absolute; top: -10px;right: 15px; margin-top: 0px; color:#FFFFFF">
+			  <a style="color:#FFFFFF" ><i class="fa fa-home"></i> Home</a> 
+			  <!-- Divider -->
+			  <span class="divider" >/</span> 
+			  <a class="mainmenu " style="color:#FFFFFF">...</a>
+			  <span class="divider">/</span> 
+			  <a class="listmenu " style="color:#FFFFFF">...</a>
+			</div>
+			<!-- Tự động add List toàn bộ các meter thuộc nhà máy khi click nhà máy -->
+		    <ul class="page1_meter">                
+                                                                                                                             
+            </ul> 
+			<div class="clearfix"></div>
+	    </div>
+	    <!-- Page heading ends -->
+	    <!-- Matter -->
+	    <div class="matter">
+			<div class="container">
+				<!-- Cột chứa các biểu đồ gồm dòng điện, điện áp, tần số -->
+				<div class="row">
+					<div class="col-md-8">
+						<!-- Widget : Biểu đồ Dòng Điện -->
+						<div class="widget">
+							<!-- Widget head -->
+							<div class="widget-head">
+								<div class="pull-left"><i class="fa fa-bar-chart blue_icon"></i>  Biểu đồ dòng điện <span class="showmeter label label-warning" style="margin-left:5px;"></span></div>
+								<div class="widget-icons pull-right">
+								<a href="#" class="wminimize"><i class="fa fa-chevron-up"></i></a> 
+								<a href="#" class="wclose"><i class="fa fa-times"></i></a>
+								</div>  
+								<div class="clearfix"></div>
+							</div>   
+							<!-- Widget content -->
+							<div class="widget-content">
+								<div id="container1" style="min-width: 310px; height: 300px; margin: 0 auto"></div>
+							</div>
+							<!-- Widget ends -->
+						</div>
+						
+						<!-- Widget: Biểu đồ Tần số -->
+						<div class="widget">
+							<div class="widget-head">
+								<div class="pull-left"><i class="fa fa-bar-chart blue_icon"></i>  Biểu đồ tần số <span class="showmeter label label-warning" style="margin-left:5px;"></span></div> 
+								<div class="widget-icons pull-right">
+									<a href="#" class="wminimize"><i class="fa fa-chevron-up"></i></a> 
+									<a href="#" class="wclose"><i class="fa fa-times"></i></a>
+								</div>  
+								<div class="clearfix"></div>
+							</div>             
+							<div class="widget-content">
+								<div id="container3" style="min-width: 310px; height: 300px; margin: 0 auto"></div>
+							</div>
+						</div>
+						
+						<!-- Widget: Biểu đồ Điện áp -->
+						<div class="widget">
+							<div class="widget-head">
+								<div class="pull-left"><i class="fa fa-bar-chart blue_icon"></i>  Biểu đồ điện áp <span class="showmeter label label-warning" style="margin-left:5px;"></span></div>
+								<div class="widget-icons pull-right">
+									<a href="#" class="wminimize"><i class="fa fa-chevron-up"></i></a> 
+									<a href="#" class="wclose"><i class="fa fa-times"></i></a>
+								</div>  
+								<div class="clearfix"></div>
+							</div>        
+							<div class="widget-content">
+								<div id="container2" style="min-width: 310px; height: 300px; margin: 0 auto"></div>
+							</div>
+						</div>
+						
+						
+					</div>
+					<div class="col-md-4">
+						<div class="widget" id="last_instant">
+							<div class="widget-head">
+								<div class="pull-left">Thông số gần nhất: <span class="instant26" ></span></div>
+								<div class="widget-icons pull-right">
+									<a href="#" class="wminimize"><i class="fa fa-chevron-up"></i></a> 
+									<a href="#" class="wclose"><i class="fa fa-times"></i></a>
+								</div>  
+								<div class="clearfix"></div>
+							</div>
+							<div class="widget-content">
+								<div class="table-responsive">
+									<table class="table table-striped table-bordered table-hover" style="height:220px">
+										<thead>
+										<tr>
+										  <th>Thông số</th>
+										  <th>PhA</th>
+										  <th>PhB</th>
+										  <th>PhC</th>
+										  <th>Sum</th>
+										</tr>
+										</thead>
+										<tbody >
+										<tr >
+										  <td class=" " >U <span class="instant27">(V)</span></td>
+										  <td class="instant1 red_icon">-</td>
+										  <td class="instant2 orange_icon">-</td>
+										  <td class="instant3 green_icon">-</td>
+										  <td ><span >-</span></td>
+
+										</tr>
+										<tr class="instanti">
+										  <td class=" " >I (A)</td>
+										  <td class="instant4 red_icon">-</td>
+										  <td class="instant5 orange_icon" >-</td>
+										  <td class="instant6 green_icon">-</td>
+										  <td ><span >-</span></td>
+										</tr>
+										<tr class="instantf">
+										  <td class=" ">F (Hz)</td>
+										  <td class="instant7 red_icon">-</td>
+										  <td class="instant8 orange_icon">-</td>
+										  <td class="instant9 green_icon">-</td>
+										  <td ><span>-</span></td>
+										</tr>
+										<tr class="instantcos">
+										  <td class=" " >Cosphi </td>
+										  <td class="instant10 red_icon">-</td>
+										  <td class="instant11 orange_icon">-</td>
+										  <td class="instant12 green_icon">-</td>
+										  <td ><span class="instant25" >-</span></td>
+										</tr>
+
+										<tr class="instantp">
+										  <td class=" " >P <span class="instant28">(kW)</span></td>
+										  <td class="instant13 red_icon">-</td>
+										  <td class="instant14 orange_icon">-</td>
+										  <td class="instant15 green_icon">-</td>
+										  <td ><span class="instant22" >-</span></td>
+
+										</tr> 
+
+										<tr class="instantq">
+										  <td class=" " >Q <span class="instant29">(kVAr)</span></td>
+										  <td class="instant16 red_icon">-</td>
+										  <td class="instant17 orange_icon">-</td>
+										  <td class="instant18 green_icon">-</td>
+										  <td ><span class="instant23" >-</span></td>
+
+										</tr>                                                            						
+										<tr class="instants">
+										  <td class=" " >S <span class="instant30">(kVA)</span></td>
+										  <td class="instant19 red_icon">-</td>
+										  <td class="instant20 orange_icon">-</td>
+										  <td class="instant21 green_icon">-</td>
+										  <td ><span class="instant24" >-</span></td>
+
+										</tr>                                                            
+										</tbody>
+										</table>
+								</div>
+							</div>
+
+						</div>
+						<div class="widget bblue_icon" id="last_current">
+							<div class="widget-head" >
+								<div class="pull-left ">Chỉ số gần nhất: <span class="current15"></span></div>
+								<div class="widget-icons pull-right">
+									<a href="#" class="wminimize"><i class="fa fa-chevron-up"></i></a> 
+									<a href="#" class="wclose"><i class="fa fa-times"></i></a>
+								</div>  
+								<div class="clearfix"></div>
+							</div>
+							<div class="widget-content">
+								<div class="table-responsive">
+									<table class="table table-striped table-bordered table-hover" style="height:220px">
+										<thead>
+											<tr>
+											  <th>Kênh giao</th>
+											  <th>Giá trị</th>
+											  <th>Kênh nhận</th>
+											  <th>Giá trị</th>
+											</tr>
+										</thead>
+									  <tbody >
+
+										<tr>
+										  <td>Tổng giao (<span class="donvi_chiso">k</span>Wh)</td>
+										  <td><span class="label label-primary current1" >-</span></td>
+										  <td>Tổng nhận (<span class="donvi_chiso" >k</span>Wh)</td>
+										  <td><span class="label label-primary current2" style="color:white;">-</span></td>
+
+										</tr>
+
+
+										<tr>
+										  <td>Biểu 1 (<span class="donvi_chiso">k</span>Wh)</td>
+										  <td><span class="label label-warning  current3" >-</span></td>
+										  <td>Biểu 4 (<span class="donvi_chiso">k</span>Wh)</td>
+										  <td><span class="label label-success current4" >-</span></td>
+
+										</tr>
+
+										<tr>
+										  <td>Biểu 2 (<span class="donvi_chiso">k</span>Wh)</td>
+										  <td><span class="label label-warning current5" >-</span></td>
+										  <td>Biểu 5 (<span class="donvi_chiso">k</span>Wh)</td>
+										  <td><span class="label label-success current6" >-</span></td>
+
+										</tr>
+
+										<tr>
+										  <td>Biểu 3 (<span class="donvi_chiso">k</span>Wh)</td>
+										  <td><span class="label label-warning current7">-</span></td>
+										  <td>Biểu 6 (<span class="donvi_chiso">k</span>Wh)</td>
+										  <td><span class="label label-success current8" >-</span></td>
+
+										</tr>
+
+										<tr>
+										  <td>Tổng giao (<span class="donvi_chiso">k</span>VArh)</td>
+										  <td><span class="label label-warning current9" >-</span></td>
+										  <td>Tổng nhận (<span class="donvi_chiso">k</span>VArh)</td>
+										  <td><span class="label label-success current10" >-</span></td>
+
+										</tr> 
+											<tr>
+										  <td>Q1 (<span class="donvi_chiso">k</span>VArh)</td>
+										  <td><span class="label label-warning current11" >-</span></td>
+										  <td>Q3 (<span class="donvi_chiso">k</span>VArh)</td>
+										  <td><span class="label label-success current12" >-</span></td>
+
+										</tr>                                                            						
+										<tr>
+										  <td>Q2 (<span class="donvi_chiso">k</span>VArh)</td>
+										  <td><span class="label label-warning current13" >-</span></td>
+										  <td>Q4 (<span class="donvi_chiso">k</span>VArh)</td>
+										  <td><span class="label label-success current14" >-</span></td>
+										</tr>                                                            
+									  </tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- Dashboard graph ends -->
+			</div>
+		</div>	
+<!-- Content ends -->
+<!-- Footer starts -->
+
+
+<footer>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<!-- Copyright info -->
+				<p class="copy">NPCIT Copyright &copy; 2015 | <a href="#">mdms.npc.com.vn</a> </p>
+			</div>
+		</div>
+	</div>
+
+</footer> 	
+<!-- Footer ends -->
+<!-- Scroll to top -->
+<span class="totop"><a href="#"><i class="fa fa-chevron-up"></i></a></span> 
+
+<script>
+	/*  
+	*	Khởi tạo giá trị ban đầu cho Nhà máy đầu tiên, tên nhà máy đầu tiên, id nhà máy đầu tiên
+	*	Mảng menu_left đã được khởi tạo và có giá trị khi load Header
+	*/
+	var firstsub = menu_left[0][1][0]['id_sub'];
+	var firstnamesub = menu_left[0][1][0]['name_sub'];
+	
+	if (parseInt(crsubid) == 0) {crsubid = firstsub}
+	if (crnamesub== '') {crnamesub = firstnamesub}	
+	
+	/*  
+	*	Khởi tạo html cho menuleft theo hàm generate_menuleft trên Header
+	*/
+	generate_menuleft(menu_left);
+
+	/*  
+	*	Action khi click nhà máy thuộc menu left
+	*	update lại thông số hiện tại của ID nhà máy, Tên nhà máy khi click
+	*  	crmeter='': ????
+	*	Gọi hàm page1_meter để thực hiện các thao tác: list meter, vẽ đồ thị, tạo các bảng dữ liệu 
+	*	page1_meter : có các tham số crsubid (ID nhà máy hiện tại) và callfrommenuleft (phân biệt khi autoload hoặc click menuleft)
+	* 	Add css cho menuleft hiện hữu
+	*/
+	$(".list_sub > li").click(function(){
+
+		crsubid = $(this).data('id');
+		crnamesub = $(this).data('name');
+		crmeter == '';	//???? update first crmeter of each sub choose
+		page1_meter(crsubid, 'callfrommenuleft');
+		$(".list_sub > li").removeClass('current');
+		$(this).addClass('current');
+	});
+	/*  
+	*	Action Toggle khi click Menuleft
+	*	Add css open cho các menu click hoặc ngược lại
+	*/
+	
+	$(".has_sub > a").click(function(e){
+		e.preventDefault();
+		var menu_li = $(this).parent("li");
+		var menu_ul = $(this).next("ul");
+
+		if(menu_li.hasClass("open")){
+			menu_ul.slideUp(350);
+			menu_li.removeClass("open")
+		}
+		else{
+			$("#nav > li > ul").slideUp(350);
+			$("#nav > li").removeClass("open");
+			menu_ul.slideDown(350);
+			menu_li.addClass("open");
+		}
+	});
+
+	/*  
+	*	Function load dữ liệu cho toàn bộ trang
+	*/
+
+	function page1_meter(id_sub,frommenuleft){
+		//alert ('page1_meter');
+		
+		$.ajax({
+		/*  
+		*	Lấy thông tin toàn bộ công tơ trong nhà máy
+		*/
+			url:api_link+'/page1_meter.php',
+			type:"POST",
+			data:{id_sub: id_sub},
+			success:function(data){
+				  $('.page1_meter').html('');
+					if (data !=0){
+					var meters = JSON.parse(data);
+							var i= 0; csslabel='';
+		/*  
+		*	Điền thông tin vào html : tên nhà máy, link trang hiện tại (navigation) , list các công tơ
+		*/
+							$('.name_sub_head').text(crnamesub); 
+							$('.mainmenu').text(namepage[crpage]);
+							$('.listmenu').text(submenu[crmenu]);
+							$.each(meters, function(index, value){	
+								if (value['level_meter']=='P'){csslabel='label-info-plus'}else{ csslabel='label-info';}
+								if (value['level_meter_string']=='P'){csslabel='label-info-plus'}else{ csslabel='label-info';}
+								$('.page1_meter').append('<li class="meter'+i+'"><div class="datas-text" data-status_meter="'+value['status_meter'] +'" ><i class="fa fa-tachometer meter_icon"></i> <span class="sermeter">'+ value['serial_meter']+'</span>'+
+								'<div style="position: absolute;left: -9px; bottom: -13px;"><span class="label label-success-plus linepower"> Lộ '+ value['relation_meter'] +'</span><span class="label '+ csslabel+'">'+ value['level_meter_string']+'</span></div></div> </li>'); 
+								i++;									
+							});
+
+		/*	
+		*	Phần tự động thực hiện của trang khi F5 hoặc đăng nhập mới
+		*	Lần đầu vào sub (có event sub click) => gán cho crmeter = meter[0] luôn
+		* 	meter0 là class để tự động vào công tơ đầu tiên khi không có giá trị crmeter.
+		*	for each từng clas sermeter (là class để lấy serial meter) so sánh với crmeter hiện tại và add class current vào meter đã chọn
+		*	Gọi hàm Chart để để vẽ đồ thị, và tạo bảng thông số.
+		*	Gọi hàm sendcrpos để gửi crpage +','+crmenu+','+crpcid +','+crsubid+','+crmeter+','+crnamesub;
+		*	Phần click meter thực hiện tương tự chu trình trên.
+		*/
+
+								if (frommenuleft != undefined) {
+									crmeter = meters[0]['serial_meter'];
+									$(".page1_meter > li > div").removeClass('current');
+									$(".meter0 > div").addClass('current'); 
+								} else {
+									$(".page1_meter > li > div").each(function(index, val){
+										if ($(this).find('.sermeter').text()==crmeter) { $(this).addClass('current')}
+									});
+								} 
+								
+								chart(crmeter); 
+								sendcrpos();
+							$(".page1_meter > li > div").click(function(){
+								/*
+								*	Vào trong sub (có event meter click) => gán cho crmeter = this.text
+								*/
+								$(".page1_meter > li > div").removeClass('current');
+								$(this).addClass('current');								
+								crmeter = $(this).find('.sermeter').text();
+								chart(crmeter);
+								sendcrpos();
+							});
+				
+				  } else {
+					  
+				  }
+			 }, error: function(e){
+				console.log('e '+e);
+			}
+		
+		}); 
+	}
+
+	/*	
+	*	Gọi hàm page1_meter tự động thực hiện của trang khi F5 hoặc đăng nhập mới
+	*/
+
+	page1_meter(crsubid);
+
+	/*	
+	*	Usage:
+	*	Hàm chart gọi api page1_meter_chart.php trả về giá trị mảng về thông số để vẽ đồ thị, mảng thông số chỉ số, mảng thông số vận hành
+	*/
+	function chart(serial){
+		$('.showmeter').text(crmeter);
+		dt =[], dt0 =[], dt1 =[];
+		$.ajax({
+				url:api_link+'/page1_meter_chart.php',
+				type:"POST",
+				data:{serial: serial},
+				success:function(data){
+					temp = JSON.parse(data);
+					dt=temp.dongdien;
+					drawchart(temp.dongdien,$('#container1'),'I','Dòng điện (A)');
+					drawchart(temp.dienap,$('#container2'),'U','Điện áp (V)');
+					drawchart(temp.tanso,$('#container3'),'F','Tần số (F)');		
+					apply_thongso(temp.thongso);
+					apply_chiso(temp.chiso);				
+				}, error: function(e){
+					console.log('e '+e);
+				}
+			
+		}); 
+	}
+	
+	/*	
+	*	Usage:
+	*	Gán giá trị mảng thông số vận hành vào html có bảng thông số: class là instant
+	* 	Bảng này phần đơn vị đã được tính toán trên api
+	*/	
+	
+	function apply_thongso(data){
+		var i =1;
+		for (var key in data){
+			var ttt = '#last_instant .instant'+i;
+			$(ttt).html(data[key]);
+			i++;
+		}
+	}
+	/*	
+	*	Usage:
+	*	Gán giá trị mảng thông số chỉ số vào html có bảng chỉ số: class là current
+	*	Phần đơn vị tính được lấy từ api để điền vào class donvi_chiso
+	*/			
+	function apply_chiso(data){
+		var i =1;
+		for (var key in data){
+			var temp1 = '#last_current .current'+i;
+			$(temp1).html(data[key]);
+			i++;
+		}
+		
+		$('.donvi_chiso').html(data["unit_meter"]);
+	}
+	/*	
+	*	Usage:
+	*	Vẽ đồ thị theo các tham số được truyền vào gồm:
+	*	mảng giá trị dt
+	*	id của html element cần gán đồ thị $this
+	* 	nameunit đơn vị của đồ thị : Ampe, Voltage, Frequency
+	*	namegraph tên đồ thị cần vẽ
+	*/			
+	
+	function drawchart(dt,$this,nameunit,namegraph){
+	    Highcharts.setOptions({
+			global: {
+				useUTC: false
+			}
+		});
+		$this.highcharts({
+			chart: {
+					// Edit chart spacing
+					spacingBottom: 5,
+					spacingTop: 15,
+					spacingLeft: 0,
+					spacingRight: 5,
+
+					// Explicitly tell the width and height of a chart
+					width: null,
+					height: null
+			},			
+			title: {
+				text:'',
+			},
+			global: { 
+				//useUTC: false
+			},
+			navigation: {
+				buttonOptions: {
+					verticalAlign: 'bottom',
+					y: -15
+				}
+			},
+			xAxis: {
+				type: 'datetime',
+				tickInterval: 3600 * 600, // one hour
+				tickWidth: 0,
+				gridLineWidth: 1,
+				
+			},
+			yAxis: [{ //--- Primary yAxis
+				title: {
+					text: namegraph,
+				},
+				labels: {
+					align: 'right',
+					x: 0,
+					y: 0
+				}
+			}],
+			tooltip: {						
+				shared: true,
+				crosshairs: true,
+				borderColor: '#058DC7',
+			},
+			series: [{
+				name: nameunit+'phaA',
+				color: '#E43632', 
+				data: dt[0]
+			},
+			{
+				name: nameunit+'phaB',
+				color: '#AA7301',
+				data: dt[1]
+			},
+			{
+				name: nameunit+'phaC',
+				color: '#2E7000',
+				data: dt[2]
+				}
+			]
+		});	
+	}
+	
+
+</script>
+
+<script src="js/highstock.js"></script>  <!-- highstock -->
+<script src="js/modules/exporting.js"></script>  <!-- highstock export -->
+<script src="js/bootstrap.min.js"></script> <!-- Bootstrap -->
+<!--<script src="js/jquery.slimscroll.min.js"></script>  jQuery Slim Scroll 
+<script src="js/jquery.onoff.min.js"></script> Bootstrap Toggle -->
+<script src="js/custom.js"></script> <!-- Custom codes -->
+<!-- Script for this page -->
+</body>
+</html>

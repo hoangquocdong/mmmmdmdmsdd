@@ -1,0 +1,2505 @@
+
+			<div class="container">
+
+          <!-- Table -->
+          	<!-- Date Picker -->
+	<div class="row">
+		<div class="col-md-3" style="margin-top: 5px;">			
+				<h4 style="display: inline-block; float: left; margin-right: 10px;">Chọn năm: </h4>
+				 <div id="" class="input-append input-group">
+					<select class="chonnam">
+					</select>
+				</div>
+		</div>	
+		<div class="col-md-3" style="margin-top: 5px;">			
+				<h4 style="display: inline-block; float: left; margin-right: 10px;">Chọn tháng: </h4>
+				 <div id="" class="input-append input-group">
+					<select class="chonthang">
+					</select>
+				</div>
+		</div>		
+
+		<script type="text/javascript">
+			month='';
+			var d = new Date();
+			var n = d.getFullYear();
+			var m = d.getMonth()+1;
+
+			var html = '';
+			for (i=1; i<=12; i++){
+				html +='<option value="'+i+'">Tháng '+i+'</option>'
+			}
+			$('.chonthang').html(html);
+			$('.chonthang').val(m);
+			html='';
+			for (i=n; i>=2013; i--){
+				html +='<option value="'+i+'">Năm '+i+'</option>'
+			}
+			$('.chonnam').html(html);
+
+			$('.chonthang, .chonnam').change(function(){
+				month = $('.chonnam').val()+'-'+$('.chonthang').val();
+				csct_reset_value();
+			});
+
+			function prevmonth(){
+				var y = month.split('-');
+				var m = y[1]; y = y[0];
+
+				f = new Date(y, m - 1, 1);
+				d = (f.getTime()-10*86400*1000);
+
+				d = new Date(d);
+				return (d.getFullYear()+'-'+(d.getMonth()+1));
+			}
+		</script>
+		
+		<div class="col-md-3" style="margin-top: 5px;">	
+			<button type="submit" class="btn btn-primary csctbtn" style="margin-top: 5px;">Xem dữ liệu</button>
+		</div>
+		
+		<div class="col-md-3" style="margin-top: 5px;">	
+			<button type="submit" class="btn btn-primary kiemdinh_btn" style="margin-top: 5px; display:none;">Kiểm định công tơ</button>
+		</div>	
+		
+	</div>   
+	
+	<!--  Tạo tab chứa các bảng khác nhau, sẽ mở rộng tab khi gặp trường hợp công tơ kiểm định  -->    
+	<ul id="myTab" class="nav nav-tabs" style="margin-top:5px; display:none; ">
+	   	<li class="active"><a class="tabtruockiemdinh" href="#truockiemdinh" data-toggle="tab">
+		  Trước kiểm định</a> 
+		</li>
+	   	<li><a class="tabsaukiemdinh" href="#saukiemdinh" data-toggle="tab">Sau kiểm định</a>
+
+	   		
+	   	</li>
+	</ul>
+
+	
+	<!--  Div chứa nội dung các tab khác nhau --> 
+	<div id="myTabContent" class="tab-content">
+		<!--  Div chứa nội dung tab active (đầu tiên) --> 
+		<div class="tab-pane fade in active truockiemdinh" id="truockiemdinh">
+		
+			<div class="row">
+					<div class="col-md-12">
+					<div class="widget">
+
+					<div class="widget-head">
+					  <div class="pull-left graphmenu"  style="width:100%; text-align:center" >
+							<span>Báo cáo chốt chỉ số tháng:</span> <span class="month_meter label label-danger" style="color:red"></span> 
+					  </div>
+					  <div class="widget-icons pull-right" style="position: absolute; right: 20px;">
+						<a href="#" class="wminimize"><i class="fa fa-chevron-up"></i></a> 
+						<a href="#" class="wclose"><i class="fa fa-times"></i></a>
+					  </div>  
+					  <div class="clearfix"></div>
+					</div>
+
+					  <div class="widget-content" style="background:#D8E0E7;">
+						<div class="row" style="  margin-left: 5px; padding-top:5px; padding-bottom:5px;" >
+						  <div class="col-md-4">
+							<button type="submit" class="btn btn-disabled pc_check" style="margin-top: 5px;">Điện lực xác nhận</button>			
+							<p>
+
+							  Đơn vị xác nhận: <strong><span class="pc_room_checked"></span></strong> <br>						
+							  Người xác nhận: <strong><span class="pc_user_checked"></span></strong><br>
+							  Ngày xác nhận: <strong><span class="pc_date_checked"></span></strong> <br>
+							</p>
+						  </div>
+
+						  <div class="col-md-4">
+							<button type="submit" class="btn btn-disabled sub_check" style="margin-top: 5px;">Nhà máy xác nhận</button>		  
+							  <p>
+							  
+							  Đơn vị xác nhận: <strong><span class="sub_room_checked"></span></strong> <br>						
+							  Người xác nhận: <strong><span class="sub_user_checked"></span></strong><br>
+							  Ngày xác nhận: <strong><span class="sub_date_checked"></span></strong> <br>
+							</p>                        
+						  </div>
+
+						  <div class="col-md-4 nhapchisogroup" style="display:none;">
+
+							<button type="submit" class="btn btn-primary btninputh1" style="margin-top: 5px;">Nhập chỉ số chốt tháng</button>	
+							<p>
+							  Chỉ dành cho các nhà máy <br>
+							  chưa tham gia hệ thống đo xa
+							</p>
+
+							<button type="submit" class="btn btn-primary xnbtninputh1" style="margin-top: 5px;">Kết thúc nhập chỉ số</button>	
+							
+						  </div>
+
+						  <div class="col-md-4 chisokiemdinh" style="display: none;">
+						  
+							<button class="btn btn-primary  kiemdinh_nhap_sl_tkd_btn" style="margin-top: 5px;">Nhập số liệu Trước kiểm định</button>	
+							<button class="btn btn-primary kiemdinh_ketthuc_nhap_sl_tkd_btn" style="margin-top: 5px;">Kết thúc nhập C T K Đ</button>
+							
+							<p>
+							  Chỉ dành cho các công tơ <br>
+							  kiểm định
+							</p>
+							
+						  </div>
+
+						</div>
+						<div class="table-responsive">
+							
+					<table class="table table-striped table-bordered table-hover">
+						<thead>
+						  <tr style="font-weight:bold; text-align:center; background: rgb(244, 244, 244)">
+							<th width="20%" colspan="2" style="text-align:center;" >Hệ thống đo đếm</th>
+							<th width="80%" colspan="8" style="text-align:center;">Điểm đo đếm: <span class="level_meter" style="color:red">... </span> - Số công tơ:  <span class="serial_meter" style="color:red">... </span> </th>
+						  </tr>
+						</thead>
+						<tfoot style="border-bottom:1px solid #0070A8;">
+						  <tr>
+							<td colspan="10">
+							  <div id="paging" style="font-weight:bold; color: #058DC7; ">
+								
+										<a> 	
+										<span  id="csdau"> Thời gian chốt chỉ số đầu: <span style="color:red;" class="dauky15">.../.../...</span></span>
+										<span id="cscuoi"> - - - Thời gian chốt chỉ số cuối: <span style="color:red;" class="cuoiky15">.../.../...</span></span>
+										</a>
+
+							  </div>
+							</td>
+						  </tr>
+						</tfoot> 
+						<tbody>
+						<tr style="font-weight:bold; text-align:center; background: rgb(244, 244, 244)" >
+							  <td class="nmtitle" rowspan="2" width="10%">Chiều điện năng</td>
+							  <td class="nmtitle" rowspan="2" width="8%">Thanh ghi</td>
+							  <td class="nmtitle" colspan="2" width="14%">Chỉ số công tơ</td>  
+							  <td class="nmtitle" rowspan="2" width="9%">Hiệu số</td>
+							  <td class="nmtitle" rowspan="2" width="9%">Hệ số nhân</td>
+							  <td class="nmtitle" rowspan="2" width="10%">Hệ số tổn thất ĐZ</td>
+							  <td class="nmtitle" colspan="2" width="14%">Sản lượng (tính theo)</td>
+							  <td class="nmtitle" rowspan="2" width="6%">Cosphi</td>  
+							 
+						 </tr>
+						 <tr style="font-weight:bold; text-align:center; background: rgb(244, 244, 244)" >
+							  <td class="nmtitle" >Đầu kỳ</td>  
+							  <td class="nmtitle">Cuối kỳ</td>
+							  <td class="nmtitle">Công tơ</td>  
+							  <td class="nmtitle" >T.thất ĐZ</td>
+						 </tr>	
+						  <tr style="font-weight:bold; text-align:center; background: #DBE0E4" >
+							  <td class="imtitle" colspan="2" style=" font-weight:bold;" >Chiều giao</td>  
+							  
+							  <td class="imtitle">a</td>  
+							  <td class="imtitle" >b</td>
+							  <td class="imtitle"  >c=b-a</td>  
+							  <td class="imtitle">d</td>
+							  <td class="imtitle">e</td>  
+							  <td class="imtitle" >g=c*d</td>
+							  <td class="imtitle"  >h=g*(1-e)</td>
+							  <td class="imtitle"  ></td>
+						  </tr>
+						  <tr>
+							  <td></td>
+							  <td style="font-weight:bold;" align ="left" class="chieugiao">Tổng</td> 
+							  <td class="dauky1" align="right" ></td>  
+							  <td class="cuoiky1" align="right"></td>
+							  <td class="hieuso1" align="right"></td>
+							  <td class="hsnhan1" align="right"></td>
+							  <td class="hstonthat1" align="right"></td>
+							  <td class="cto1 red_icon" align="right"></td>
+							  <td class="ttdz1" align="right"></td> 
+							  <td class="cos1" align="right"></td> 
+						  </tr>
+						  
+						  <tr class="spaceUnder" >
+							  <td style="font-weight:bold;" rowspan="3" style=" font-weight:bold;" >Giao Ap (kWh)</td>
+							  <td class="chieugiao">Biểu 1</td> 					  
+							  <td class="dauky2" align="right"></td>  
+							  <td class="cuoiky2" align="right"></td>
+							  <td class="hieuso2" align="right"></td>
+							  <td class="hsnhan2" align="right"></td>
+							  <td class="hstonthat2" align="right"></td>
+							  <td class="cto2" align="right"></td>
+							  <td class="ttdz2" align="right"></td> 
+							  <td class="cos2"></td>  
+						  </tr>	
+						  <tr class="spaceUnder" >
+
+							  <td style="font-weight:bold;" class="chieugiao">Biểu2</td> 					  
+							  <td class="dauky3" align="right"></td>  
+							  <td class="cuoiky3" align="right"></td>
+							  <td class="hieuso3" align="right"></td>
+							  <td class="hsnhan3" align="right"></td>
+							  <td class="hstonthat3" align="right"></td>
+							  <td class="cto3" align="right"></td>
+							  <td class="ttdz3" align="right"></td> 
+							  <td class="cos3"></td>  
+						  </tr>	
+						  <tr class="spaceUnder" >
+
+							  <td style="font-weight:bold;" class="chieugiao"  >Biểu3</td> 					  
+							  <td class="dauky4" align="right"></td>  
+							  <td class="cuoiky4" align="right" ></td>
+							  <td class="hieuso4" align="right"></td>
+							  <td class="hsnhan4" align="right"></td>
+							  <td class="hstonthat4" align="right"></td>
+							  <td class="cto4" align="right"></td>
+							  <td class="ttdz4" align="right"></td> 
+							  <td class="cos4"></td> 
+						  </tr>	
+						  <tr class="spaceUnder" >
+							  <td  rowspan="3" style=" font-weight:bold;" >Giao Aq (kVArh)</td>
+							  <td style="font-weight:bold;" align ="left" class="chieugiao" >Q Tổng</td> 					  
+							  <td class="dauky5" align="right" ></td>  
+							  <td class="cuoiky5" align="right"></td>
+							  <td class="hieuso5" align="right"></td>
+							  <td class="hsnhan5" align="right"></td>
+							  <td class="hstonthat5" align="right"></td>
+							  <td class="cto5 red_icon" align="right"></td>
+							  <td class="ttdz5" align="right"></td> 
+							  <td class="cos5"></td> 
+						  </tr>
+							<tr class="spaceUnder" >						  
+							  <td style="font-weight:bold;" class="chieugiao" >Q1</td> 					  
+							  <td class="dauky6" align="right" ></td>  
+							  <td class="cuoiky6" align="right"></td>
+							  <td class="hieuso6" align="right"></td>
+							  <td class="hsnhan6" align="right"></td>
+							  <td class="hstonthat6" align="right"></td>
+							  <td class="cto6" align="right"></td>
+							  <td class="ttdz6" align="right"></td> 
+							  <td class="cos6"></td> 
+						  </tr>	
+						  <tr class="spaceUnder" >			      
+							  <td style="font-weight:bold;" class="chieugiao"  >Q2</td> 					  
+							  <td class="dauky7" align="right"></td>  
+							  <td class="cuoiky7" align="right"></td>
+							  <td class="hieuso7" align="right"></td>
+							  <td class="hsnhan7" align="right"></td>
+							  <td class="hstonthat7" align="right"></td>
+							  <td class="cto7" align="right"></td>
+							  <td class="ttdz7" align="right"></td> 
+							  <td class="cos7"></td>  
+						  </tr>	
+
+						  <tr style="font-weight:bold; text-align:center; background:#DBE0E4"  >
+							  <td class="imtitle" colspan="2" >Chiều nhận</td>  						  
+							  <td class="imtitle">a</td>  
+							  <td class="imtitle" >b</td>
+							  <td class="imtitle"  >c=b-a</td>  
+							  <td class="imtitle">d</td>
+							  <td class="imtitle">e</td>  
+							  <td class="imtitle">g=c*d</td>
+							  <td class="imtitle">h=g*(1+e)</td> 
+							  <td class="imtitle"></td>  					  
+						  </tr>
+						  
+						  <tr class="spaceUnder" >
+							  <td></td>
+							  <td style=" font-weight:bold;"  class="chieunhan">Tổng</td> 					  
+							  <td class="dauky8" align="right"></td>  
+							  <td class="cuoiky8" align="right"></td>
+							  <td class="hieuso8" align="right"></td>
+							  <td class="hsnhan8" align="right"></td>
+							  <td class="hstonthat8" align="right"></td>
+							  <td class="cto8 red_icon" align="right"></td>
+							  <td class="ttdz8" align="right"></td> 
+							  <td class="cos8"></td> 
+						  </tr>
+						  <tr class="spaceUnder" >
+							  <td rowspan="3" style=" font-weight:bold;">Nhận Ap (kWh)</td>
+							  <td style="border-left:1px solid #069; font-weight:bold;" class="chieunhan"  >Biểu4</td> 					  
+							  <td class="dauky9" align="right"></td>  
+							  <td class="cuoiky9" align="right"></td>
+							  <td class="hieuso9" align="right"></td>
+							  <td class="hsnhan9" align="right"></td>
+							  <td class="hstonthat9" align="right"></td>
+							  <td class="cto9" align="right"></td>
+							  <td class="ttdz9" align="right"></td> 
+							  <td class="cos9"></td> 
+						  </tr>	
+						  <tr class="spaceUnder" >
+							  <td style="font-weight:bold;" class="chieunhan" >Biểu5</td> 					  
+							  <td class="dauky10" align="right" ></td>  
+							  <td class="cuoiky10" align="right"></td>
+							  <td class="hieuso10" align="right"></td>
+							  <td class="hsnhan10" align="right"></td>
+							  <td class="hstonthat10" align="right"></td>
+							  <td class="cto10" align="right"></td>
+							  <td class="ttdz10" align="right"></td> 
+							  <td class="cos10"></td> 
+						  </tr>	
+						  <tr class="spaceUnder" >
+							  <td style="font-weight:bold;" class="chieunhan" >Biểu6</td> 					  
+							  <td class="dauky11" align="right"  ></td>  
+							  <td class="cuoiky11" align="right" ></td>
+							  <td class="hieuso11" align="right"></td>
+							  <td class="hsnhan11" align="right"></td>
+							  <td class="hstonthat11" align="right"></td>
+							  <td class="cto11" align="right"></td>
+							  <td class="ttdz11" align="right"></td> 
+							  <td class="cos11"></td> 
+						  </tr>	
+						  <tr class="spaceUnder" >
+							  <td rowspan="3" style=" font-weight:bold;">Nhận Aq (kVArh)</td>
+							  <td style="border-left:1px solid #069; font-weight:bold;" class="chieunhan"  >Q Tổng</td> 					  
+							  <td class="dauky12" align="right"></td>  
+							  <td class="cuoiky12" align="right"></td>
+							  <td class="hieuso12" align="right"></td>
+							  <td class="hsnhan12" align="right"></td>
+							  <td class="hstonthat12" align="right"></td>
+							  <td class="cto12 red_icon" align="right"></td>
+							  <td class="ttdz12" align="right"></td> 
+							  <td class="cos12"></td> 
+						  </tr>	
+						  <tr class="spaceUnder" >
+							  
+							  <td style="border-left:1px solid #069; font-weight:bold;" class="chieunhan" >Q3</td> 					  
+							  <td class="dauky13" align="right"></td>  
+							  <td class="cuoiky13" align="right"></td>
+							  <td class="hieuso13" align="right"></td>
+							  <td class="hsnhan13" align="right"></td>
+							  <td class="hstonthat13" align="right"></td>
+							  <td class="cto13" align="right"></td>
+							  <td class="ttdz13" align="right"></td> 
+							  <td class="cos13"></td> 
+						  </tr>	
+						  <tr class="spaceUnder" style="border:1px;" >
+							  
+							  <td style="border-left:1px solid #069; font-weight:bold;" class="chieunhan"  >Q4</td> 					  
+							  <td class="dauky14" align="right"></td>  
+							  <td class="cuoiky14" align="right" ></td>
+							  <td class="hieuso14" align="right"></td>
+							  <td class="hsnhan14" align="right"></td>
+							  <td class="hstonthat14" align="right"></td>
+							  <td class="cto14" align="right"></td>
+							  <td class="ttdz14" align="right"></td> 
+							  <td class="cos14"></td> 
+						  </tr>	
+						  
+						</tbody>
+					</table>
+							
+						</div>
+
+						<div class="widget-foot">
+						  <div class="clearfix"></div> 
+
+						</div>
+
+					  </div>
+
+					</div>
+				</div>
+			</div>	
+			
+			<div class="row">
+					<div class="col-md-12">
+					<div class="widget">
+
+					<div class="widget-head">
+					  <div class="pull-left graphmenu"  style="width:100%; text-align:center" >
+						Báo cáo doanh thu điện năng tháng: <span class="month_meter label label-danger" style="color:red"></span> 
+			
+					  </div>
+					  <div class="widget-icons pull-right" style="position: absolute; right: 20px;">
+						<a href="#" class="wminimize"><i class="fa fa-chevron-up"></i></a> 
+						<a href="#" class="wclose"><i class="fa fa-times"></i></a>
+					  </div>  
+					  <div class="clearfix"></div>
+					</div>
+
+					  <div class="widget-content">
+
+						<div class="table-responsive">
+							<table class="table table-striped table-bordered table-hover">
+								<thead style="border-top:1px solid #0070A8;">
+								  <tr>
+									<th >Chiều công suất</th>
+									<th >A tính theo TTĐZ (quy về điểm ranh giới đo đếm)</th>
+									<th >Sản lượng điện năng gây tổn thất</th>
+									<th >A quy đổi khi bên bán điện nhận Q của bên mua điện</th>
+									<th >A thanh toán thực tế</th>	
+									<th >Đơn giá tiền điện </br> (VNĐ)</th>	
+									<th >Số tiền điện thanh toán trước VAT </br> (VNĐ)</th>	
+									<th >VAT </br> (VNĐ)</th>	
+									<th >Số tiền điện thanh toán thực tế </br> (VNĐ)</th>
+								  </tr>
+								</thead>
+								<tfoot style="color:#00496B;">
+								  <tr>
+									<td colspan="10" >							
+									<a>	A tính theo tổn thất đường dây: Là sản lượng theo chiều NM giao ghi được trên Biên bản xác nhận chỉ số công tơ sau khi đã trừ đi tổn thất đường dây. </a>
+									</td>
+								  </tr>
+								  <tr>
+									<td colspan="10">						
+										A quy đổi: Là sản lượng được tính theo HĐMBĐ: Aquy đổi = Q nhận*65/giá giờ thấp điểm.
+									</td>
+								  </tr>
+								  <tr>
+									<td colspan="10">						
+										A thanh toán thực tế: A biểu 1 và A biểu 2 giữ nguyên, trừ A quy đổi vào A biểu 3.
+									</td>
+								  </tr>					  
+								</tfoot> 
+								<tbody>
+								  <tr>
+									<td style="font-weight:bold;">1. NM Giao P</td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>					
+								  </tr>
+								  <tr>
+									<td style="font-weight:bold;" >Tổng P</td>
+									<td style="font-weight:bold;" class="doanhthu_tongP"></td>
+									<td></td>
+									<td></td>
+									<td style="font-weight:bold;" class="doanhthu_tongPfinal"></td>
+									<td></td>
+									<td style="font-weight:bold;"></td>
+									<td style="font-weight:bold;"></td>
+									<td style="font-weight:bold;" class="doanhthu_final"></td>					
+								  </tr>
+								  <tr>
+									<td >Biểu 1</td>
+									<td class="doanhthu_b1"></td>
+									<td></td>
+									<td></td>
+									<td class="doanhthu_b1final"></td>
+									<td>634</td>
+									<td class="doanhthu_b1tien"></td>
+									<td class="doanhthu_b1vat"></td>
+									<td class="doanhthu_b1sum"></td>					
+								  </tr>
+								  <tr>
+									<td >Biểu 2</td>
+									<td class="doanhthu_b2"></td>
+									<td></td>
+									<td></td>
+									<td class="doanhthu_b2final"></td>
+									<td>2796</td>
+									<td class="doanhthu_b2tien"></td>
+									<td class="doanhthu_b2vat"></td>
+									<td class="doanhthu_b2sum"></td>					
+								  </tr>
+								  <tr>
+									<td>Biểu 3</td>
+									<td class="doanhthu_b3"></td>
+									<td class="doanhthu_Aquydoi"> </td>
+									<td > 0</td>
+									<td class="doanhthu_b3final"></td>
+									<td>631</td>
+									<td class="doanhthu_b3tien"></td>
+									<td class="doanhthu_b3vat"></td>
+									<td class="doanhthu_b3sum"></td>					
+								  </tr>
+								  <tr>
+									<td style="font-weight:bold;">2. NM Nhận Q</td>
+									<td style="font-weight:bold;" class="doanhthu_Q4nhan"></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>					
+								  </tr >
+								  <tr  style="border-bottom:1px solid #0070A8;"> 
+									<td >Nhận Q tháng <span class="month_meter" ></span></td>
+									<td ></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>					
+								  </tr>
+								
+								</tbody>
+							</table>
+					
+							
+						</div>
+
+						<div class="widget-foot">
+						  <div class="clearfix"></div> 
+
+						</div>
+
+					  </div>
+
+					</div>
+				</div>
+			</div>	
+		</div>
+		
+		<!--  Div chứa nội dung tab append đối với trường hợp công tơ kiểm định --> 
+		<div class="tab-pane fade saukiemdinh" id="saukiemdinh">
+		
+			<div class="row">
+					<div class="col-md-12">
+					<div class="widget">
+
+					<div class="widget-head">
+					  <div class="pull-left graphmenu"  style="width:100%; text-align:center" >
+							<span>Báo cáo chốt chỉ số tháng:</span> <span class="month_meter label label-danger" style="color:red"></span> 
+					  </div>
+					  <div class="widget-icons pull-right" style="position: absolute; right: 20px;">
+						<a href="#" class="wminimize"><i class="fa fa-chevron-up"></i></a> 
+						<a href="#" class="wclose"><i class="fa fa-times"></i></a>
+					  </div>  
+					  <div class="clearfix"></div>
+					</div>
+
+					  <div class="widget-content" style="background:#D8E0E7;">
+						<div class="row" style="  margin-left: 5px; padding-top:5px; padding-bottom:5px;" >
+						  <div class="col-md-4">
+							<button type="submit" class="btn btn-disabled pc_check" style="margin-top: 5px;">Điện lực xác nhận</button>			
+							<p>
+
+							  Đơn vị xác nhận: <strong><span class="pc_room_checked"></span></strong> <br>						
+							  Người xác nhận: <strong><span class="pc_user_checked"></span></strong><br>
+							  Ngày xác nhận: <strong><span class="pc_date_checked"></span></strong> <br>
+							</p>
+						  </div>
+
+						  <div class="col-md-4">
+							<button type="submit" class="btn btn-disabled sub_check" style="margin-top: 5px;">Nhà máy xác nhận</button>		  
+							  <p>
+							  
+							  Đơn vị xác nhận: <strong><span class="sub_room_checked"></span></strong> <br>						
+							  Người xác nhận: <strong><span class="sub_user_checked"></span></strong><br>
+							  Ngày xác nhận: <strong><span class="sub_date_checked"></span></strong> <br>
+							</p>                        
+						  </div>
+
+						  <div class="col-md-4 chisokiemdinh">
+						  
+							<button class="btn btn-primary  kiemdinh_nhap_sl_skd_btn" style="margin-top: 5px;">Nhập số liệu Sau kiểm định</button>	
+							<button class="btn btn-primary kiemdinh_ketthuc_nhap_sl_skd_btn" style="margin-top: 5px;">Kết thúc nhập SL SKĐ</button>
+							<button class="btn btn-primary  kiemdinh_ghi_sl_dauky_sau_kiemdinh_btn" style="margin-top: 5px;">Ghi số liệu Sau kiểm định</button>
+							
+							
+						  </div>
+
+						  <div class="col-md-4 nhapchisogroup">
+
+							<button type="submit" class="btn btn-primary btninputh1" style="margin-top: 5px;">Nhập chỉ số chốt tháng</button>	
+							<p>
+							  Chỉ dành cho các nhà máy <br>
+							  chưa tham gia hệ thống đo xa
+							</p>
+
+							<button type="submit" class="btn btn-primary xnbtninputh1" style="margin-top: 5px;">Kết thúc nhập chỉ số</button>	
+							
+						  </div>
+
+						</div>
+						<div class="table-responsive">
+							
+					<table class="table table-striped table-bordered table-hover">
+						<thead>
+						  <tr style="font-weight:bold; text-align:center; background: rgb(244, 244, 244)">
+							<th width="20%" colspan="2" style="text-align:center;" >Hệ thống đo đếm</th>
+							<th width="80%" colspan="8" style="text-align:center;">Điểm đo đếm: <span class="level_meter" style="color:red">... </span> - Số công tơ:  <span class="serial_meter" style="color:red">... </span> </th>
+						  </tr>
+						</thead>
+						<tfoot style="border-bottom:1px solid #0070A8;">
+						  <tr>
+							<td colspan="10">
+							  <div id="paging" style="font-weight:bold; color: #058DC7; ">
+								
+										<a> 	
+										<span  id="csdau"> Thời gian chốt chỉ số đầu: <span style="color:red;" class="sdauky15">.../.../...</span></span>
+										<span id="cscuoi"> - - - Thời gian chốt chỉ số cuối: <span style="color:red;" class="scuoiky15">.../.../...</span></span>
+										</a>
+
+							  </div>
+							</td>
+						  </tr>
+						</tfoot> 
+						<tbody>
+						<tr style="font-weight:bold; text-align:center; background: rgb(244, 244, 244)" >
+							  <td class="nmtitle" rowspan="2" width="10%">Chiều điện năng</td>
+							  <td class="nmtitle" rowspan="2" width="8%">Thanh ghi</td>
+							  <td class="nmtitle" colspan="2" width="14%">Chỉ số công tơ</td>  
+							  <td class="nmtitle" rowspan="2" width="9%">Hiệu số</td>
+							  <td class="nmtitle" rowspan="2" width="9%">Hệ số nhân</td>
+							  <td class="nmtitle" rowspan="2" width="10%">Hệ số tổn thất ĐZ</td>
+							  <td class="nmtitle" colspan="2" width="14%">Sản lượng (tính theo)</td>
+							  <td class="nmtitle" rowspan="2" width="6%">Cosphi</td>  
+							 
+						 </tr>
+						 <tr style="font-weight:bold; text-align:center; background: rgb(244, 244, 244)" >
+							  <td class="nmtitle" >Đầu kỳ</td>  
+							  <td class="nmtitle">Cuối kỳ</td>
+							  <td class="nmtitle">Công tơ</td>  
+							  <td class="nmtitle" >T.thất ĐZ</td>
+						 </tr>	
+						  <tr style="font-weight:bold; text-align:center; background: #DBE0E4" >
+							  <td class="imtitle" colspan="2" style=" font-weight:bold;" >Chiều giao</td>  
+							  
+							  <td class="imtitle">a</td>  
+							  <td class="imtitle" >b</td>
+							  <td class="imtitle"  >c=b-a</td>  
+							  <td class="imtitle">d</td>
+							  <td class="imtitle">e</td>  
+							  <td class="imtitle" >g=c*d</td>
+							  <td class="imtitle"  >h=g*(1-e)</td>
+							  <td class="imtitle"  ></td>
+						  </tr>
+						  <tr>
+							  <td></td>
+							  <td style="font-weight:bold;" align ="left" class="chieugiao">Tổng</td> 
+							  <td class="sdauky1" ></td>  
+							  <td class="scuoiky1"></td>
+							  <td class="shieuso1"></td>
+							  <td class="shsnhan1"></td>
+							  <td class="shstonthat1"></td>
+							  <td class="scto1 red_icon"></td>
+							  <td class="sttdz1"></td> 
+							  <td class="scos1"></td> 
+						  </tr>
+						  
+						  <tr class="spaceUnder" >
+							  <td style="font-weight:bold;" rowspan="3" style=" font-weight:bold;" >Giao Ap (kWh)</td>
+							  <td class="chieugiao">Biểu 1</td> 					  
+							  <td class="sdauky2" ></td>  
+							  <td class="scuoiky2"></td>
+							  <td class="shieuso2"></td>
+							  <td class="shsnhan2"></td>
+							  <td class="shstonthat2"></td>
+							  <td class="scto2"></td>
+							  <td class="sttdz2"></td> 
+							  <td class="scos2"></td>  
+						  </tr>	
+						  <tr class="spaceUnder" >
+
+							  <td style="font-weight:bold;" class="chieugiao">Biểu2</td> 					  
+							  <td class="sdauky3" ></td>  
+							  <td class="scuoiky3"></td>
+							  <td class="shieuso3"></td>
+							  <td class="shsnhan3"></td>
+							  <td class="shstonthat3"></td>
+							  <td class="scto3"></td>
+							  <td class="sttdz3"></td> 
+							  <td class="scos3"></td>  
+						  </tr>	
+						  <tr class="spaceUnder" >
+
+							  <td style="font-weight:bold;" class="chieugiao"  >Biểu3</td> 					  
+							  <td class="sdauky4" ></td>  
+							  <td class="scuoiky4" ></td>
+							  <td class="shieuso4"></td>
+							  <td class="shsnhan4"></td>
+							  <td class="shstonthat4"></td>
+							  <td class="scto4"></td>
+							  <td class="sttdz4"></td> 
+							  <td class="scos4"></td> 
+						  </tr>	
+						  <tr class="spaceUnder" >
+							  <td  rowspan="3" style=" font-weight:bold;" >Giao Aq (kVArh)</td>
+							  <td style="font-weight:bold;" align ="left" class="chieugiao" >Q Tổng</td> 					  
+							  <td class="sdauky5" ></td>  
+							  <td class="scuoiky5"></td>
+							  <td class="shieuso5"></td>
+							  <td class="shsnhan5"></td>
+							  <td class="shstonthat5"></td>
+							  <td class="scto5 red_icon"></td>
+							  <td class="sttdz5"></td> 
+							  <td class="scos5"></td> 
+						  </tr>
+							<tr class="spaceUnder" >						  
+							  <td style="font-weight:bold;" class="chieugiao" >Q1</td> 					  
+							  <td class="sdauky6" ></td>  
+							  <td class="scuoiky6"></td>
+							  <td class="shieuso6"></td>
+							  <td class="shsnhan6"></td>
+							  <td class="shstonthat6"></td>
+							  <td class="scto6"></td>
+							  <td class="sttdz6"></td> 
+							  <td class="scos6"></td> 
+						  </tr>	
+						  <tr class="spaceUnder" >			      
+							  <td style="font-weight:bold;" class="chieugiao"  >Q2</td> 					  
+							  <td class="sdauky7" ></td>  
+							  <td class="scuoiky7"></td>
+							  <td class="shieuso7"></td>
+							  <td class="shsnhan7"></td>
+							  <td class="shstonthat7"></td>
+							  <td class="scto7"></td>
+							  <td class="sttdz7"></td> 
+							  <td class="scos7"></td>  
+						  </tr>	
+
+						  <tr style="font-weight:bold; text-align:center; background:#DBE0E4"  >
+							  <td class="imtitle" colspan="2" >Chiều nhận</td>  						  
+							  <td class="imtitle">a</td>  
+							  <td class="imtitle" >b</td>
+							  <td class="imtitle"  >c=b-a</td>  
+							  <td class="imtitle">d</td>
+							  <td class="imtitle">e</td>  
+							  <td class="imtitle">g=c*d</td>
+							  <td class="imtitle">h=g*(1+e)</td> 
+							  <td class="imtitle"></td>  					  
+						  </tr>
+						  
+						  <tr class="spaceUnder" >
+							  <td></td>
+							  <td style=" font-weight:bold;"  class="chieunhan">Tổng</td> 					  
+							  <td class="sdauky8" ></td>  
+							  <td class="scuoiky8" ></td>
+							  <td class="shieuso8"></td>
+							  <td class="shsnhan8"></td>
+							  <td class="shstonthat8"></td>
+							  <td class="scto8 red_icon"></td>
+							  <td class="sttdz8"></td> 
+							  <td class="scos8"></td> 
+						  </tr>
+						  <tr class="spaceUnder" >
+							  <td rowspan="3" style=" font-weight:bold;">Nhận Ap (kWh)</td>
+							  <td style="border-left:1px solid #069; font-weight:bold;" class="chieunhan"  >Biểu4</td> 					  
+							  <td class="sdauky9" ></td>  
+							  <td class="scuoiky9"></td>
+							  <td class="shieuso9"></td>
+							  <td class="shsnhan9"></td>
+							  <td class="shstonthat9"></td>
+							  <td class="scto9"></td>
+							  <td class="sttdz9"></td> 
+							  <td class="scos9"></td> 
+						  </tr>	
+						  <tr class="spaceUnder" >
+							  <td style="font-weight:bold;" class="chieunhan" >Biểu5</td> 					  
+							  <td class="sdauky10" ></td>  
+							  <td class="scuoiky10"></td>
+							  <td class="shieuso10"></td>
+							  <td class="shsnhan10"></td>
+							  <td class="shstonthat10"></td>
+							  <td class="scto10"></td>
+							  <td class="sttdz10"></td> 
+							  <td class="scos10"></td> 
+						  </tr>	
+						  <tr class="spaceUnder" >
+							  <td style="font-weight:bold;" class="chieunhan" >Biểu6</td> 					  
+							  <td class="sdauky11"  ></td>  
+							  <td class="scuoiky11" ></td>
+							  <td class="shieuso11"></td>
+							  <td class="shsnhan11"></td>
+							  <td class="shstonthat11"></td>
+							  <td class="scto11"></td>
+							  <td class="sttdz11"></td> 
+							  <td class="scos11"></td> 
+						  </tr>	
+						  <tr class="spaceUnder" >
+							  <td rowspan="3" style=" font-weight:bold;">Nhận Aq (kVArh)</td>
+							  <td style="border-left:1px solid #069; font-weight:bold;" class="chieunhan"  >Q Tổng</td> 					  
+							  <td class="sdauky12" ></td>  
+							  <td class="scuoiky12"></td>
+							  <td class="shieuso12"></td>
+							  <td class="shsnhan12"></td>
+							  <td class="shstonthat12"></td>
+							  <td class="scto12 red_icon"></td>
+							  <td class="sttdz12"></td> 
+							  <td class="scos12"></td> 
+						  </tr>	
+						  <tr class="spaceUnder" >
+							  
+							  <td style="border-left:1px solid #069; font-weight:bold;" class="chieunhan" >Q3</td> 					  
+							  <td class="sdauky13"></td>  
+							  <td class="scuoiky13"></td>
+							  <td class="shieuso13"></td>
+							  <td class="shsnhan13"></td>
+							  <td class="shstonthat13"></td>
+							  <td class="scto13"></td>
+							  <td class="sttdz13"></td> 
+							  <td class="scos13"></td> 
+						  </tr>	
+						  <tr class="spaceUnder" style="border:1px;" >
+							  
+							  <td style="border-left:1px solid #069; font-weight:bold;" class="chieunhan"  >Q4</td> 					  
+							  <td class="sdauky14"></td>  
+							  <td class="scuoiky14" ></td>
+							  <td class="shieuso14"></td>
+							  <td class="shsnhan14"></td>
+							  <td class="shstonthat14"></td>
+							  <td class="scto14"></td>
+							  <td class="sttdz14"></td> 
+							  <td class="scos14"></td> 
+						  </tr>	
+						  
+						</tbody>
+					</table>
+							
+						</div>
+
+						<div class="widget-foot">
+						  <div class="clearfix"></div> 
+
+						</div>
+
+					  </div>
+
+					</div>
+				</div>
+			</div>	
+			
+			<div class="row">
+					<div class="col-md-12">
+					<div class="widget">
+
+					<div class="widget-head">
+					  <div class="pull-left graphmenu"  style="width:100%; text-align:center" >
+						Báo cáo doanh thu điện năng tháng: <span class="month_meter label label-danger" style="color:red"></span> 
+			
+					  </div>
+					  <div class="widget-icons pull-right" style="position: absolute; right: 20px;">
+						<a href="#" class="wminimize"><i class="fa fa-chevron-up"></i></a> 
+						<a href="#" class="wclose"><i class="fa fa-times"></i></a>
+					  </div>  
+					  <div class="clearfix"></div>
+					</div>
+
+					  <div class="widget-content">
+
+						<div class="table-responsive">
+							<table class="table table-striped table-bordered table-hover">
+								<thead style="border-top:1px solid #0070A8;">
+								  <tr>
+									<th >Chiều công suất</th>
+									<th >A tính theo TTĐZ (quy về điểm ranh giới đo đếm)</th>
+									<th >Sản lượng điện năng gây tổn thất</th>
+									<th >A quy đổi khi bên bán điện nhận Q của bên mua điện</th>
+									<th >A thanh toán thực tế</th>	
+									<th >Đơn giá tiền điện </br> (VNĐ)</th>	
+									<th >Số tiền điện thanh toán trước VAT </br> (VNĐ)</th>	
+									<th >VAT </br> (VNĐ)</th>	
+									<th >Số tiền điện thanh toán thực tế </br> (VNĐ)</th>
+								  </tr>
+								</thead>
+								<tfoot style="color:#00496B;">
+								  <tr>
+									<td colspan="10" >							
+									<a>	A tính theo tổn thất đường dây: Là sản lượng theo chiều NM giao ghi được trên Biên bản xác nhận chỉ số công tơ sau khi đã trừ đi tổn thất đường dây. </a>
+									</td>
+								  </tr>
+								  <tr>
+									<td colspan="10">						
+										A quy đổi: Là sản lượng được tính theo HĐMBĐ: Aquy đổi = Q nhận*65/giá giờ thấp điểm.
+									</td>
+								  </tr>
+								  <tr>
+									<td colspan="10">						
+										A thanh toán thực tế: A biểu 1 và A biểu 2 giữ nguyên, trừ A quy đổi vào A biểu 3.
+									</td>
+								  </tr>					  
+								</tfoot> 
+								<tbody>
+								  <tr>
+									<td style="font-weight:bold;">1. NM Giao P</td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>					
+								  </tr>
+								  <tr>
+									<td style="font-weight:bold;" >Tổng P</td>
+									<td style="font-weight:bold;" class="doanhthu_tongP"></td>
+									<td></td>
+									<td></td>
+									<td style="font-weight:bold;" class="doanhthu_tongPfinal"></td>
+									<td></td>
+									<td style="font-weight:bold;"></td>
+									<td style="font-weight:bold;"></td>
+									<td style="font-weight:bold;" class="doanhthu_final"></td>					
+								  </tr>
+								  <tr>
+									<td >Biểu 1</td>
+									<td class="doanhthu_b1"></td>
+									<td></td>
+									<td></td>
+									<td class="doanhthu_b1final"></td>
+									<td>634</td>
+									<td class="doanhthu_b1tien"></td>
+									<td class="doanhthu_b1vat"></td>
+									<td class="doanhthu_b1sum"></td>					
+								  </tr>
+								  <tr>
+									<td >Biểu 2</td>
+									<td class="doanhthu_b2"></td>
+									<td></td>
+									<td></td>
+									<td class="doanhthu_b2final"></td>
+									<td>2796</td>
+									<td class="doanhthu_b2tien"></td>
+									<td class="doanhthu_b2vat"></td>
+									<td class="doanhthu_b2sum"></td>					
+								  </tr>
+								  <tr>
+									<td>Biểu 3</td>
+									<td class="doanhthu_b3"></td>
+									<td class="doanhthu_Aquydoi"> </td>
+									<td > 0</td>
+									<td class="doanhthu_b3final"></td>
+									<td>631</td>
+									<td class="doanhthu_b3tien"></td>
+									<td class="doanhthu_b3vat"></td>
+									<td class="doanhthu_b3sum"></td>					
+								  </tr>
+								  <tr>
+									<td style="font-weight:bold;">2. NM Nhận Q</td>
+									<td style="font-weight:bold;" class="doanhthu_Q4nhan"></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>					
+								  </tr >
+								  <tr  style="border-bottom:1px solid #0070A8;"> 
+									<td >Nhận Q tháng <span class="month_meter" ></span></td>
+									<td ></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>					
+								  </tr>
+								
+								</tbody>
+							</table>
+					
+							
+						</div>
+
+						<div class="widget-foot">
+						  <div class="clearfix"></div> 
+
+						</div>
+
+					  </div>
+
+					</div>
+				</div>
+			</div>	
+		</div>		
+		
+		
+	</div>	
+		
+		
+		
+		
+		
+	</div>
+	    <!-- Matter -->
+<script src="js/custom.js"></script> 
+	
+<script>
+
+    api_link='http://mdms.npc.com.vn/mdms2015/apis'     
+
+	dataconfirm ='';	//chotchisothang -> data từ Lưu giá trị -> confirm
+	datakd = '';		//chotchisothang -> data Lưu giá trị -> kiểm định
+	page1_meter(crsubid); 
+
+	
+	var chisodauky='';
+
+	$('.xnbtninputh1').click(function(){
+	
+	 	var dauky = [], cuoiky = [];
+	 	
+	 	/*
+	 	*	reset editing status + btn status
+	 	*/
+	 	editing_input=0;				
+	 	$('.btninputh1').removeClass('btn-disabled').addClass('btn-primary');
+
+
+	 	/*
+	 	*	Editing & building value
+	 	*/
+		for (i=1;i<16;i++){
+			var daukyvalue = $('.inputdauky'+i).val();
+			var cuoikyvalue = $('.inputcuoiky'+i).val();
+			dauky.push(daukyvalue);
+			cuoiky.push(cuoikyvalue);
+
+			if (daukyvalue==''){daukyvalue='- -';}
+			if (cuoikyvalue==''){cuoikyvalue='- -';}
+		}
+
+		dataconfirm.dauky = {};
+		dataconfirm.cuoiky = {};
+
+		dataconfirm.dauky.import_kw = dauky[0];
+		dataconfirm.dauky.rate1 = dauky[1];
+		dataconfirm.dauky.rate2 = dauky[2];
+		dataconfirm.dauky.rate3 = dauky[3];
+		dataconfirm.dauky.cd1 = dauky[4];
+		dataconfirm.dauky.q1 = dauky[5];
+		dataconfirm.dauky.q2 = dauky[6];
+		dataconfirm.dauky.export_kw = dauky[7];
+		dataconfirm.dauky.rate4 = dauky[8];
+		dataconfirm.dauky.rate5 = dauky[9];
+		dataconfirm.dauky.rate6 = dauky[10];
+		dataconfirm.dauky.cd2 = dauky[11];
+		dataconfirm.dauky.q3 = dauky[12];
+		dataconfirm.dauky.q4 = dauky[13];
+		dataconfirm.dauky.full_time = dauky[14];
+
+		dataconfirm.cuoiky.import_kw = cuoiky[0];
+		dataconfirm.cuoiky.rate1 = cuoiky[1];
+		dataconfirm.cuoiky.rate2 = cuoiky[2];
+		dataconfirm.cuoiky.rate3 = cuoiky[3];
+		dataconfirm.cuoiky.cd1 = cuoiky[4];
+		dataconfirm.cuoiky.q1 = cuoiky[5];
+		dataconfirm.cuoiky.q2 = cuoiky[6];
+		dataconfirm.cuoiky.export_kw = cuoiky[7];
+		dataconfirm.cuoiky.rate4 = cuoiky[8];
+		dataconfirm.cuoiky.rate5 = cuoiky[9];
+		dataconfirm.cuoiky.rate6 = cuoiky[10];
+		dataconfirm.cuoiky.cd2 = cuoiky[11];
+		dataconfirm.cuoiky.q3 = cuoiky[12];
+		dataconfirm.cuoiky.q4 = cuoiky[13];
+		dataconfirm.cuoiky.full_time = cuoiky[14];
+
+		apply_thongso(dataconfirm);
+
+	});
+
+	/*
+	*	Check nút nào đc phép hiện lên?
+	*	Nút kiểm đinh & kiểm định btn group - nhapchisogroup -> nhà máy + có quyền xác nhận mới hiện
+	*	Nút nhập số liệu công tơ offline -> nhà máy + có quyền xác nhận mới hiện
+	*	Mặc định display none -> đc quyền thì hiện lên
+	*	Khi đã nhập số liệu kiểm định -> xác nhận -> ko cho hiện nút kiểm định & nút nhập kiểm định nữa
+
+	*/
+
+
+
+	function hide_edit_btn(datatype, dataconfirmed){
+		/*
+		*	Usage: 
+		*	ẩn nút edit khi không phải là nhà máy hoặc khi đã xác nhận (subconfirm==1)
+		*	đã xác nhận ==> ẩn nhập số liệu & kiểm tra cả đk trên server đề phòng bị rewrite
+		*	checked <> confirmed == 1 đã confirm
+		*	Đã xác nhận -> hide all edit, input, kiemdinh btn -> class after_confirmed
+		*	Trường hợp type = 0 -> bấm vào nút kiểm định thì cũng phải hiện lên nhút nhập...
+		*/
+
+		
+		//dataconfirmed = parseInt(dataconfirmed);
+
+		// alert( 'hide_edit_btn '+datatype+' -- '+dataconfirmed);
+
+		// alert('usertype '+usertype+' writable '+globalobject.writable+' editable '+globalobject.editable);
+		
+		if (parseInt(dataconfirmed)!=1){												//	1.	Chưa confirm
+
+			if (usertype==3&&globalobject.writable==1&&globalobject.editable==1){		//	2.	Có quyền
+				if (datatype==0){														//	3. 	Nếu ko phải là dữ liệu kiểm định thì mới hiện nút kiểm định
+
+					$('.kiemdinh_btn').show();	
+					$('.chisokiemdinh').css('display','none');			
+				} else {																//	4.	Nếu là dữ liệu kiểm định và chưa confirm -> hiện nút edit & kết thúc nhập dữ liệu kiểm định
+					$('.chisokiemdinh').show();
+				}
+				
+				if (check_meter_status!=0) {											//	5.	Nếu chưa confirm + có quyền + công tơ offline -> cho nhập chỉ số chốt tháng
+					$('.nhapchisogroup').show();
+				}
+				
+			}
+
+		} else {
+			$('.kiemdinh_btn').css('display','none');
+			$('.nhapchisogroup').css('display','none');
+			$('.chisokiemdinh').css('display','none');
+		}
+
+		if ($('.kiemdinh_btn').hasClass('clicked')){
+			//	Trường hợp bình thường -> bấm vao nút kiểm định -> hiện nhập số...
+			$('.chisokiemdinh').show();
+		}
+	}
+
+
+	$('.btninputh1').click(function(){
+		/*
+		* 	edit chot chi so thang
+		*	3 - nhà máy
+		*	status == 1 cto ko online
+		*/
+		if (editing_input==0){
+			/*
+			*	Nếu đang edit rồi thì ko cho bấm nút edit nữa + btn status
+			*/
+			editing_input=1;
+			$('.btninputh1').removeClass('btn-primary').addClass('btn-disabled');
+
+			if (usertype==3&&check_meter_status==1){
+				var dauky1 = $('.dauky1').html();
+				for (i=1;i<16;i++){
+
+					var daukyvalue = $('.dauky'+i).text();
+					var cuoikyvalue = $('.cuoiky'+i).text();
+					if (daukyvalue=='- -'){daukyvalue='';}
+					if (cuoikyvalue=='- -'){cuoikyvalue='';}
+					$('.dauky'+i).html('<input class="inputdauky'+i+'" placeholder="875,18"  value="'+daukyvalue+'"/>');
+					$('.cuoiky'+i).html('<input class="inputcuoiky'+i+'" placeholder="1875,38" value="'+cuoikyvalue+'"/>');
+					//$("input").prop('disabled', true);
+					if (parseInt(dauky1)>0) { 
+						var tmp = '.inputdauky'+i;
+						$(tmp).prop('disabled', true).css('background-color','#d1d1d1');
+					} else {
+
+					}
+
+				}
+				$('.inputdauky15').attr("placeholder","3/1/2015 00:00:00");
+				$('.inputcuoiky15').attr("placeholder","4/1/2015 00:00:00");
+			}
+		}
+		
+		
+	});
+	
+	function replace_chiso(csdauky, cscuoiky){
+		count=1;
+		$.each(csdauky,function(index,val){
+			var el = '.dauky'+count; count++;
+			$(el).html(val);
+		});
+		count=1;
+		$.each(cscuoiky,function(index,val){
+			var el = '.cuoiky'+count; count++;
+			$(el).html(val);
+		});
+		thisclose();
+	}
+
+	function thisclose(){
+		if ($('.inputh1').length) {
+	    	$(".inputh1").remove(); return false;
+	  	}
+	}	
+
+	function showform_input(){
+
+		if (!$('.inputh1').length) {
+
+			var $divbg = $('<div id="inputh1" class="inputh1" style="height: 100%;background-color: rgba(0,0,0,0.5);position: fixed;top: 0px;left: 0px;right: 0px;z-index: 10000;"></div>').appendTo('body');
+
+			var $divcontent = $('<div id="inputh1content" style="position: absolute;left: 50%;top: 50%;transform: translate(-50%, -50%);background-color: rgb(255,255,255);height: 780px;width: 760px;z-index: 10001;border-radius: 10px;padding: 10px;">></div>').appendTo($('#inputh1'));
+			$('#inputh1content').load(htmlpath+'/inputh1form.html');
+	    
+	    }
+	}
+
+	/*
+	* edit chot chi so thang
+	*/
+
+
+    $('.csctbtn').click(function(){
+		chart(crmeter);
+	});
+	
+    $('.chonthang').change(function(){
+    	chart(crmeter);
+    });
+
+	$('.pc_check').click(function(){
+
+		
+
+		if (usertype==2){							//xem tài khoản có phải là điện lực ko? -> ko thì reject luôn
+			if (writable){							//xem tài khoản có quyền xác nhận ko? -> ko thì reject luôn
+					
+					checksecurity(pcsubmitdata);
+
+			} else {
+				showalert('Thông báo', 'Bạn không có quyền xác nhận dữ liệu!');
+			}
+		} else {
+			showalert('Thông báo', 'Bạn không có quyền xác nhận dữ liệu phía điện lực!');
+		}
+	
+	});
+	
+	/*
+	*	Đánh dấu việc lấy submit dữ liệu có phải từ nhập TKD hoặc SKD ko?
+	*	Sau mỗi lần submit thì reset lại = 0
+	*	Reset mỗi lần reset/subsubmitdata/kết thúc nhập K Đ
+	*/
+
+	var data_from_CSKD = 0;
+
+	$('.sub_check').click(function(){
+	
+		/*
+		*	token
+		*	Lấy số liệu từ client đẩy lên (online hoặc input sau khi xác nhận) => đẩy lên
+		*/
+
+		if (usertype==3){
+			if (writable){							//xem tài khoản có quyền xác nhận ko? -> ko thì reject luôn
+				if (check_valid_data_submit(dataconfirm.dauky)&&check_valid_data_submit(dataconfirm.cuoiky)){
+
+					checksecurity(subsubmitdata);
+
+				} else {
+					showalert('Thông báo', 'Bạn kiểm tra lại dữ liệu trước khi xác nhận!')
+				}
+			} else {
+				showalert('Thông báo', 'Bạn không có quyền xác nhận dữ liệu!');
+			}	
+		} else {
+			showalert('Thông báo', 'Bạn không có quyền xác nhận dữ liệu!');
+		}
+		
+	});
+	
+	function pcsubmitdata(){
+		$.ajax({
+			url:api_link+'/ccst_cf_pc.php',
+			type:"POST",
+			data:{serial: crmeter, month: month, userid: userid, fullname: full_name,token: token},
+			success:function(data){
+			//data=JSON.parse(data);
+				if (data == 0) {
+					showalert('Thông báo', 'Thất bại - Ghi dữ liệu không thành công!');
+				} else if (data == 409) {
+					showalert('Thông báo', 'Thất bại - Dữ liệu đã được xác nhận!');
+				} else if (data == 406) {
+					showalert('Thông báo', 'Thất bại - Nhà máy điện chưa xác nhận số liệu!');
+				} else if (data == 200) {
+					showalert('Thông báo', 'Thành công - Số liệu đã được xác nhận và lưu vào cơ sở dữ liệu!');
+					$('.pc_check').removeClass('btn-warning').addClass('btn-success');
+				} else {
+					showalert('Thông báo', 'Thất bại - Bạn hãy thử lại lần sau!');
+				}
+			}, error: function(e){
+				showalert('Thông báo', 'Thất bại - Kiểm tra lại đường truyền internet!');
+				console.log('e '+e);
+			}
+		});
+	}
+
+	function subsubmitdata(){
+		var dauky = JSON.stringify(dataconfirm.dauky);
+		var cuoiky = JSON.stringify(dataconfirm.cuoiky);
+
+		$.ajax({
+				url:api_link+'/ccst_cf.php',
+				type:"POST",
+				data:{serial: crmeter, month: month, userid: userid, fullname: full_name, dauky: dauky, cuoiky: cuoiky, token: token, kdstatus: data_from_CSKD},
+				success:function(data){
+					//alert(data);
+					if (data == 0) {
+						showalert('Thông báo', 'Thất bại - Ghi dữ liệu không thành công!');
+					} else if (data == 409) {
+						showalert('Thông báo', 'Thất bại - Dữ liệu đã được xác nhận!');
+					} else if (data == 200) {
+						showalert('Thông báo', 'Thành công - Số liệu đã được xác nhận và lưu vào cơ sở dữ liệu!');
+						$('.sub_check').removeClass('btn-warning').addClass('btn-success');
+
+						data_from_CSKD = 0;
+
+					} else {
+						showalert('Thông báo', 'Thất bại - Bạn hãy thử lại lần sau!');
+					}
+				}, error: function(e){
+					showalert('Thông báo', 'Thất bại - Kiểm tra lại đường truyền internet!');
+					console.log('e '+e);
+				}
+		}); 
+	}
+
+	function check_valid_data_submit(inputdata){
+
+		//console.log('inputdata ',inputdata);
+		var returnvalue = 1;
+		if (Object.keys(inputdata).length == 0) { returnvalue = 0; } 
+		else {
+			$.each(inputdata, function(key,val) {
+
+				if (val==''||val==null){ returnvalue = 0; }
+
+			});
+		}
+		return returnvalue;
+	}
+
+	function set_xacnhan_btn_status(data){
+
+		console.log('set_xacnhan_btn_status ',data);
+		$('.pc_check , .sub_check').removeClass('btn-success').removeClass('btn-warning');
+		
+		//Nếu đúng điện lực mới enable nút
+		if (usertype==2){
+			if (writable){ 
+				if (is_pc_confirm(data)){
+					$('.pc_check').html('Điện lực đã xác nhận').addClass('btn-success');
+				} else {
+					$('.pc_check').html('Điện lực xác nhận').addClass('btn-warning');
+				}
+
+				if (is_sub_confirm(data)){
+					$('.sub_check').html('Nhà máy đã xác nhận').addClass('btn-success');
+				} else {
+					$('.sub_check').html('Nhà máy chưa xác nhận').addClass('btn-disabled');
+				}
+			}
+		}
+
+			
+
+		//Nếu đúng nhà máy mới enable nút
+		if (usertype==3){
+			if (writable){
+
+				if (is_pc_confirm(data)){
+					$('.pc_check').html('Điện lực đã xác nhận').addClass('btn-success');
+				} else {
+					$('.pc_check').html('Điện lực chưa xác nhận').addClass('btn-disabled');
+				}
+
+				if (is_sub_confirm(data)){
+					$('.sub_check').html('Nhà máy đã xác nhận').addClass('btn-success');
+				} else {
+					$('.sub_check').html('Nhà máy xác nhận').addClass('btn-warning');
+				}
+			}
+		}
+
+	}
+
+	function apply_thongso(data){
+		
+		console.log(data);
+		
+		hide_edit_btn(data.type, data.confirminfo.sub_confirm);
+
+		var bieu1,bieu1dz,bieu2,bieu3,bieu4,bieu4dz,Q4nhan;
+		var i =1; j=1;
+		count_point_meter = data.meter.count_point_meter;
+		
+		set_xacnhan_btn_status(data);
+
+		//$('.pc_status_checked').html(data.confirminfo.pc_confirm); 		
+		$('.pc_user_checked').html(data.confirminfo.fullname_pc_confirm);
+		$('.pc_date_checked').html(data.confirminfo.date_pc_confirm); 
+
+		//$('.sub_status_checked').html(data.confirminfo.sub_confirm); 		
+		$('.sub_user_checked').html(data.confirminfo.fullname_sub_confirm); 		
+		$('.sub_date_checked').html(data.confirminfo.date_confirm); 	
+		
+		
+		for (var key in data.dauky){
+			var t1 = '.dauky'+i;
+			$(t1).html(data.dauky[key]);
+			i++;
+		}
+		
+		for (var key in data.cuoiky){
+			var t2 = '.cuoiky'+j;
+			$(t2).html(data.cuoiky[key]);
+			j++;
+		}
+		
+		$('.month_meter').html($('.chonthang').val() +'-'+ $('.chonnam').val()); 
+		if (crmonth!='') {
+			var m=crmonth.split('-');
+			var y=m[0]; m=m[1];
+			$('.month_meter').html(m +' - '+y);
+			$('.chonthang').val(m);
+			$('.chonnam').val(y);
+		}	
+		$('.level_meter').html(data.meter.level_meter_string_plus +' Lộ - '+ data.meter.relation_meter );
+		$('.serial_meter').html(crmeter); 
+		
+		$('.chieugiao').each(function(indexx,val){
+			var index= indexx+1;
+			var cuoiky = '.cuoiky'+index, dauky = '.dauky'+index;
+			var hieuso = convert_float($(cuoiky).text())-convert_float($(dauky).text());
+			hieuso = hieuso.toFixed(count_point_meter);
+			$('.hieuso'+index).html(set_comma(hieuso));
+
+			$('.hsnhan'+index).html(data.meter.factor_meter);
+			$('.hstonthat'+index).html(data.meter.lineloss_meter);
+
+			var slcto = hieuso*data.meter.factor_meter;
+			slcto = slcto.toFixed(0);
+			if (index!=2){$('.cto'+index).html(set_comma(slcto));}	
+			if (index==3){bieu2=slcto;}			
+			if (index==4){bieu3=slcto;}	
+			
+			var slttdz = slcto*(1-data.meter.lineloss_meter);
+			slttdz = slttdz.toFixed(0);
+			if (index!=2){$('.ttdz'+index).html(set_comma(slttdz));}	
+			
+		});
+			tongP = convert_float($('.cto1').text());
+			tongP = tongP.toFixed(count_point_meter);	
+			
+			bieu1 = convert_float($('.cto1').text())-(convert_float($('.cto3').text())+convert_float($('.cto4').text()));	
+			bieu1 = bieu1.toFixed(0);		
+			$('.cto2').html(set_comma(bieu1));
+			
+			bieu1dz = convert_float($('.ttdz1').text())-(convert_float($('.ttdz3').text())+convert_float($('.ttdz4').text()));	
+			bieu1dz = bieu1dz.toFixed(0);		
+			$('.ttdz2').html(set_comma(bieu1dz));		
+
+		
+		$('.chieunhan').each(function(indexx,val){
+			var index= indexx+8;
+			var cuoiky = '.cuoiky'+index, dauky = '.dauky'+index;
+			var hieuso = convert_float($(cuoiky).text())-convert_float($(dauky).text());
+			hieuso = hieuso.toFixed(count_point_meter);
+			$('.hieuso'+index).html(set_comma(hieuso));
+
+			$('.hsnhan'+index).html(data.meter.factor_meter);
+			$('.hstonthat'+index).html(data.meter.lineloss_meter);
+
+			var slcto = hieuso*data.meter.factor_meter;
+			slcto = slcto.toFixed(0);
+			if (index!=9){$('.cto'+index).html(set_comma(slcto));}				
+			if (index==14){Q4nhan=slcto;}	
+			
+			var slttdz = slcto*(1-data.meter.lineloss_meter);
+			slttdz = slttdz.toFixed(0);
+			if (index!=9){$('.ttdz'+index).html(set_comma(slttdz));}				
+
+		});
+			bieu4 = convert_float($('.cto8').text())-(convert_float($('.cto10').text())+convert_float($('.cto11').text()));	
+			bieu4 = bieu4.toFixed(0);		
+			$('.cto9').html(set_comma(bieu4));
+			
+			bieu4dz = convert_float($('.ttdz8').text())-(convert_float($('.ttdz10').text())+convert_float($('.ttdz11').text()));	
+			bieu4dz = bieu4dz.toFixed(0);		
+			$('.ttdz9').html(set_comma(bieu4dz));	
+			
+			cosphi=convert_float($('.cto1').text())/Math.sqrt(convert_float($('.cto1').text())*convert_float($('.cto1').text()) + convert_float($('.cto6').text())*convert_float($('.cto6').text()));
+			cosphi = cosphi.toFixed(2);
+			//Aquydoi= Q4nhan*65/631;
+			
+			$('.cos1').html(set_comma(cosphi)); 
+			$('.doanhthu_tongP').html(set_comma(tongP)); 				
+			$('.doanhthu_b1').html(set_comma(bieu1)); 	
+			$('.doanhthu_b2').html(set_comma(bieu2)); 	
+			$('.doanhthu_b3').html(set_comma(bieu3)); 
+			$('.doanhthu_Q4nhan').html(set_comma(Q4nhan));	
+			
+			$('.doanhthu_tongPfinal').html(set_comma(tongP)); 	
+			$('.doanhthu_b1final').html(set_comma(bieu1)); 	
+			$('.doanhthu_b2final').html(set_comma(bieu2)); 	
+			$('.doanhthu_b3final').html(set_comma(bieu3)); 
+			
+			b1tien= bieu1*634; b1tien=b1tien.toFixed(0);
+			b2tien=bieu2*2796; b2tien=b2tien.toFixed(0);
+			b3tien=bieu3*631; b3tien=b3tien.toFixed(0);
+			$('.doanhthu_b1tien').html(set_comma(b1tien)); 	
+			$('.doanhthu_b2tien').html(set_comma(b2tien)); 	
+			$('.doanhthu_b3tien').html(set_comma(b3tien)); 
+			
+			b1vat= bieu1*634*10/100; b1vat=b1vat.toFixed(0);
+			b2vat=bieu2*2796*10/100; b2vat=b2vat.toFixed(0);
+			b3vat=bieu3*631*10/100; b3vat=b3vat.toFixed(0);			
+
+			$('.doanhthu_b1vat').html(set_comma(b1vat)); 	
+			$('.doanhthu_b2vat').html(set_comma(b2vat)); 	
+			$('.doanhthu_b3vat').html(set_comma(b3vat)); 
+			
+			b1sum= bieu1*634*10/100+bieu1*634; b1sum=b1sum.toFixed(0);
+			b2sum=bieu2*2796*10/100+bieu2*2796; b2sum=b2sum.toFixed(0);
+			b3sum=bieu3*631*10/100+bieu3*631; b3sum=b3sum.toFixed(0);			
+
+			doanhthu= (bieu1*634*10/100+bieu1*634) + (bieu2*2796*10/100+bieu2*2796) + (bieu3*631*10/100+bieu3*631); 
+			doanhthu=doanhthu.toFixed(0);
+			
+			$('.doanhthu_b1sum').html(set_comma(b1sum)); 	
+			$('.doanhthu_b2sum').html(set_comma(b2sum)); 	
+			$('.doanhthu_b3sum').html(set_comma(b3sum)); 
+
+			$('.doanhthu_final').html(set_comma(doanhthu)); 			
+		
+			//$('.doanhthu_Aquydoi').html(set_comma(Aquydoi)); 				
+	}
+	
+	function clear_ccsttbl(){
+
+		/*
+		*	Clear all html value in csct.html/tables
+		*/
+
+		for (i=0; i<20; i++){
+			$('.dauky'+i).html('- -');
+			$('.cuoiky'+i).html('- -');
+			$('.hieuso'+i).html('- -');
+			$('.hsnhan'+i).html('- - ');
+			$('.hstonthat'+i).html('- -');
+			$('.cto'+i).html('- -');
+			$('.ttdz'+i).html('- -');
+			$('.cos'+i).html('- -');
+		}
+
+	}
+
+
+	function chart(serial){
+		
+		clear_ccsttbl();
+		month = $('.chonnam').val()+'-'+$('.chonthang').val();
+		
+		if (crmonth!='') {month=crmonth;}	
+		
+		set_loading_pos(0);
+		$.ajax({
+				url:api_link+'/chotchisothang.php',
+				type:"POST",
+				data:{serial: serial, month: month, token:token, userid:userid},
+				success:function(data){	
+
+					var n = data.indexOf("dauky");	
+					if (n<0){ showalert('Thông báo!', 'Không có dữ liệu!'); }	
+					var m = data.indexOf("cuoiky");	
+					if (m<0&&n>0){ showalert('Thông báo!', 'Không có dữ liệu cuối kỳ!'); } 
+
+					data=JSON.parse(data);
+					dataconfirm = data;
+					datakd = data;
+					
+					/*
+					*	Kiểm tra nếu confirm ko phải loại bt (loại kiểm định) thì hiện bảng tab lên (đồng thời gọi sau kiểm định?)
+					*/
+					if (datakd.type!=0) { $('#myTab').show(); } else { $('#myTab').css('display', 'none'); }
+					
+					apply_thongso(data);
+					set_loading_pos(1);
+					crmonth='';	
+					sendcrpos();
+				}, error: function(e){
+					console.log('e '+e);
+					crmonth='';	
+					sendcrpos();
+				}				
+		}); 
+	
+	}
+	
+	
+
+	function checksecurity(callbackfnc){
+
+	    var inputcontent =  '<div style="text-align: center;font-size: 16px;font-weight: 500;margin-top: 15px;">Thông báo</div>'+
+	                        '<div style="text-align: center; font-size: 15px;margin-top: 8px;">Bạn hãy nhập mật khẩu xác nhận</div>'+
+	                        '<div style="margin:18px 10px; "><input type="password" id="inputpassword" placeholder="Mật khẩu" style="width: 100%;"></div>'+
+	                        '<div class="btnxacnhaninput btn btn-success" style="margin-left:10px;">Xác nhận</div><div class="btn btn-warning btnhuybo" style="margin-left:20px;">Hủy bỏ</div>';
+
+	    if (!$('.inputdialog').length) {
+
+	      var $divbg = $('<div id="inputdialog" class="inputdialog" style="height: 100%;background-color: rgba(0,0,0,0.5);position: fixed;top: 0px;left: 0px;right: 0px;z-index: 10002;"></div>').appendTo('body');
+
+	      var $divcontent = $('<div id="inputdialogcontent" style="position: absolute;left: 50%;top: 50%;transform: translate(-50%, -50%);background-color: rgb(255,255,255);height: 200px;width: 360px;z-index: 10001;border-radius: 5px;padding: 10px;"></div>').appendTo($('#inputdialog'));
+	      $('#inputdialogcontent').html(inputcontent);
+	      
+	      }
+
+	      $('.btnhuybo').click(function(){
+	          $('#inputdialog').remove();
+	          return false;
+	      });
+
+	      $('.btnxacnhaninput').click(function(){
+
+	          var pass= $('#inputpassword').val();
+	          $.post('http://mdms.npc.com.vn/mdms2015/apis/xacnhanpass.php',{userid:userid,password:pass}, function(data){
+	              //alert(data);
+	              if (data == 500){
+	                showalert('Thông báo', 'Lỗi kết nối server, bạn hãy thử lại lần sau!', 11000);
+	                return false;
+	              } else if (data == 404){
+	                showalert('Thông báo', 'Sai mật khẩu, bạn hãy thử lại lần sau!', 11000);
+	                return false;
+	              } else if (data == 200) {
+	                console.log('thanh cong');
+	                $('#inputdialog').remove();
+	                if(callbackfnc) {callbackfnc();}
+	                //replace_chiso(csdauky, cscuoiky);
+	                return true;
+
+	              }else if (data == 404){
+	                showalert('Thông báo', 'Xác nhận mật khẩu thất bại!', 11000);
+	                return false;
+	              }
+	          });
+	          return false;
+	      });
+
+	}
+
+	function process1(number){
+        var nfloat=number+'';
+        var position=0, position1=0;
+
+        nfloat=nfloat.split(".");
+        var v1=nfloat[0],v2=nfloat[1];
+        pos = v1.length;
+        position=pos-3;
+        v1 = v1.substr(0, position) + '.' + v1.substr(position);
+        return v1;
+    }
+	function set_comma(number){
+		//var number = parseFloat(numbers);
+		//number = 100.00*number/100;
+		console.log(number);
+		if (number==NaN||number==undefined||number=='NaN'||number=='--'){
+			return ' - - ';
+		} else {
+			var nfloat=number+'';
+			var n = nfloat.indexOf('.');
+			var v1='',v2='';
+			if (n<0){
+				var position=0;
+				//nfloat=nfloat.split(".");
+				v1=nfloat,v2='';
+				pos = v1.length;
+				if ((pos<=6)&&(pos>3)){ 
+					position=pos-3;
+					v1 = process1(v1);
+				}
+				if ((pos<=9)&&(pos>6)){
+					position=pos-6;
+					var v11 = v1.substr(0, position) + '.';
+					var v12 = process1(v1.substr(position));
+					v1=v11+v12;
+				}
+				if ((pos<=12)&&(pos>9)){
+					position=pos-9;
+					var v11 = v1.substr(0, position) + '.';
+					var remain1 =  v1.substr(position, pos);
+					var v111 = remain1.substr(0, 3) + '.';	
+					var remain2 =  v1.substr(position+3, pos);
+					var v12 = process1(remain2);
+					v1=v11+v111+v12;
+				}
+				if (v1==NaN||v1==undefined) {return ' - - '}
+					else { return v1; }
+			
+			} else {
+				var position=0;
+				nfloat=nfloat.split(".");
+				v1=nfloat[0],v2=nfloat[1];
+				pos = v1.length;
+				if ((pos<=6)&&(pos>3)){ 
+					position=pos-3;
+					v1 = process1(v1);
+				}
+				if ((pos<=9)&&(pos>6)){
+					position=pos-6;
+					var v11 = v1.substr(0, position) + '.' 
+					var v12 = process1(v1.substr(position));
+					v1=v11+v12;
+				}
+				if ((pos<=12)&&(pos>9)){
+					position=pos-9;
+					var v11 = v1.substr(0, position) + '.';
+					var remain1 =  v1.substr(position, pos);
+					var v111 = remain1.substr(0, 3) + '.';	
+					var remain2 =  v1.substr(position+3, pos);
+					var v12 = process1(remain2);
+					v1=v11+v111+v12;
+				}
+				if (v1==NaN||v1==undefined||v2==NaN||v2==undefined) {return '- - '}
+				else { return v1+','+v2; }
+			}
+		}
+    }
+
+    function convert_float(number){
+
+        var values = number.split('.').join('');
+
+        values = values.replace(',','.'); 
+
+        var v = parseFloat(values);//var value = parseFloat("554,20".replace(",", ".")); 
+
+        return v;
+    }
+
+   $(function(){
+		  $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+		  // Get the name of active tab
+		  var activeTab = $(e.target).text();
+		   
+		  // Get the name of previous tab
+		  var previousTab = $(e.relatedTarget).text(); 
+		  $(".active-tab span").html(activeTab);
+		  $(".previous-tab span").html(previousTab);
+	   });
+	});
+
+	$('.kiemdinh_btn').click(function(){
+		//hide_edit_btn(datakd.type, datakd.confirminfo.sub_confirm);
+	  	$('#myTab').show();
+	  	$('.chisokiemdinh').show();
+
+	});
+
+	$('.kiemdinh_nhap_sl_tkd_btn').click(function(){
+		
+		/*
+		*	Kiểm tra xem có giá trị kiểm định chưa (is_sub_confirm)-> 
+		*	Đã có giá trị confirm rồi thì ko cho nhập nữa ở đây
+		*	Kiểm tra enable nút nhập sau kiểm định ở đây
+		*/
+		if (!is_sub_confirm(datakd)){
+			datakd_type = 1;							//đánh dấu trạng thái là TKD
+			//alert(datakd.sourcedauky);
+			if (datakd.sourcedauky == 'h1online'){
+				showalert('Thông báo!','Chưa có chỉ số đầu kỳ, bạn hãy nhập chỉ số đầu kỳ hoặc xác nhận chỉ số của tháng trước.');
+				return false;
+			}
+
+			nhaptkd();
+		} else {
+			showalert('Thông báo!','Dữ liệu đã được xác nhận, bạn không thể nhập lại dữ liệu khi đã xác nhận');
+		}
+		
+
+	});
+
+	$('.kiemdinh_nhap_sl_skd_btn').click(function(e){
+		/*
+		*	Usage: kiểm tra xem số liệu trước kiểm định đã nhập chưa?
+		*/
+
+		if (!is_sub_confirm(datakd)){
+			showalert('Thông báo', 'Bạn hãy xác nhận chỉ số Trước Kiểm Định trước khi nhập giá trị Sau Kiểm Định');
+			return false;
+		} else {
+
+			nhapskd();
+
+		}
+
+	});
+
+	$('.kiemdinh_ketthuc_nhap_sl_skd_btn').click(function(){
+		kiemdinh_push_edited_data_to_html('skd');
+	});
+
+	$('.kiemdinh_ghi_sl_dauky_sau_kiemdinh_btn').click(function(){
+		if (editing_input==0){
+			set_dauky_saukiemdinh();
+		} else {
+			showalert('Thông báo', 'Bạn hãy kết thúc nhập số liệu trước khi lưu số liệu đầu kỳ sau kiểm định');
+		}
+		
+
+	});
+
+
+	$('.kethucghisdk').click(function(e){
+		/*
+		*	Usage: kiểm tra xem số liệu trước kiểm định đã nhập chưa?
+		*/
+
+		if (!is_sub_confirm(datakd)){
+			showalert('Thông báo', 'Bạn hãy xác nhận chỉ số Trước Kiểm Định trước khi nhập giá trị Sau Kiểm Định');
+			return false;
+		} else {
+			datakd_type = 2;							//đánh dấu trạng thái là SKD
+			
+			//alert(' chưa có hàm cho nhập chỉ số SKD như phần trước SK nhaptkd()');
+			console.log(datakd);
+			nhapskd();
+		}
+
+	});
+
+	
+	$('.ghisdk').click(function(e){
+		/*
+		*	Usage: kiểm tra xem số liệu trước kiểm định đã nhập chưa?
+		*/
+
+		//if (!is_sub_confirm(datakd)){
+		//	showalert('Thông báo', 'Bạn hãy xác nhận chỉ số Trước Kiểm Định trước khi nhập giá trị Sau Kiểm Định');
+		//	return false;
+		//} else {
+			datakd_type = 2;							//đánh dấu trạng thái là SKD
+			skd_clear_ccsttbl();
+			//alert(' Chạy hàm nhập số đầu kỳ TKD');
+			console.log(datakd);
+			ghisdk();
+		//}
+
+	});
+	
+	function kiemdinh_push_edited_data_to_html(tkd){
+		/*
+		*	Kiểm tra lại trường hợp trước kiểm định
+		* 	Nhập số lưu lại -> confirmdata -> xong hủy -> edit -> F5 _ gửi đi 
+		*	(thử các trường hợp xem có bị gửi nhầm dữ liệu đi ko)
+		*/
+		var prefix = '';
+		if (tkd == 'skd'||tkd == 0) { 
+			prefix = 's';
+		}
+		var dauky=[],cuoiky=[];
+		if (editing_input==1){
+
+			editing_input=0;
+
+			if (datakd_type==1) {
+
+
+				for (i=1;i<16;i++){
+					var daukyvalue = $('.'+prefix+'dauky'+i+' .'+prefix+'inputdauky'+i).val();
+					var cuoikyvalue = $('.'+prefix+'cuoiky'+i+' .'+prefix+'inputcuoiky'+i).val();
+					dauky.push(daukyvalue);
+					cuoiky.push(cuoikyvalue);
+
+					if (daukyvalue==''){daukyvalue='- -';}
+					if (cuoikyvalue==''){cuoikyvalue='- -';}
+				}
+
+			}
+
+			if (datakd_type==2) {
+
+
+				for (i=1;i<16;i++){
+					var daukyvalue = $('.'+prefix+'dauky'+i+' .'+prefix+'inputdauky'+i).val();
+					var cuoikyvalue = $('.'+prefix+'cuoiky'+i+' .'+prefix+'inputcuoiky'+i).val();
+					dauky.push(daukyvalue);
+					cuoiky.push(cuoikyvalue);
+
+					if (daukyvalue==''){daukyvalue='- -';}
+					if (cuoikyvalue==''){cuoikyvalue='- -';}
+				}
+
+			}
+
+			dataconfirm.dauky = {};
+			dataconfirm.cuoiky = {};
+
+			dataconfirm.dauky.import_kw = dauky[0];
+			dataconfirm.dauky.rate1 = dauky[1];
+			dataconfirm.dauky.rate2 = dauky[2];
+			dataconfirm.dauky.rate3 = dauky[3];
+			dataconfirm.dauky.cd1 = dauky[4];
+			dataconfirm.dauky.q1 = dauky[5];
+			dataconfirm.dauky.q2 = dauky[6];
+			dataconfirm.dauky.export_kw = dauky[7];
+			dataconfirm.dauky.rate4 = dauky[8];
+			dataconfirm.dauky.rate5 = dauky[9];
+			dataconfirm.dauky.rate6 = dauky[10];
+			dataconfirm.dauky.cd2 = dauky[11];
+			dataconfirm.dauky.q3 = dauky[12];
+			dataconfirm.dauky.q4 = dauky[13];
+			dataconfirm.dauky.full_time = dauky[14];
+
+			dataconfirm.cuoiky.import_kw = cuoiky[0];
+			dataconfirm.cuoiky.rate1 = cuoiky[1];
+			dataconfirm.cuoiky.rate2 = cuoiky[2];
+			dataconfirm.cuoiky.rate3 = cuoiky[3];
+			dataconfirm.cuoiky.cd1 = cuoiky[4];
+			dataconfirm.cuoiky.q1 = cuoiky[5];
+			dataconfirm.cuoiky.q2 = cuoiky[6];
+			dataconfirm.cuoiky.export_kw = cuoiky[7];
+			dataconfirm.cuoiky.rate4 = cuoiky[8];
+			dataconfirm.cuoiky.rate5 = cuoiky[9];
+			dataconfirm.cuoiky.rate6 = cuoiky[10];
+			dataconfirm.cuoiky.cd2 = cuoiky[11];
+			dataconfirm.cuoiky.q3 = cuoiky[12];
+			dataconfirm.cuoiky.q4 = cuoiky[13];
+			dataconfirm.cuoiky.full_time = cuoiky[14];
+
+			apply_nhapcs_KD(dataconfirm);
+
+		}
+	}
+
+
+	function is_sub_confirm(data){
+		//alert('is_sub_confirm '+JSON.stringify(data));
+		var returnvalue = 0;
+		if (data.type==0||data.type==1||data.type==2) {
+			if (data.confirminfo!=undefined){
+				if (data.confirminfo.sub_confirm==1){
+					returnvalue = 1;
+				}
+			}
+		}
+		return returnvalue;
+	}
+
+	function is_pc_confirm(data){
+
+		var returnvalue = 0;
+		if (data.type==0||data.type==1||data.type==2) {
+			if (data.confirminfo!=undefined){
+				if (data.confirminfo.pc_confirm==1){
+					returnvalue = 1;
+				}
+			}
+		}
+		return returnvalue;
+	}
+
+	function enable_SKD_confirm(data){
+		//console.log(data);
+		var returnvalue = 0;
+		if (data.type==1) {
+			if (data.confirminfo!=undefined){
+				if (data.confirminfo.sub_confirm==1){
+					returnvalue = 1;
+				}
+			}
+		}
+		return returnvalue;
+	}
+	
+
+	/*
+	*
+	*	Trước khi lưu số liệu đầu kỳ, cuối kỳ ... và khi kết thúc việc nhập số liệu
+	*	Lưu số liệu đầu kỳ cuối kỳ phải lấy lại giá trị từ html <> đảm bảo việc kiểm tra bằng mắt ko sai sót trước khi lưu
+	*	zxc???
+	*
+	*/
+
+	$('.kiemdinh_ketthuc_nhap_sl_tkd_btn').click(function(){
+
+		/*
+		*	Kiểm tra lại trường hợp trước kiểm định
+		* 	Nhập số lưu lại -> confirmdata -> xong hủy -> edit -> F5 _ gửi đi 
+		*	(thử các trường hợp xem có bị gửi nhầm dữ liệu đi ko)
+		*/
+
+		var dauky=[],cuoiky=[];
+		if (editing_input==1){
+
+			editing_input=0;
+
+			if (datakd_type==1) {
+
+
+				for (i=1;i<16;i++){
+					var daukyvalue = $('.dauky'+i+' .inputdauky'+i).val();
+					var cuoikyvalue = $('.cuoiky'+i+' .inputcuoiky'+i).val();
+					dauky.push(daukyvalue);
+					cuoiky.push(cuoikyvalue);
+
+					if (daukyvalue==''){daukyvalue='- -';}
+					if (cuoikyvalue==''){cuoikyvalue='- -';}
+				}
+
+			}
+
+			if (datakd_type==2) {
+
+
+				for (i=1;i<16;i++){
+					var daukyvalue = $('.sdauky'+i+' .inputdauky'+i).val();
+					var cuoikyvalue = $('.scuoiky'+i+' .inputcuoiky'+i).val();
+					dauky.push(daukyvalue);
+					cuoiky.push(cuoikyvalue);
+
+					if (daukyvalue==''){daukyvalue='- -';}
+					if (cuoikyvalue==''){cuoikyvalue='- -';}
+				}
+
+			}
+
+			// dataconfirm.dauky = {};
+			// dataconfirm.cuoiky = {};
+
+			// dataconfirm.dauky.import_kw = dauky[0];
+			// dataconfirm.dauky.rate1 = dauky[1];
+			// dataconfirm.dauky.rate2 = dauky[2];
+			// dataconfirm.dauky.rate3 = dauky[3];
+			// dataconfirm.dauky.cd1 = dauky[4];
+			// dataconfirm.dauky.q1 = dauky[5];
+			// dataconfirm.dauky.q2 = dauky[6];
+			// dataconfirm.dauky.export_kw = dauky[7];
+			// dataconfirm.dauky.rate4 = dauky[8];
+			// dataconfirm.dauky.rate5 = dauky[9];
+			// dataconfirm.dauky.rate6 = dauky[10];
+			// dataconfirm.dauky.cd2 = dauky[11];
+			// dataconfirm.dauky.q3 = dauky[12];
+			// dataconfirm.dauky.q4 = dauky[13];
+			// dataconfirm.dauky.full_time = dauky[14];
+
+			// dataconfirm.cuoiky.import_kw = cuoiky[0];
+			// dataconfirm.cuoiky.rate1 = cuoiky[1];
+			// dataconfirm.cuoiky.rate2 = cuoiky[2];
+			// dataconfirm.cuoiky.rate3 = cuoiky[3];
+			// dataconfirm.cuoiky.cd1 = cuoiky[4];
+			// dataconfirm.cuoiky.q1 = cuoiky[5];
+			// dataconfirm.cuoiky.q2 = cuoiky[6];
+			// dataconfirm.cuoiky.export_kw = cuoiky[7];
+			// dataconfirm.cuoiky.rate4 = cuoiky[8];
+			// dataconfirm.cuoiky.rate5 = cuoiky[9];
+			// dataconfirm.cuoiky.rate6 = cuoiky[10];
+			// dataconfirm.cuoiky.cd2 = cuoiky[11];
+			// dataconfirm.cuoiky.q3 = cuoiky[12];
+			// dataconfirm.cuoiky.q4 = cuoiky[13];
+			// dataconfirm.cuoiky.full_time = cuoiky[14];
+
+			get_data_confirm_from_html(dauky, cuoiky, apply_nhapcs_KD);
+			//apply_nhapcs_KD(dataconfirm);
+		}
+	})
+	
+
+	function get_data_confirm_from_html(dauky, cuoiky, callbackfnc){
+
+			dataconfirm.dauky = {};
+			dataconfirm.cuoiky = {};
+
+			dataconfirm.dauky.import_kw = dauky[0];
+			dataconfirm.dauky.rate1 = dauky[1];
+			dataconfirm.dauky.rate2 = dauky[2];
+			dataconfirm.dauky.rate3 = dauky[3];
+			dataconfirm.dauky.cd1 = dauky[4];
+			dataconfirm.dauky.q1 = dauky[5];
+			dataconfirm.dauky.q2 = dauky[6];
+			dataconfirm.dauky.export_kw = dauky[7];
+			dataconfirm.dauky.rate4 = dauky[8];
+			dataconfirm.dauky.rate5 = dauky[9];
+			dataconfirm.dauky.rate6 = dauky[10];
+			dataconfirm.dauky.cd2 = dauky[11];
+			dataconfirm.dauky.q3 = dauky[12];
+			dataconfirm.dauky.q4 = dauky[13];
+			dataconfirm.dauky.full_time = dauky[14];
+
+			dataconfirm.cuoiky.import_kw = cuoiky[0];
+			dataconfirm.cuoiky.rate1 = cuoiky[1];
+			dataconfirm.cuoiky.rate2 = cuoiky[2];
+			dataconfirm.cuoiky.rate3 = cuoiky[3];
+			dataconfirm.cuoiky.cd1 = cuoiky[4];
+			dataconfirm.cuoiky.q1 = cuoiky[5];
+			dataconfirm.cuoiky.q2 = cuoiky[6];
+			dataconfirm.cuoiky.export_kw = cuoiky[7];
+			dataconfirm.cuoiky.rate4 = cuoiky[8];
+			dataconfirm.cuoiky.rate5 = cuoiky[9];
+			dataconfirm.cuoiky.rate6 = cuoiky[10];
+			dataconfirm.cuoiky.cd2 = cuoiky[11];
+			dataconfirm.cuoiky.q3 = cuoiky[12];
+			dataconfirm.cuoiky.q4 = cuoiky[13];
+			dataconfirm.cuoiky.full_time = cuoiky[14];
+
+			if (typeof callbackfnc === "function") {
+				callbackfnc(dataconfirm);
+			}
+
+			//apply_nhapcs_KD(dataconfirm);
+	}
+	/*
+	*	Giá trị quy định đang nhập trước kiểm định hoặc sau kiểm định
+	*/
+	datakd_type = 1;									//1 - TKD & 2 - SKD
+	function csct_reset_value(){
+
+		/*
+		*	Usage: Active Area
+		*	$('.chonthang, .chonnam').change(function(){})
+		*	page1_meter(id_sub,frommenuleft);
+		*	$(".page1_meter > li > div").click(function(){})
+		*/
+		//$(".active-tab span").html(globalobject.tabtruockiemdinh);
+		$('.saukiemdinh').removeClass('active').removeClass('in');
+		$('.truockiemdinh').removeClass('active').removeClass('in').addClass('active').addClass('in');
+		$('.kiemdinh_btn').removeClass('clicked');		//reset trạng thái bấm nút kiểm định công tơ`
+		data_from_CSKD = 0;								//Reset trạng thái trước khi xác nhận từ nhà máy
+		datakd_type = 1;								//Trạng thái đang nhập TKD hay SKD
+		editing_input=0;								//Trạng thái có phải đang nhập số liệu không
+		//$('.chisokiemdinh').css('display','none'); 
+	}
+
+	function nhaptkd(){
+		
+		//$('.chisokiemdinh').show();
+	
+		/*
+		* 	edit chot chi so thang
+		*	3 - nhà máy
+		*	status == 1 cto ko online
+		*/
+		
+		if (editing_input==0){
+			//alert('nhaptkd');
+			/*
+			*	Nếu đang edit rồi thì ko cho bấm nút edit nữa + btn status
+			*/
+			editing_input=1;
+			//$('.btninputh1').removeClass('btn-primary').addClass('btn-disabled');
+
+			if (usertype==3){
+				var dauky1 = $('.dauky1').html(); //???????? tìm số luôn tồn tại để kiểm tra xem có số ko -> disabe input
+				for (i=1;i<16;i++){
+
+					var daukyvalue = $('.dauky'+i).text();
+					var cuoikyvalue = $('.cuoiky'+i).text();
+					if (daukyvalue=='- -'){daukyvalue='';}
+					if (cuoikyvalue=='- -'){cuoikyvalue='';}
+					$('.dauky'+i).html('<input class="inputdauky'+i+'" placeholder="875,18"  value="'+daukyvalue+'"/>');
+					$('.cuoiky'+i).html('<input class="inputcuoiky'+i+'" placeholder="1875,38" value="'+cuoikyvalue+'"/>');
+					//$("input").prop('disabled', true);
+					if (parseInt(dauky1)>0) { 
+						var tmp = '.inputdauky'+i;
+						//console.log($(tmp).val());
+						$(tmp).prop('disabled', true).css('background-color','#d1d1d1');
+					} else {
+					}
+
+				}
+				$('.inputdauky15').attr("placeholder","3/1/2015 00:00:00");
+				$('.inputcuoiky15').attr("placeholder","4/1/2015 00:00:00");
+			}
+		}
+
+	}
+
+	function nhapskd(){
+
+		/*
+		*	Cho nhập riêng số đầu kỳ và gửi đi - xác nhận SKD cũng cho riêng hàm và cho update vào 
+		*	(check type ==2 cuoiky!=null => update)
+		*	Lúc lấy số SKD -> lấy đầu kỳ type = 2; cuối kỳ có thì cho hiện lên ko thì lấy online giống chotchisothang
+		*	Nhập S K Đ -> chỉ cho nhập mỗi đầu kỳ
+		*	Giá trị cuối kỳ S K Đ - lúc chưa xác nhận sẽ null (vẫn có dữ liệu SDK nhưng chưa xác nhận)
+		*	Null -> đánh dấu nút nhà máy chưa xác nhận....
+		*	Xác nhận (công tơ offline -> quay lại chỗ nhập số liệu bình thường)
+		*/
+
+		
+
+		//$('.chisokiemdinh').show();
+
+
+		/*
+		* 	edit chot chi so thang
+		*	3 - nhà máy
+		*	status == 1 cto ko online
+		*/
+		
+		if (editing_input==0){
+
+			
+
+			if (usertype==3){
+
+				globalobject.datakd_type = 2;				//dùng biến này thay cho datakd_type (đang thay thế)
+				datakd_type = 2;							//đánh dấu trạng thái là SKD
+			
+
+				/*
+				*	Nếu đang edit rồi thì ko cho bấm nút edit nữa + btn status
+				*/
+
+				editing_input=1;
+				
+				for (i=1;i<16;i++){
+
+					var daukyvalue = $('.sdauky'+i).text();
+					var cuoikyvalue = $('.scuoiky'+i).text();
+					if (daukyvalue=='- -'){daukyvalue='';}
+					if (cuoikyvalue=='- -'){cuoikyvalue='';}
+
+					console.log('daukyvalue '+daukyvalue);
+
+
+					$('.sdauky'+i).html('<input class="sinputdauky'+i+'" placeholder="875,18"  value="'+daukyvalue+'"/>');
+					$('.scuoiky'+i).html('<input class="sinputcuoiky'+i+'" placeholder=" - - " value="'+cuoikyvalue+'"/>');
+					$('.sinputcuoiky'+i).prop('disabled', true).css('background-color','#d1d1d1');
+					
+				}
+				$('.sinputdauky15').attr("placeholder","3/1/2015 00:00:00");
+				//$('.sinputcuoiky15').attr("placeholder","4/1/2015 00:00:00");
+			}
+		}
+
+	}
+
+	function apply_nhapcs_KD(data){
+		/*
+		*	khi apply thông số -> ghi vào html để view trước -> OK thì submit (xác nhận từ nhà máy)
+		*/
+		//đưa type vào để select: datakd_type == 1 dauky và datakd_type == 2 sdauky
+		
+		console.log(data);
+
+		var prefix = '';
+		data_from_CSKD = 1;
+		if (datakd_type == 2){
+			data_from_CSKD = 2;
+			prefix = 's';
+		}
+		__i=1;__j=1;
+
+		for (var key in data.dauky){
+			var t1 = '.'+prefix+'dauky'+__i;
+			$(t1).html(data.dauky[key]);
+
+			console.log(t1+ ' -- '+data.dauky[key]);
+			__i++;
+		}
+		
+		for (var key in data.cuoiky){
+			var t2 = '.'+prefix+'cuoiky'+__j;
+			$(t2).html(data.cuoiky[key]);
+			__j++;
+		}
+		
+		$('.chieugiao').each(function(indexx,val){
+			var index= indexx+1;
+			var cuoiky = '.'+prefix+'cuoiky'+index, dauky = '.'+prefix+'dauky'+index;
+			var hieuso = convert_float($(cuoiky).text())-convert_float($(dauky).text());
+			hieuso = hieuso.toFixed(count_point_meter);
+			$('.'+prefix+'hieuso'+index).html(set_comma(hieuso));
+
+			$('.'+prefix+'hsnhan'+index).html(data.meter.factor_meter);
+			$('.'+prefix+'hstonthat'+index).html(data.meter.lineloss_meter);
+
+			var slcto = hieuso*data.meter.factor_meter;
+			slcto = slcto.toFixed(count_point_meter);
+			if (index!=2){$('.'+prefix+'cto'+index).html(set_comma(slcto));}	
+			if (index==3){bieu2=slcto;}			
+			if (index==4){bieu3=slcto;}	
+			
+			var slttdz = slcto*(1-data.meter.lineloss_meter);
+			slttdz = slttdz.toFixed(count_point_meter);
+			if (index!=2){$('.'+prefix+'ttdz'+index).html(set_comma(slttdz));}	
+			
+		});
+			tongP = convert_float($('.'+prefix+'cto1').text());
+			tongP = tongP.toFixed(count_point_meter);	
+			
+			bieu1 = convert_float($('.'+prefix+'cto1').text())-(convert_float($('.'+prefix+'cto3').text())+convert_float($('.'+prefix+'cto4').text()));	
+			bieu1 = bieu1.toFixed(count_point_meter);		
+			$('.'+prefix+'cto2').html(set_comma(bieu1));
+			
+			bieu1dz = convert_float($('.'+prefix+'ttdz1').text())-(convert_float($('.'+prefix+'ttdz3').text())+convert_float($('.'+prefix+'ttdz4').text()));	
+			bieu1dz = bieu1dz.toFixed(count_point_meter);		
+			$('.'+prefix+'ttdz2').html(set_comma(bieu1dz));		
+
+		
+		$('.chieunhan').each(function(indexx,val){
+			var index= indexx+8;
+			var cuoiky = '.'+prefix+'cuoiky'+index, dauky = '.'+prefix+'dauky'+index;
+			var hieuso = convert_float($(cuoiky).text())-convert_float($(dauky).text());
+			hieuso = hieuso.toFixed(count_point_meter);
+			$('.'+prefix+'hieuso'+index).html(set_comma(hieuso));
+
+			$('.'+prefix+'hsnhan'+index).html(data.meter.factor_meter);
+			$('.'+prefix+'hstonthat'+index).html(data.meter.lineloss_meter);
+
+			var slcto = hieuso*data.meter.factor_meter;
+			slcto = slcto.toFixed(count_point_meter);
+			if (index!=9){$('.'+prefix+'cto'+index).html(set_comma(slcto));}				
+			if (index==14){Q4nhan=slcto;}	
+			
+			var slttdz = slcto*(1-data.meter.lineloss_meter);
+			slttdz = slttdz.toFixed(count_point_meter);
+			if (index!=9){$('.'+prefix+'ttdz'+index).html(set_comma(slttdz));}				
+
+		});
+			bieu4 = convert_float($('.'+prefix+'cto8').text())-(convert_float($('.'+prefix+'cto10').text())+convert_float($('.'+prefix+'cto11').text()));	
+			bieu4 = bieu4.toFixed(count_point_meter);		
+			$('.'+prefix+'cto9').html(set_comma(bieu4));
+			
+			bieu4dz = convert_float($('.'+prefix+'ttdz8').text())-(convert_float($('.'+prefix+'ttdz10').text())+convert_float($('.'+prefix+'ttdz11').text()));	
+			bieu4dz = bieu4dz.toFixed(count_point_meter);		
+			$('.'+prefix+'ttdz9').html(set_comma(bieu4dz));	
+			
+			cosphi=convert_float($('.'+prefix+'cto1').text())/Math.sqrt(convert_float($('.'+prefix+'cto1').text())*convert_float($('.'+prefix+'cto1').text()) + convert_float($('.'+prefix+'cto6').text())*convert_float($('.'+prefix+'cto6').text()));
+			cosphi = cosphi.toFixed(2);
+			//Aquydoi= Q4nhan*65/631;
+			
+			$('.'+prefix+'cos1').html(set_comma(cosphi)); 		
+		
+	}
+
+
+/*
+*	Phần sau kiểm định - khi bấm vào tab sau kiểm định - gọi dữ liệu sau kd lên 
+*	Có thể gọi luôn gt sau kd khi phát hiện TH công tơ KD. để tránh th ct chưa gọi xong giá trị kd 
+*   -> hiểu nhầm là chưa có --> nhấn nút nhập
+*/
+
+function skd_clear_ccsttbl(){
+
+	/*
+	*	Clear all html value in SDK csct.html/tables
+	*/
+
+	for (i=0; i<20; i++){
+		$('.sdauky'+i).html('- -');
+		$('.scuoiky'+i).html('- -');
+		$('.shieuso'+i).html('- -');
+		$('.shsnhan'+i).html('- - ');
+		$('.shstonthat'+i).html('- -');
+		$('.scto'+i).html('- -');
+		$('.sttdz'+i).html('- -');
+		$('.scos'+i).html('- -');
+	}
+
+}
+
+$('.tabtruockiemdinh').click(function(){
+	/*
+	*	TKD - mặc định trạng thái đã OK - nhưng khi chuyển qua lai từ TDK và SKD nên phải check lại
+	*	get new API return value%.
+	*/
+
+	hide_edit_btn(datakd.type, datakd.confirminfo.sub_confirm);
+	set_xacnhan_btn_status(datakd);
+	datakd_type=1;
+});
+
+$('.tabsaukiemdinh').click(function(e){
+	
+	/*
+	*	usage: nhấn vào tab sau kiểm định (bao gồm nút edit)
+	*	get giá trị trước - tồn tại thì hiện ra ko thì xóa trắng 
+	*   TH thể check submit giá trị T K Đ từ đây luôn ???
+	*/
+
+	if (!enable_SKD_confirm(datakd)) {
+		showalert('Thông báo', 'Bạn hãy xác nhận chỉ số Trước Kiểm Định trước khi nhập giá trị Sau Kiểm Định');
+		return false;
+	}
+
+	datakd_type=2;
+	get_saukiemdinh_value();
+
+
+	
+
+});
+
+function get_SKD_value(){
+
+	var chart = function(serial){
+		
+		clear_ccsttbl();
+		month = $('.chonnam').val()+'-'+$('.chonthang').val();
+		
+		$.ajax({
+				url:api_link+'/chotchisothang.php',
+				type:"POST",
+				data:{serial: serial, month: month, token:token, userid:userid},
+				success:function(data){	
+					var n = data.indexOf("dauky");	
+					if (n<0){ showalert('Thông báo!', 'Không có dữ liệu!'); }	
+					var m = data.indexOf("cuoiky");	
+					if (m<0&&n>0){ showalert('Thông báo!', 'Không có dữ liệu cuối kỳ!'); } 
+
+					data=JSON.parse(data);
+					dataconfirm = data;
+					datakd = data;
+					/*
+					*	Kiểm tra nếu confirm ko phải loại bt (loại kiểm định) thì hiện bảng tab lên (đồng thời gọi sau kiểm định?)
+					*/
+					if (datakd.type!=0) { $('#myTab').show(); } else { $('#myTab').css('display', 'none'); }
+					apply_thongso(data);
+				
+				}, error: function(e){
+					console.log('e '+e);
+				}
+			
+		}); 
+	}
+}
+
+function get_saukiemdinh_value(){
+
+	$.ajax({
+			url:api_link+'/chotchisothang_get_skd.php',
+			type:"POST",
+			data:{serial: crmeter, month: month, token:token, userid:userid},
+			success:function(data){	
+				//alert('get_saukiemdinh_value : '+data);
+				data=JSON.parse(data);
+
+				hide_edit_btn(data.type, data.confirminfo.sub_confirm);
+
+				apply_nhapcs_KD(data);
+
+				set_xacnhan_btn_status(data);
+
+			}, error: function(e){
+				console.log('e ', e);
+			}		
+	}); 
+
+}
+
+
+function set_dauky_saukiemdinh(){
+	
+	var dauky = JSON.stringify(dataconfirm.dauky);
+	//alert('set_dauky_saukiemdinh '+dauky); return false;
+
+	$.ajax({
+
+		url:api_link+'/chotchisothang_set_dauky_skd.php',
+		type:"POST",
+		data:{serial: crmeter, month: month, dauky:dauky, fullname: full_name, token:token, userid:userid},
+		success:function(data){	
+			//alert('set_dauky_saukiemdinh : '+data);
+			//data=JSON.parse(data);
+
+			//apply_nhapcs_KD(data);
+
+			//set_xacnhan_btn_status(data);
+			if (data==200){
+				showalert('Thông báo', 'Số liệu sau kiểm định công tơ được lưu thành công, bạn hãy kiểm tra và xác nhận số liệu');
+			} else if (data==500){
+				showalert('Thông báo', 'Thất bại, dữ liệu chưa được lưu vào cơ sở dữ liệu');
+			} else if (data==409){
+				showalert('Thông báo', 'Thất bại, dữ liệu đã tồn tại trong cơ sở dữ liệu');
+			} else {
+				showalert('Thông báo', 'Thất bại, lỗi khi lưu dữ liệu vào cơ sở dữ liệu');
+			}
+			
+
+		}, error: function(e){
+			showalert('Thông báo', 'Thất bại, lỗi kết nối đến server');
+			console.log('e ', e);
+		}
+				
+	}); 
+	
+}
+
+</script>
+
+
+
+
+
+
+
+
+
+

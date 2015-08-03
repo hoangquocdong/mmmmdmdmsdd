@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <!-- Title and other stuffs -->
+  <title>IPP NPC Monitoring</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content=" thủy điện IPP">
+  <meta name="keywords" content="NPC thủy điện IPP">
+  <meta name="author" content="NPCIT">
+  <!-- Stylesheets -->
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <!-- Font awesome icon -->
+  <link rel="stylesheet" href="css/font-awesome.min.css"> 
+  <!-- jQuery UI -->
+  <link rel="stylesheet" href="css/jquery-ui.css"> 
+  <!-- Data tables -->
+  <link rel="stylesheet" href="css/jquery.dataTables.css"> 
+  <!-- Bootstrap toggle -->
+  <!--link rel="stylesheet" href="css/jquery.onoff.css"-->
+  <!-- Main stylesheet -->
+  <link href="css/style.css" rel="stylesheet">
+  <!-- Widgets stylesheet -->
+  <link href="css/widgets.css" rel="stylesheet">   
+  
+  <!--[if lt IE 9]>
+  <script src="js/html5shiv.js"></script>
+  <![endif]-->
+  <!-- Favicon -->
+  <link rel="shortcut icon" href="img/favicon/favicon.png">
+</head>
+
+<body>
+
+<?php echo $modunheader; ?>
+<!-- Main content starts -->
+<div style=" padding:2px; background: lightblue; opacity:0.9; position: absolute;  padding:6px; top: -2000px; left:-2000px; z-index:1100;border-radius:5px;-moz-border-radius:5px; -webkit-border-radius:5px;" id="loading" >
+	<img id="imgloading" src="img/loading.gif" style="vertical-align:middle">
+	<a style="font-weight:bold; color:#00496B;font-style:italic;"> Đang tải dữ liệu</a>
+</div>
+<div class="content">
+  	<!-- Sidebar -->
+    <div class="sidebar">
+        <div class="sidebar-dropdown"><a href="#">Navigation</a></div>
+        <!--- Sidebar navigation -->
+        <!-- If the main navigation has sub navigation, then add the class "has_sub" to "li" of main navigation. -->
+        <ul id="nav">
+          <!-- Main menu with font awesome icon -->
+          <li><a class=" headmenu"><i class="fa fa-home"></i> Nhà máy IPP của NPC</a>
+          </li>          
+        </ul>
+    </div>
+    <!-- Sidebar ends -->
+  	<!-- Main bar -->
+  	<div class="mainbar">
+        <!-- Page heading -->
+	    <div class="page-head ">
+			<h2 class="pull-left name_sub_head" style="padding-right:5px; padding-top: 20px;"></h2>
+			<div class="bread-crumb pull-right label label-primary" style=" position: absolute; top: -10px;right: 15px; margin-top: 0px; color:#FFFFFF">
+			  <a style="color:#FFFFFF" ><i class="fa fa-home"></i> Home</a> 
+			  <!-- Divider -->
+			  <span class="divider" >/</span> 
+			  <a class="mainmenu " style="color:#FFFFFF">...</a>
+			  <span class="divider">/</span> 
+			  <a class="listmenu " style="color:#FFFFFF">...</a>
+			</div>
+		    <ul class="page1_meter">
+                <!-- List #1 -->
+                                                                                                                             
+            </ul> 
+			<div class="clearfix"></div>
+	    </div>
+	    <!-- Page heading ends -->
+	    <!-- Matter -->
+	    <div class="matter">
+			
+		</div>	
+	</div>
+<!-- Content ends -->
+<!-- Footer starts -->
+
+
+<footer>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<!-- Copyright info -->
+				<p class="copy">NPCIT Copyright &copy; 2015 | <a href="#">mdms.npc.com.vn</a> </p>
+			</div>
+		</div>
+	</div>
+
+</footer> 	
+<!-- Footer ends -->
+<!-- Scroll to top -->
+<span class="totop"><a href="#"><i class="fa fa-chevron-up"></i></a></span> 
+
+<script>
+
+
+	/*  
+	*	Usage:
+	*	Khởi tạo giá trị ban đầu cho Nhà máy đầu tiên, tên nhà máy đầu tiên, id nhà máy đầu tiên
+	*	Mảng menu_left đã được khởi tạo và có giá trị khi load Header
+	*/
+	var menuleftall = <?php	echo $menuleftall; ?>;
+
+	var firstsub = menuleftall[0][1][0]['id_sub'];
+	var firstnamesub = menuleftall[0][1][0]['name_sub'];
+	
+	if (parseInt(crsubid) == 0) {crsubid = firstsub}
+	if (crnamesub== '') {crnamesub = firstnamesub}
+
+	/*  
+	*	Khởi tạo html cho menuleft theo hàm generate_menuleft trên Header
+	*	Menuleft phần này gồm toàn bộ các nhà máy Online Offline.
+	*/	
+	generate_menuleft(menuleftall);
+
+	/*  
+	*	Action khi click nhà máy thuộc menu left
+	*	update lại thông số hiện tại của ID nhà máy, Tên nhà máy khi click
+	*  	crmeter='': ????
+	*	Gọi hàm page1_meter để thực hiện các thao tác: list meter, vẽ đồ thị, tạo các bảng dữ liệu 
+	*	page1_meter : có các tham số crsubid (ID nhà máy hiện tại) và callfrommenuleft (phân biệt khi autoload hoặc click menuleft)
+	*	crsubstatus phân biệt nhà máy Online và Offline
+	* 	Add css cho menuleft hiện hữu
+	*/
+	crsubstatus=1;
+	$(".list_sub > li").click(function(){
+		countmeterreport=0;
+		crsubid = $(this).data('id');
+		crnamesub = $(this).data('name');
+		crsubstatus = $(this).data('status');
+		crmeter == '';	//???? update first crmeter of each sub choose
+		page1_meter(crsubid, 'callfrommenuleft');
+		$(".list_sub > li").removeClass('current');
+		$(this).addClass('current');
+		
+	});
+	
+	/*  
+	*	Action Toggle khi click Menuleft
+	*	Add css open cho các menu click hoặc ngược lại
+	*/
+	
+	$(".has_sub > a").click(function(e){
+		e.preventDefault();
+		var menu_li = $(this).parent("li");
+		var menu_ul = $(this).next("ul");
+
+		if(menu_li.hasClass("open")){
+			menu_ul.slideUp(350);
+			menu_li.removeClass("open")
+		}
+		else{
+			$("#nav > li > ul").slideUp(350);
+			$("#nav > li").removeClass("open");
+			menu_ul.slideDown(350);
+			menu_li.addClass("open");
+		}
+	});
+
+	
+	/*  
+	*	Usage:
+	*	Function load dữ liệu cho toàn bộ trang
+	* 	Kiểm tra điều kiện Online và Offline của Công tơ: check_meter_status meter online == 0; offline == 1;
+	*/
+	
+	/*
+	*	editing_input -> khi =0 thì mới cho edit
+	*/
+	editing_input=0;
+	check_meter_status = 0;	
+	function page1_meter(id_sub,frommenuleft){
+		
+		if (typeof csct_reset_value === "function"){csct_reset_value();}
+
+		if (crmenu=='tonghop') {
+			if (typeof tonghop_getlistmeter === "function"){tonghop_getlistmeter(crsubid);}
+		}
+
+		$.ajax({
+			url:api_link+'/page1_meter.php',
+			type:"POST",
+			data:{id_sub: id_sub},
+			success:function(data){
+				  $('.page1_meter').html('');
+					if (data !=0){
+					var meters = JSON.parse(data);
+							var i= 0; csslabel='';
+							$('.name_sub_head').text(crnamesub);
+							$('.mainmenu').text(namepage[crpage]);
+							$('.listmenu').text(submenu[crmenu]);
+							
+							if (crmenu != 'tonghop') {
+								$.each(meters, function(index, value){	
+								
+									if (value['level_meter']=='P'){csslabel='label-info-plus'}else{ csslabel='label-info';}
+									$('.page1_meter').append('<li class="meter'+i+'"><div class="datas-text" data-status_meter="'+value['status_meter'] +'" ><i class="fa fa-tachometer meter_icon"></i> <span class="sermeter">'+ value['serial_meter']+'</span>'+
+									'<div style="position: absolute;left: -9px; bottom: -13px;"><span class="label label-success-plus linepower"> Lộ '+ value['relation_meter'] +'</span><span class="label '+ csslabel+'">'+ value['level_meter_string']+'</span></div></div> </li>'); 
+									i++;	
+									
+								});
+							}
+							
+								/*
+								*	Lần đầu vào sub (có event sub click) => gán cho crmeter = meter[0] luôn
+								*/
+
+								
+								if (frommenuleft != undefined) {
+								
+									crmeter = meters[0]['serial_meter'];
+									$(".page1_meter > li > div").removeClass('current');
+									$(".meter0 > div").addClass('current');
+									/*
+									* Kiểm tra tình trạng meter_status 0/1 để hiện/ẩn nhập số liệu <> status == current meter 
+									*/
+									check_meter_status = $(".meter0 > div").data('status_meter');
+									
+								} else {
+									$(".page1_meter > li > div").each(function(index, val){
+	                                    if ($(this).find('.sermeter').text()==crmeter) { 
+	                                    	$(this).addClass('current'); 
+	                                    	check_meter_status = $(this).data('status_meter');
+	                                    }
+	                                });
+								} 
+								
+
+								if (crmenu=='tonghop') {
+									/*
+									*	Dành riêng cho trang tổng hợp
+									*/
+									reset_meter_checked();
+									
+									
+									
+								} else {
+									
+									chart(crmeter);
+									sendcrpos();
+									
+								}
+							
+ 								/*
+								*	Vào trong sub (có event meter click) => gán cho crmeter = this.text
+								*/
+							
+							$(".page1_meter > li > div").click(function(){
+							
+								$(".page1_meter > li > div").removeClass('current');
+								$(this).addClass('current');
+								check_meter_status = $(this).data('status_meter');
+								
+								/*
+								*	editing_input -> khi =0 thì mới cho edit -> reset value
+								*/
+								if (typeof csct_reset_value === "function"){csct_reset_value();}
+		
+
+								if (crmenu=='tonghop') {
+									/*
+									*	Dành riêng cho trang tổng hợp
+									*/
+									tonghop_getcheckreport($(this), id_sub);	
+									//sendcrpos();						
+								} else {
+									crmeter = $(this).find('.sermeter').text();
+									chart(crmeter);
+									sendcrpos();						
+								}							
+
+							});
+				
+				  } else {
+					  
+				  }
+			 }, error: function(e){
+				console.log('e '+e);
+			}
+		
+		}); 
+	}
+
+	
+	
+	//************************ End of Load first default meter information *****************************
+	
+</script>
+
+<!-- JS -->
+<script src="js/bootstrap.min.js"></script> <!-- Bootstrap -->
+<script src="js/jquery-ui.min.js"></script> <!-- jQuery UI -->
+<script src="js/fullcalendar.min.js"></script> <!-- Full Google Calendar - Calendar -->
+<script src="js/jquery.rateit.min.js"></script> <!-- RateIt - Star rating -->
+<script src="js/jquery.prettyPhoto.js"></script> <!-- prettyPhoto -->
+<script src="js/jquery.slimscroll.min.js"></script> <!-- jQuery Slim Scroll -->
+<script src="js/jquery.dataTables.min.js"></script> <!-- Data tables -->
+
+<!--script src="js/jquery.noty.js"></script>  jQuery Notify -->
+<script src="js/themes/default.js"></script> <!-- jQuery Notify -->
+<script src="js/layouts/bottom.js"></script> <!-- jQuery Notify -->
+<script src="js/layouts/topRight.js"></script> <!-- jQuery Notify -->
+<script src="js/layouts/top.js"></script> <!-- jQuery Notify -->
+<!-- jQuery Notification ends -->
+
+<script src="js/jquery.cleditor.min.js"></script> <!-- CLEditor -->
+<script src="js/bootstrap-datetimepicker.min.js"></script> <!-- Date picker -->
+<script src="js/jquery.onoff.min.js"></script> <!-- Bootstrap Toggle -->
+<script src="js/filter.js"></script> <!-- Filter for support page -->
+<script src="js/custom.js"></script> <!-- Custom codes -->
+<!-- Script for this page -->
+</body>
+</html>
