@@ -1,0 +1,49 @@
+﻿load trang -> kiểm tra xem chốt chỉ số chưa
+1. đã -> ẩn chức năng nhập kiểm định
+2. chưa -> hiện nút nhập
+
++ với trường hợp:
+nhập kiểm định -> đã chốt trước/ sau
+
+chốt thường -> có tháng + type 0
+chốt kiểm định -> tháng + type 1/2
+
+==> khi chưa có dữ liệu tháng chốt -> có hiện nút kiểm định
+==> có dữ liệu tháng chốt -> ẩn (cả trường hợp chốt thường và kiểm định)
+
+==> có tháng chốt -> select type
+nếu type = 0 -> ẩn tab trước/ sau kiểm định
+type # 0 hiện tab trước/ sau kiểm định
+
+mặc định hiện só liệu trước kd (type = 1) lên trước
+hiện số liệu sau kd (type = 2) khi bấm vào tab
+
+edit & save dữ liệu
+
+type # 0 hoặc nhấn nút kiểm định -> hiện tab kiểm định
+
+check dữ liệu trước/ sau kiểm định
+
+chưa có thì cho phép nhập trước kiểm định/ chốt (có cần cho lưu xong chốt sau ???)
+
+chỉ số đầu trước kd lấy trong db confirm hoặc online, chỉ số sau nhập tay
+
+save chỉ số <> update data status để lấy điều kiện bấm nút sau kiểm định
+
+bấm vào sau kiểm định -> chưa chốt trước kiểm định thì ko cho tiếp
+
+đã chốt thì cho phép vào, nhập số đầu sau kiểm định. Số sau thì lấy online? cuối tháng? ( trường hợp tháng hiện tại chưa đến ngày cuối tháng và trường hợp tháng trước đó đã có ngày cuối tháng?)
+
+kiểm tra và lưu trữ
+
+khi dữ liệu đã confirm thì ko cho save nữa
+
+check các điều kiện
+1 quyền confirm
+2 trạng thái edit
+3 trang thái finished editing
+4 trang thái cancel
+4.1 check số liệu có đầy đủ ko
+5 check security password
+6 đầu kỳ confirm
+7 month, tab, page change...

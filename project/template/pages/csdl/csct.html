@@ -1024,7 +1024,9 @@
 	 	/*
 	 	*	reset editing status + btn status
 	 	*/
-	 	editing_input=0;				
+	 	
+	 	editing_input=0;	
+
 	 	$('.btninputh1').removeClass('btn-disabled').addClass('btn-primary');
 
 
@@ -1391,7 +1393,7 @@
 
 	function apply_thongso(data){
 		
-		console.log(data);
+		console.log('apply_thongso :',data);
 		
 		hide_edit_btn(data.type, data.confirminfo.sub_confirm);
 
@@ -1478,21 +1480,24 @@
 
 			var slcto = hieuso*data.meter.factor_meter;
 			slcto = slcto.toFixed(0);
-			if (index!=9){$('.cto'+index).html(set_comma(slcto));}				
+			//if (index!=9){$('.cto'+index).html(set_comma(slcto));}	
+			$('.cto'+index).html(set_comma(slcto));		
 			if (index==14){Q4nhan=slcto;}	
 			
 			var slttdz = slcto*(1-data.meter.lineloss_meter);
 			slttdz = slttdz.toFixed(0);
-			if (index!=9){$('.ttdz'+index).html(set_comma(slttdz));}				
+			
+			//if (index!=9){$('.ttdz'+index).html(set_comma(slttdz));}	
+			$('.ttdz'+index).html(set_comma(slttdz));				
 
 		});
-			bieu4 = convert_float($('.cto8').text())-(convert_float($('.cto10').text())+convert_float($('.cto11').text()));	
-			bieu4 = bieu4.toFixed(0);		
-			$('.cto9').html(set_comma(bieu4));
+			//bieu4 = convert_float($('.cto8').text())-(convert_float($('.cto10').text())+convert_float($('.cto11').text()));	
+			//bieu4 = bieu4.toFixed(0);		
+			//$('.cto9').html(set_comma(bieu4));
 			
-			bieu4dz = convert_float($('.ttdz8').text())-(convert_float($('.ttdz10').text())+convert_float($('.ttdz11').text()));	
-			bieu4dz = bieu4dz.toFixed(0);		
-			$('.ttdz9').html(set_comma(bieu4dz));	
+			//bieu4dz = convert_float($('.ttdz8').text())-(convert_float($('.ttdz10').text())+convert_float($('.ttdz11').text()));	
+			//bieu4dz = bieu4dz.toFixed(0);		
+			//$('.ttdz9').html(set_comma(bieu4dz));	
 			
 			cosphi=convert_float($('.cto1').text())/Math.sqrt(convert_float($('.cto1').text())*convert_float($('.cto1').text()) + convert_float($('.cto6').text())*convert_float($('.cto6').text()));
 			cosphi = cosphi.toFixed(2);
@@ -1597,6 +1602,7 @@
 					console.log('e '+e);
 					crmonth='';	
 					sendcrpos();
+					set_loading_pos(1);
 				}				
 		}); 
 	
@@ -1667,7 +1673,7 @@
 	function set_comma(number){
 		//var number = parseFloat(numbers);
 		//number = 100.00*number/100;
-		console.log(number);
+		//console.log(number);
 		if (number==NaN||number==undefined||number=='NaN'||number=='--'){
 			return ' - - ';
 		} else {
@@ -1746,7 +1752,9 @@
 		  $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
 		  // Get the name of active tab
 		  var activeTab = $(e.target).text();
-		   
+
+		currentTAB = $(e.target)[0].hash;   
+		console.log(currentTAB);
 		  // Get the name of previous tab
 		  var previousTab = $(e.relatedTarget).text(); 
 		  $(".active-tab span").html(activeTab);
@@ -1965,7 +1973,7 @@
 	}
 
 	function enable_SKD_confirm(data){
-		//console.log(data);
+		console.log('enable_SKD_confirm: ',data);
 		var returnvalue = 0;
 		if (data.type==1) {
 			if (data.confirminfo!=undefined){
@@ -2246,8 +2254,8 @@
 		*/
 		//đưa type vào để select: datakd_type == 1 dauky và datakd_type == 2 sdauky
 		
-		console.log(data);
-
+		console.log('cuoi ky', data);
+		
 		var prefix = '';
 		data_from_CSKD = 1;
 		if (datakd_type == 2){
@@ -2291,16 +2299,17 @@
 			if (index!=2){$('.'+prefix+'ttdz'+index).html(set_comma(slttdz));}	
 			
 		});
-			tongP = convert_float($('.'+prefix+'cto1').text());
-			tongP = tongP.toFixed(count_point_meter);	
-			
-			bieu1 = convert_float($('.'+prefix+'cto1').text())-(convert_float($('.'+prefix+'cto3').text())+convert_float($('.'+prefix+'cto4').text()));	
-			bieu1 = bieu1.toFixed(count_point_meter);		
-			$('.'+prefix+'cto2').html(set_comma(bieu1));
-			
-			bieu1dz = convert_float($('.'+prefix+'ttdz1').text())-(convert_float($('.'+prefix+'ttdz3').text())+convert_float($('.'+prefix+'ttdz4').text()));	
-			bieu1dz = bieu1dz.toFixed(count_point_meter);		
-			$('.'+prefix+'ttdz2').html(set_comma(bieu1dz));		
+
+		tongP = convert_float($('.'+prefix+'cto1').text());
+		tongP = tongP.toFixed(count_point_meter);	
+		
+		bieu1 = convert_float($('.'+prefix+'cto1').text())-(convert_float($('.'+prefix+'cto3').text())+convert_float($('.'+prefix+'cto4').text()));	
+		bieu1 = bieu1.toFixed(count_point_meter);		
+		$('.'+prefix+'cto2').html(set_comma(bieu1));
+		
+		bieu1dz = convert_float($('.'+prefix+'ttdz1').text())-(convert_float($('.'+prefix+'ttdz3').text())+convert_float($('.'+prefix+'ttdz4').text()));	
+		bieu1dz = bieu1dz.toFixed(count_point_meter);		
+		$('.'+prefix+'ttdz2').html(set_comma(bieu1dz));		
 
 		
 		$('.chieunhan').each(function(indexx,val){
@@ -2323,20 +2332,21 @@
 			if (index!=9){$('.'+prefix+'ttdz'+index).html(set_comma(slttdz));}				
 
 		});
-			bieu4 = convert_float($('.'+prefix+'cto8').text())-(convert_float($('.'+prefix+'cto10').text())+convert_float($('.'+prefix+'cto11').text()));	
-			bieu4 = bieu4.toFixed(count_point_meter);		
-			$('.'+prefix+'cto9').html(set_comma(bieu4));
 			
-			bieu4dz = convert_float($('.'+prefix+'ttdz8').text())-(convert_float($('.'+prefix+'ttdz10').text())+convert_float($('.'+prefix+'ttdz11').text()));	
-			bieu4dz = bieu4dz.toFixed(count_point_meter);		
-			$('.'+prefix+'ttdz9').html(set_comma(bieu4dz));	
-			
-			cosphi=convert_float($('.'+prefix+'cto1').text())/Math.sqrt(convert_float($('.'+prefix+'cto1').text())*convert_float($('.'+prefix+'cto1').text()) + convert_float($('.'+prefix+'cto6').text())*convert_float($('.'+prefix+'cto6').text()));
-			cosphi = cosphi.toFixed(2);
-			//Aquydoi= Q4nhan*65/631;
-			
-			$('.'+prefix+'cos1').html(set_comma(cosphi)); 		
+		bieu4 = convert_float($('.'+prefix+'cto8').text())-(convert_float($('.'+prefix+'cto10').text())+convert_float($('.'+prefix+'cto11').text()));	
+		bieu4 = bieu4.toFixed(count_point_meter);		
+		$('.'+prefix+'cto9').html(set_comma(bieu4));
 		
+		bieu4dz = convert_float($('.'+prefix+'ttdz8').text())-(convert_float($('.'+prefix+'ttdz10').text())+convert_float($('.'+prefix+'ttdz11').text()));	
+		bieu4dz = bieu4dz.toFixed(count_point_meter);		
+		$('.'+prefix+'ttdz9').html(set_comma(bieu4dz));	
+		
+		cosphi=convert_float($('.'+prefix+'cto1').text())/Math.sqrt(convert_float($('.'+prefix+'cto1').text())*convert_float($('.'+prefix+'cto1').text()) + convert_float($('.'+prefix+'cto6').text())*convert_float($('.'+prefix+'cto6').text()));
+		cosphi = cosphi.toFixed(2);
+		//Aquydoi= Q4nhan*65/631;
+		
+		$('.'+prefix+'cos1').html(set_comma(cosphi)); 		
+	
 	}
 
 
@@ -2391,9 +2401,6 @@ $('.tabsaukiemdinh').click(function(e){
 
 	datakd_type=2;
 	get_saukiemdinh_value();
-
-
-	
 
 });
 
