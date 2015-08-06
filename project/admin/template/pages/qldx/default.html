@@ -33,20 +33,9 @@
 <?php echo $modunheader; ?>
 <!-- Main content starts -->
 <div class="content">
-  	<!-- Sidebar: Menuleft sẽ tự động add khi load page -->
-    <div class="sidebar">
-        <div class="sidebar-dropdown"><a href="#">Navigation</a></div>
-        <!--- Sidebar navigation -->
-        <!-- If the main navigation has sub navigation, then add the class "has_sub" to "li" of main navigation. -->
-        <ul id="nav">
-          <!-- Main menu with font awesome icon -->
-          <li><a class=" headmenu"><i class="fa fa-home"></i> Nhà máy IPP đo xa</a>
-          </li>          
-        </ul>
-    </div>
-    <!-- Sidebar ends -->
+
   	<!-- Main bar -->
-  	<div class="mainbar">
+  	<div class="mainbar" style="margin-left: 0px;">
         <!-- Page heading -->
 	    <div class="page-head ">
 			<!-- Add tên nhà máy -->
@@ -72,61 +61,10 @@
 			<div class="container">
 				<!-- Cột chứa các biểu đồ gồm dòng điện, điện áp, tần số -->
 				<div class="row">
-					<div class="col-md-8">
-						<!-- Widget : Biểu đồ Dòng Điện -->
-						<div class="widget">
-							<!-- Widget head -->
-							<div class="widget-head">
-								<div class="pull-left"><i class="fa fa-bar-chart blue_icon"></i>  Biểu đồ dòng điện <span class="showmeter label label-warning" style="margin-left:5px;"></span></div>
-								<div class="widget-icons pull-right">
-								<a href="#" class="wminimize"><i class="fa fa-chevron-up"></i></a> 
-								<a href="#" class="wclose"><i class="fa fa-times"></i></a>
-								</div>  
-								<div class="clearfix"></div>
-							</div>   
-							<!-- Widget content -->
-							<div class="widget-content">
-								<div id="container1" style="min-width: 310px; height: 300px; margin: 0 auto"></div>
-							</div>
-							<!-- Widget ends -->
-						</div>
-						
-						<!-- Widget: Biểu đồ Tần số -->
-						<div class="widget">
-							<div class="widget-head">
-								<div class="pull-left"><i class="fa fa-bar-chart blue_icon"></i>  Biểu đồ tần số <span class="showmeter label label-warning" style="margin-left:5px;"></span></div> 
-								<div class="widget-icons pull-right">
-									<a href="#" class="wminimize"><i class="fa fa-chevron-up"></i></a> 
-									<a href="#" class="wclose"><i class="fa fa-times"></i></a>
-								</div>  
-								<div class="clearfix"></div>
-							</div>             
-							<div class="widget-content">
-								<div id="container3" style="min-width: 310px; height: 300px; margin: 0 auto"></div>
-							</div>
-						</div>
-						
-						<!-- Widget: Biểu đồ Điện áp -->
-						<div class="widget">
-							<div class="widget-head">
-								<div class="pull-left"><i class="fa fa-bar-chart blue_icon"></i>  Biểu đồ điện áp <span class="showmeter label label-warning" style="margin-left:5px;"></span></div>
-								<div class="widget-icons pull-right">
-									<a href="#" class="wminimize"><i class="fa fa-chevron-up"></i></a> 
-									<a href="#" class="wclose"><i class="fa fa-times"></i></a>
-								</div>  
-								<div class="clearfix"></div>
-							</div>        
-							<div class="widget-content">
-								<div id="container2" style="min-width: 310px; height: 300px; margin: 0 auto"></div>
-							</div>
-						</div>
-						
-						
-					</div>
-					<div class="col-md-4">
+					<div class="col-md-6">
 						<div class="widget" id="last_instant">
 							<div class="widget-head">
-								<div class="pull-left">Thông số gần nhất: <span class="instant26" ></span></div>
+								<div class="pull-left">Cảnh báo thông tin kết nối các nhà máy <span class="instant26" ></span></div>
 								<div class="widget-icons pull-right">
 									<a href="#" class="wminimize"><i class="fa fa-chevron-up"></i></a> 
 									<a href="#" class="wclose"><i class="fa fa-times"></i></a>
@@ -138,69 +76,110 @@
 									<table class="table table-striped table-bordered table-hover" style="height:220px">
 										<thead>
 										<tr>
-										  <th>Thông số</th>
-										  <th>PhA</th>
-										  <th>PhB</th>
-										  <th>PhC</th>
-										  <th>Sum</th>
+										  <th>Stt</th>
+										  <th>Tên điện lực </th>
+										  <th>Tên nhà máy</th>
+										  <th>Thời gian sự cố</th>
+										  <th>TG mất kết nối</th>
+
 										</tr>
 										</thead>
 										<tbody >
-										<tr >
-										  <td class=" " >U <span class="instant27">(V)</span></td>
-										  <td class="instant1 red_icon">-</td>
-										  <td class="instant2 orange_icon">-</td>
-										  <td class="instant3 green_icon">-</td>
-										  <td ><span >-</span></td>
+											<tr >
+											  <td class=" " >1</td>
+											  <td > Điện lực Hòa Bình</td>
+											  <td >Vạn Mai</td>
+											  <td >13:05:00</td>
+											  <td style="font-weight: bold; color: red;">2h:05:00</td>
+
+											</tr>
+											<tr >
+											  <td class=" " >2</td>
+											  <td > Điện lực Lào Cai</td>
+											  <td >Nậm Khánh</td>
+											  <td >14:05:00</td>
+											  <td style="font-weight: bold; color: orange;" >1h:05:00</td>
+
+											</tr>
+											<tr >
+											  <td class=" " >3</td>
+											  <td > Điện lực Hà Giang</td>
+											  <td >Sông Chảy</td>
+											  <td >21:05:00</td>
+											  <td style="font-weight: bold; color: blue;" >45:05:00</td>
+
+											</tr>
+											<tr >
+											  <td class=" " >4</td>
+											  <td > Điện lực Yên Bái</td>
+											  <td >Hát Lìu</td>
+											  <td >8:05:00</td>
+											  <td style="font-weight: bold; color: green;">30:05:00</td>
+
+											</tr>
+                                                          
+										</tbody>
+										</table>
+								</div>
+							</div>
+
+						</div>
+						<div class="widget" id="last_instant">
+							<div class="widget-head">
+								<div class="pull-left">Cảnh báo thông tin phản hồi người dùng <span class="instant26" ></span></div>
+								<div class="widget-icons pull-right">
+									<a href="#" class="wminimize"><i class="fa fa-chevron-up"></i></a> 
+									<a href="#" class="wclose"><i class="fa fa-times"></i></a>
+								</div>  
+								<div class="clearfix"></div>
+							</div>
+							<div class="widget-content">
+								<div class="table-responsive">
+									<table class="table table-striped table-bordered table-hover" style="height:220px">
+										<thead>
+										<tr>
+										  <th>Stt</th>
+										  <th>Nội dung thông báo </th>
+										  <th>Tên người gửi</th>
+										  <th>Đơn vị công tác</th>
+										  <th>TG gửi thông báo</th>
 
 										</tr>
-										<tr class="instanti">
-										  <td class=" " >I (A)</td>
-										  <td class="instant4 red_icon">-</td>
-										  <td class="instant5 orange_icon" >-</td>
-										  <td class="instant6 green_icon">-</td>
-										  <td ><span >-</span></td>
-										</tr>
-										<tr class="instantf">
-										  <td class=" ">F (Hz)</td>
-										  <td class="instant7 red_icon">-</td>
-										  <td class="instant8 orange_icon">-</td>
-										  <td class="instant9 green_icon">-</td>
-										  <td ><span>-</span></td>
-										</tr>
-										<tr class="instantcos">
-										  <td class=" " >Cosphi </td>
-										  <td class="instant10 red_icon">-</td>
-										  <td class="instant11 orange_icon">-</td>
-										  <td class="instant12 green_icon">-</td>
-										  <td ><span class="instant25" >-</span></td>
-										</tr>
+										</thead>
+										<tbody >
+											<tr >
+											  <td class=" " >1</td>
+											  <td > Điện lực Hòa Bình</td>
+											  <td >Vạn Mai</td>
+											  <td >13:05:00</td>
+											  <td style="font-weight: bold; color: red;">2h:05:00</td>
 
-										<tr class="instantp">
-										  <td class=" " >P <span class="instant28">(kW)</span></td>
-										  <td class="instant13 red_icon">-</td>
-										  <td class="instant14 orange_icon">-</td>
-										  <td class="instant15 green_icon">-</td>
-										  <td ><span class="instant22" >-</span></td>
+											</tr>
+											<tr >
+											  <td class=" " >2</td>
+											  <td > Điện lực Lào Cai</td>
+											  <td >Nậm Khánh</td>
+											  <td >14:05:00</td>
+											  <td style="font-weight: bold; color: orange;" >1h:05:00</td>
 
-										</tr> 
+											</tr>
+											<tr >
+											  <td class=" " >3</td>
+											  <td > Điện lực Hà Giang</td>
+											  <td >Sông Chảy</td>
+											  <td >21:05:00</td>
+											  <td style="font-weight: bold; color: blue;" >45:05:00</td>
 
-										<tr class="instantq">
-										  <td class=" " >Q <span class="instant29">(kVAr)</span></td>
-										  <td class="instant16 red_icon">-</td>
-										  <td class="instant17 orange_icon">-</td>
-										  <td class="instant18 green_icon">-</td>
-										  <td ><span class="instant23" >-</span></td>
+											</tr>
+											<tr >
+											  <td class=" " >4</td>
+											  <td > Điện lực Yên Bái</td>
+											  <td >Hát Lìu</td>
+											  <td >8:05:00</td>
+											  <td style="font-weight: bold; color: green;">30:05:00</td>
 
-										</tr>                                                            						
-										<tr class="instants">
-										  <td class=" " >S <span class="instant30">(kVA)</span></td>
-										  <td class="instant19 red_icon">-</td>
-										  <td class="instant20 orange_icon">-</td>
-										  <td class="instant21 green_icon">-</td>
-										  <td ><span class="instant24" >-</span></td>
-
-										</tr>                                                            
+											</tr>
+                                                          
 										</tbody>
 										</table>
 								</div>
@@ -209,7 +188,7 @@
 						</div>
 						<div class="widget bblue_icon" id="last_current">
 							<div class="widget-head" >
-								<div class="pull-left ">Chỉ số gần nhất: <span class="current15"></span></div>
+								<div class="pull-left ">Cảnh báo chỉ số chốt tháng H1 (History value /1 tháng) <span class="current15"></span></div>
 								<div class="widget-icons pull-right">
 									<a href="#" class="wminimize"><i class="fa fa-chevron-up"></i></a> 
 									<a href="#" class="wclose"><i class="fa fa-times"></i></a>
@@ -221,10 +200,150 @@
 									<table class="table table-striped table-bordered table-hover" style="height:220px">
 										<thead>
 											<tr>
-											  <th>Kênh giao</th>
-											  <th>Giá trị</th>
-											  <th>Kênh nhận</th>
-											  <th>Giá trị</th>
+											  <th>Stt</th>
+											  <th>Tên điện lực </th>
+											  <th>Tên nhà máy</th>
+											  <th>Serial Meter</th>
+											  <th>TG sự cố</th>											  
+											  <th>TG mất dữ liệu</th>
+											</tr>
+										</thead>
+									  <tbody >
+
+											<tr >
+											  <td class=" " >1</td>
+											  <td > Điện lực Hòa Bình</td>
+											  <td >Vạn Mai</td>
+											  <td >123456789</td>
+											  <td >13:05:00</td>
+											  <td style="font-weight: bold; color: red;">2h:05:00</td>
+
+											</tr>
+											<tr >
+											  <td class=" " >1</td>
+											  <td > Điện lực Hòa Bình</td>
+											  <td >Vạn Mai</td>
+											  <td >122222222</td>
+											  <td >13:05:00</td>
+											  <td style="font-weight: bold; color: red;">2h:05:00</td>
+
+											</tr>											
+											<tr >
+											  <td class=" " >2</td>
+											  <td > Điện lực Lào Cai</td>
+											  <td >Nậm Khánh</td>
+											  <td >123333333</td>											  
+											  <td >14:05:00</td>
+											  <td style="font-weight: bold; color: orange;" >1h:05:00</td>
+
+											</tr>
+											<tr >
+											  <td class=" " >3</td>
+											  <td > Điện lực Hà Giang</td>
+											  <td >Sông Chảy</td>
+											  <td >123444444</td>											  
+											  <td >21:05:00</td>
+											  <td style="font-weight: bold; color: blue;" >45:05:00</td>
+
+											</tr>
+											<tr >
+											  <td class=" " >4</td>
+											  <td > Điện lực Yên Bái</td>
+											  <td >Hát Lìu</td>
+											  <td >123455555</td>												  
+											  <td >8:05:00</td>
+											  <td style="font-weight: bold; color: green;">30:05:00</td>
+
+											</tr>
+                                                         
+									  </tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="widget" id="lastinstant">
+							<div class="widget-head">
+								<div class="pull-left">Cảnh báo dữ liệu bảng thông số vận hành (Instant Value / 15 phút) <span class="instant26" ></span></div>
+								<div class="widget-icons pull-right">
+									<a href="#" class="wminimize"><i class="fa fa-chevron-up"></i></a> 
+									<a href="#" class="wclose"><i class="fa fa-times"></i></a>
+								</div>  
+								<div class="clearfix"></div>
+							</div>
+							<div class="widget-content">
+								<div class="table-responsive">
+									<table class="table table-striped table-bordered table-hover" style="height:220px">
+										<thead>
+										<tr>
+										  <th>Stt</th>
+										  <th>Tên điện lực </th>
+										  <th>Tên nhà máy</th>
+										  <th>Công tơ</th>
+										  <th>TG cập nhật cuối</th>
+
+										</tr>
+										</thead>
+										<tbody class="instanbody">
+											<tr >
+											  <td class=" " >1</td>
+											  <td > Điện lực Hòa Bình</td>
+											  <td >Vạn Mai</td>
+											  <td >13:05:00</td>
+											  <td style="font-weight: bold; color: red;">2h:05:00</td>
+
+											</tr>
+											<tr >
+											  <td class=" " >2</td>
+											  <td > Điện lực Lào Cai</td>
+											  <td >Nậm Khánh</td>
+											  <td >14:05:00</td>
+											  <td style="font-weight: bold; color: orange;" >1h:05:00</td>
+
+											</tr>
+											<tr >
+											  <td class=" " >3</td>
+											  <td > Điện lực Hà Giang</td>
+											  <td >Sông Chảy</td>
+											  <td >21:05:00</td>
+											  <td style="font-weight: bold; color: blue;" >45:05:00</td>
+
+											</tr>
+											<tr >
+											  <td class=" " >4</td>
+											  <td > Điện lực Yên Bái</td>
+											  <td >Hát Lìu</td>
+											  <td >8:05:00</td>
+											  <td style="font-weight: bold; color: green;">30:05:00</td>
+
+											</tr>
+                                                          
+										</tbody>
+										</table>
+								</div>
+							</div>
+
+						</div>
+						<div class="widget bblue_icon" id="last_current">
+							<div class="widget-head" >
+								<div class="pull-left ">Cảnh báo dữ liệu bảng thông số vận hành (Instant Value / 60 phút) <span class="current15"></span></div>
+								<div class="widget-icons pull-right">
+									<a href="#" class="wminimize"><i class="fa fa-chevron-up"></i></a> 
+									<a href="#" class="wclose"><i class="fa fa-times"></i></a>
+								</div>  
+								<div class="clearfix"></div>
+							</div>
+							<div class="widget-content">
+								<div class="table-responsive">
+									<table class="table table-striped table-bordered table-hover" style="height:220px">
+										<thead>
+											<tr>
+											  <th>Stt</th>
+											  <th>Tên điện lực </th>
+											  <th>Tên nhà máy</th>
+											  <th>Serial Meter</th>
+											  <th>TG mất dữ liệu</th>
 											</tr>
 										</thead>
 									  <tbody >
@@ -287,6 +406,89 @@
 								</div>
 							</div>
 						</div>
+						<div class="widget bblue_icon" id="last_current">
+							<div class="widget-head" >
+								<div class="pull-left ">Cảnh báo dữ liệu bảng thông số phụ tải (Profile Value / 60 phút) <span class="current15"></span></div>
+								<div class="widget-icons pull-right">
+									<a href="#" class="wminimize"><i class="fa fa-chevron-up"></i></a> 
+									<a href="#" class="wclose"><i class="fa fa-times"></i></a>
+								</div>  
+								<div class="clearfix"></div>
+							</div>
+							<div class="widget-content">
+								<div class="table-responsive">
+									<table class="table table-striped table-bordered table-hover" style="height:220px">
+										<thead>
+											<tr>
+											  <th>Stt</th>
+											  <th>Tên điện lực </th>
+											  <th>Tên nhà máy</th>
+											  <th>Serial Meter</th>
+											  <th>TG mất dữ liệu</th>
+											</tr>
+										</thead>
+									  <tbody >
+
+										<tr>
+										  <td>Tổng giao (<span class="donvi_chiso">k</span>Wh)</td>
+										  <td><span class="label label-primary current1" >-</span></td>
+										  <td>Tổng nhận (<span class="donvi_chiso" >k</span>Wh)</td>
+										  <td><span class="label label-primary current2" style="color:white;">-</span></td>
+
+										</tr>
+
+
+										<tr>
+										  <td>Biểu 1 (<span class="donvi_chiso">k</span>Wh)</td>
+										  <td><span class="label label-warning  current3" >-</span></td>
+										  <td>Biểu 4 (<span class="donvi_chiso">k</span>Wh)</td>
+										  <td><span class="label label-success current4" >-</span></td>
+
+										</tr>
+
+										<tr>
+										  <td>Biểu 2 (<span class="donvi_chiso">k</span>Wh)</td>
+										  <td><span class="label label-warning current5" >-</span></td>
+										  <td>Biểu 5 (<span class="donvi_chiso">k</span>Wh)</td>
+										  <td><span class="label label-success current6" >-</span></td>
+
+										</tr>
+
+										<tr>
+										  <td>Biểu 3 (<span class="donvi_chiso">k</span>Wh)</td>
+										  <td><span class="label label-warning current7">-</span></td>
+										  <td>Biểu 6 (<span class="donvi_chiso">k</span>Wh)</td>
+										  <td><span class="label label-success current8" >-</span></td>
+
+										</tr>
+
+										<tr>
+										  <td>Tổng giao (<span class="donvi_chiso">k</span>VArh)</td>
+										  <td><span class="label label-warning current9" >-</span></td>
+										  <td>Tổng nhận (<span class="donvi_chiso">k</span>VArh)</td>
+										  <td><span class="label label-success current10" >-</span></td>
+
+										</tr> 
+											<tr>
+										  <td>Q1 (<span class="donvi_chiso">k</span>VArh)</td>
+										  <td><span class="label label-warning current11" >-</span></td>
+										  <td>Q3 (<span class="donvi_chiso">k</span>VArh)</td>
+										  <td><span class="label label-success current12" >-</span></td>
+
+										</tr>                                                            						
+										<tr>
+										  <td>Q2 (<span class="donvi_chiso">k</span>VArh)</td>
+										  <td><span class="label label-warning current13" >-</span></td>
+										  <td>Q4 (<span class="donvi_chiso">k</span>VArh)</td>
+										  <td><span class="label label-success current14" >-</span></td>
+										</tr>                                                            
+									  </tbody>
+									</table>
+								</div>
+							</div>
+						</div>						
+						
+						
 					</div>
 				</div>
 				<!-- Dashboard graph ends -->
@@ -370,6 +572,35 @@
 	*	Function load dữ liệu cho toàn bộ trang
 	*/
 
+	setInterval(function(){ check_warning_status(); }, 60000);
+	
+
+	function check_warning_status(){
+		$.ajax({
+		/*  
+		*	Lấy thông tin toàn bộ công tơ trong nhà máy
+		*/
+			url:'http://mdms.npc.com.vn/mdms2015/admin/apis/systemanalytics_instantvalue.php',
+			type:"POST",
+			data:{},
+			success:function(data){
+				data = JSON.parse(data);
+				console.log(data.datainstan);
+				var htmlinstan = '';
+				$.each(data.datainstan,function(index, value){
+					htmlinstan += '<tr ><td class=" " >'+index+'</td>'+
+									'<td > '+value.name_pwc+'</td>'+
+									'<td >'+value.name_sub+'</td>'+
+									'<td >'+value.serial_meter+'</td>'+
+									'<td style="font-weight: bold; color: red;">'+value.last_update+'</td></tr>';
+				});	
+				$('.instanbody').html(htmlinstan);
+			}, error: function(e){
+				console.log('e '+e);
+			}
+		
+		}); 
+	}
 	function page1_meter(id_sub,frommenuleft){
 		//alert ('page1_meter');
 		

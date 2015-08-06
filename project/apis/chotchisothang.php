@@ -26,6 +26,7 @@ $data['status']=404;	//có tìm thấy dữ liệu trong bảng confirm ko? có 
 $data['type']=0;
 $data['sourcedauky']='h1now';
 $data['sourcecuoiky']='h1now';
+$data['nhapkiemdinh'] = 1;
 $get_comfirm_data_available = 0;
 
 $tmp = $month.'-01';
@@ -62,6 +63,7 @@ $lmstr = (int)$lastmonthstr[0].'-'.(int)$lastmonthstr[1]; 				//tháng trước 
     $data['dauky'] = null; 
     $data['cuoiky'] = null;
 
+
     /*
     *	Khởi tạo giá trị confirm ban đầu, nếu tồn tại thì rewrite lại confirm
     */
@@ -88,11 +90,15 @@ $lmstr = (int)$lastmonthstr[0].'-'.(int)$lastmonthstr[1]; 				//tháng trước 
 
     $unitmeter=0; $countpoint = 0; $factor_meter=0; $lineloss_meter=0;
 
-	$sql = 'SELECT `unit_meter`,`count_point_meter`,`level_meter`, `relation_meter`,`factor_meter`,`lineloss_meter`, `pconvert_meter` FROM `meter` WHERE `serial_meter` = "'.$serial.'" ';
+	$sql = 'SELECT `unit_meter`,`count_point_meter`,`level_meter`, `relation_meter`,`factor_meter`,`lineloss_meter`, `pconvert_meter` 
+			FROM `meter` 
+			WHERE `serial_meter` = "'.$serial.'" ';
+
 	$result = mysql_query($sql) or die('0');
-	
+
 	$level_meter_char='';
 	$level_meter_char_plus='';
+
  	while($row = mysql_fetch_array($result)){
 		if ($row['level_meter']==0) {$level_meter_char='C'; $level_meter_char_plus='Chính'; } else {$level_meter_char='P'; $level_meter_char_plus='Phụ'; }
 		$unitmeter=(int)$row['unit_meter'];
@@ -129,9 +135,14 @@ $lmstr = (int)$lastmonthstr[0].'-'.(int)$lastmonthstr[1]; 				//tháng trước 
 
 	$sql = 'SELECT `type`, `dauky`, `cuoiky`, `pc_confirm`, `fullname_sub_confirm`, `fullname_pc_confirm`, `date_pc_confirm`, `date_confirm`, `edit_date_confirm`, `edit_count` 
 			FROM `h1_confirm` 
-			WHERE `meter_serial`="'.$serial.'" AND `month_confirm` ="'.$month.'" ORDER BY `ID` DESC LIMIT 0,1';
+			WHERE `meter_serial`="'.$serial.'" AND `month_confirm` ="'.$month.'" AND `type`!= 2 ORDER BY `ID` DESC LIMIT 0,1';
 	
     $result = mysql_query($sql) or die('0');
+
+    /*
+    *	Quy định việc có hiện nút nhập kiểm định ko : $data['nhapkiemdinh']
+    */
+    if (mysql_affected_rows()>0) { $data['nhapkiemdinh'] = 0; }
 
     if (mysql_num_rows($result) > 0){
 

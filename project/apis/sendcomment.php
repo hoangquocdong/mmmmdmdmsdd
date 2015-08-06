@@ -19,25 +19,26 @@ $fullname = clean_text($fullname);
 $email = clean_text($email);
 $phone = clean_text($phone);
 $message = clean_text($message);
+$time = time();
 
+CONNECT_DB();
 
-  CONNECT_DB();
-    mysql_query("SET NAMES utf8");
+mysql_query("SET NAMES utf8");
 
-    $checktoken = checktoken($userid, $token);
+$checktoken = checktoken($userid, $token);
 
-    if (!$checktoken) die ('404');
+if (!$checktoken) die ('404');
 
-    //echo $fullname.$email.$phone.$message.$userid; exit();
+//echo $fullname.$email.$phone.$message.$userid; exit();
 
-    $sql = 'INSERT INTO `ykienphanhoi`(`userid`, `fullname`, `email`, `phone`, `content`) 
-    		VALUES ('.$userid.',"'.$fullname.'","'.$email.'","'.$phone.'","'.$message.'")';
+$sql = 'INSERT INTO `ykienphanhoi`(`userid`, `fullname`, `email`, `phone`, `content`, `time`) 
+		VALUES ('.$userid.',"'.$fullname.'","'.$email.'","'.$phone.'","'.$message.'",'.$time.')';
 
-    $result = mysql_query($sql) or die('500');
+$result = mysql_query($sql) or die('500');
 
-    echo '200';
+echo '200';
 
-	CLOSE_DB();
-	unset($sql, $result);
+CLOSE_DB();
+unset($sql, $result);
     
 ?> 

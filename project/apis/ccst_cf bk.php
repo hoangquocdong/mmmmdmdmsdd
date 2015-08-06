@@ -36,63 +36,37 @@ $month = clean_text($month);
 	
     if (!checktoken($userid, $token)){die ('201');}
 
+    function record_exist($serial, $month, $kdstatus){
 
 		$sql=	'SELECT `sub_confirm` FROM `h1_confirm` 
 				WHERE `meter_serial` = "'.$serial.'" AND `month_confirm` = "'.$month.'" AND `type` = '.$kdstatus;
 		
 		$result = mysql_query($sql) or die('500');
 
-		$returnvalue = 0;
+		$row = 0;
 
 		while($rows=mysql_fetch_array($result)){
-			$returnvalue = (int)$rows['sub_confirm'];
+			$row = (int)$rows['sub_confirm'];
+		}
+		if ($row ==  null||$row==''){
+			$returnvalue = 0;
+		} else {
+			$returnvalue = 1;
 		}
 
-		$returnvalue;
+		return $returnvalue;
+	}
 
 
-	if ($returnvalue) die('409');
+	if (record_exist($serial, $month, $kdstatus)) die('409');
 
-	/*
-	*	$kdstatus == 2 là sau kiểm định
-	*/
-	if ($kdstatus!=2){
-		
-
-		$sql = 'INSERT INTO `h1_confirm`(`meter_serial`, `month_confirm`, `dauky`, `cuoiky`, `type`, `sub_confirm`, `id_user_confirm`, 
-					`fullname_sub_confirm`,`date_confirm`) 
-					VALUES ("'.$serial.'","'.$month.'","'.$dauky.'","'.$cuoiky.'",'.$kdstatus.', 1,'.$userid.',"'.$fullname.'","'.$timenow.'")';
-
-	    $result = mysql_query($sql) or die('500');
-
-	    echo '200';
-
-	} else {
-
-
-		$sql = 'UPDATE `h1_confirm` SET `dauky`="'.$dauky.'",`cuoiky`="'.$cuoiky.'",`sub_confirm`=1,
-				`id_user_confirm`='.$userid.',`fullname_sub_confirm`="'.$fullname.'",`date_confirm`="'.$timenow.'"
-				WHERE `meter_serial` = "'.$serial.'" AND `month_confirm` = "'.$month.'" AND `type` = '.$kdstatus;
-
-		$result = mysql_query($sql) or die('500');
-
-		if ( mysql_affected_rows()<=0) {
-
-			$sql = 'INSERT INTO `h1_confirm`(`meter_serial`, `month_confirm`, `dauky`, `cuoiky`, `type`, `sub_confirm`,
-				 `id_user_confirm`, 
+	$sql = 'INSERT INTO `h1_confirm`(`meter_serial`, `month_confirm`, `dauky`, `cuoiky`, `type`, `sub_confirm`, `id_user_confirm`, 
 				`fullname_sub_confirm`,`date_confirm`) 
 				VALUES ("'.$serial.'","'.$month.'","'.$dauky.'","'.$cuoiky.'",'.$kdstatus.', 1,'.$userid.',"'.$fullname.'","'.$timenow.'")';
 
-	    	$result = mysql_query($sql) or die('500');
+    $result = mysql_query($sql) or die('500');
 
-		}
-		
-	    echo '200';
-
-	}
-	
-
-	
+    echo '200';
 
 	userlogs($userid , $fullname , 'xác nhận số liệu');
 	

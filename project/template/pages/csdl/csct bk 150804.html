@@ -59,13 +59,13 @@
 		</div>
 		
 		<div class="col-md-3" style="margin-top: 5px;">	
-			<button type="submit" class="btn btn-primary kiemdinh_btn displaynone" style="margin-top: 5px;">Kiểm định công tơ</button>
+			<button type="submit" class="btn btn-primary kiemdinh_btn" style="margin-top: 5px; display:none;">Kiểm định công tơ</button>
 		</div>	
 		
 	</div>   
 	
 	<!--  Tạo tab chứa các bảng khác nhau, sẽ mở rộng tab khi gặp trường hợp công tơ kiểm định  -->    
-	<ul id="myTab" class="nav nav-tabs displaynone" style="margin-top:5px;">
+	<ul id="myTab" class="nav nav-tabs" style="margin-top:5px; display:none; ">
 	   	<li class="active"><a class="tabtruockiemdinh" href="#truockiemdinh" data-toggle="tab">
 		  Trước kiểm định</a> 
 		</li>
@@ -130,7 +130,7 @@
 							
 						  </div>
 
-						  <div class="col-md-4 grouptruockiemdinh chisokiemdinh displaynone">
+						  <div class="col-md-4 chisokiemdinh" style="display: none;">
 						  
 							<button class="btn btn-primary  kiemdinh_nhap_sl_tkd_btn" style="margin-top: 5px;">Nhập số liệu Trước kiểm định</button>	
 							<button class="btn btn-primary kiemdinh_ketthuc_nhap_sl_tkd_btn" style="margin-top: 5px;">Kết thúc nhập C T K Đ</button>
@@ -578,7 +578,7 @@
 							</p>                        
 						  </div>
 
-						  <div class="col-md-4 groupsaukiemdinh chisokiemdinh displaynone">
+						  <div class="col-md-4 chisokiemdinh">
 						  
 							<button class="btn btn-primary  kiemdinh_nhap_sl_skd_btn" style="margin-top: 5px;">Nhập số liệu Sau kiểm định</button>	
 							<button class="btn btn-primary kiemdinh_ketthuc_nhap_sl_skd_btn" style="margin-top: 5px;">Kết thúc nhập SL SKĐ</button>
@@ -1010,10 +1010,7 @@
 	datakd = '';		//chotchisothang -> data Lưu giá trị -> kiểm định
 	page1_meter(crsubid); 
 
-	currentTAB = '#truockiemdinh';
-
-	data_from_CSKD = 0;
-
+	
 	var chisodauky='';
 
 	$('.xnbtninputh1').click(function(){
@@ -1116,10 +1113,10 @@
 			if (usertype==3&&globalobject.writable==1&&globalobject.editable==1){		//	2.	Có quyền
 				if (datatype==0){														//	3. 	Nếu ko phải là dữ liệu kiểm định thì mới hiện nút kiểm định
 
-					//$('.kiemdinh_btn').show();	
-					//$('.chisokiemdinh').css('display','none');			
+					$('.kiemdinh_btn').show();	
+					$('.chisokiemdinh').css('display','none');			
 				} else {																//	4.	Nếu là dữ liệu kiểm định và chưa confirm -> hiện nút edit & kết thúc nhập dữ liệu kiểm định
-					//$('.chisokiemdinh').show();
+					$('.chisokiemdinh').show();
 				}
 				
 				if (check_meter_status!=0) {											//	5.	Nếu chưa confirm + có quyền + công tơ offline -> cho nhập chỉ số chốt tháng
@@ -1129,14 +1126,14 @@
 			}
 
 		} else {
-			//$('.kiemdinh_btn').css('display','none');
+			$('.kiemdinh_btn').css('display','none');
 			$('.nhapchisogroup').css('display','none');
-			//$('.chisokiemdinh').css('display','none');
+			$('.chisokiemdinh').css('display','none');
 		}
 
 		if ($('.kiemdinh_btn').hasClass('clicked')){
 			//	Trường hợp bình thường -> bấm vao nút kiểm định -> hiện nhập số...
-			//$('.chisokiemdinh').show();
+			$('.chisokiemdinh').show();
 		}
 	}
 
@@ -1250,7 +1247,7 @@
 	*	Reset mỗi lần reset/subsubmitdata/kết thúc nhập K Đ
 	*/
 
-	
+	var data_from_CSKD = 0;
 
 	$('.sub_check').click(function(){
 	
@@ -1306,14 +1303,13 @@
 	function subsubmitdata(){
 		var dauky = JSON.stringify(dataconfirm.dauky);
 		var cuoiky = JSON.stringify(dataconfirm.cuoiky);
-		//console.log('dauky', dauky); console.log('cuoiky', cuoiky);
+
 		$.ajax({
 				url:api_link+'/ccst_cf.php',
 				type:"POST",
 				data:{serial: crmeter, month: month, userid: userid, fullname: full_name, dauky: dauky, cuoiky: cuoiky, token: token, kdstatus: data_from_CSKD},
 				success:function(data){
 					//alert(data);
-					console.log('subsubmitdata ',data);
 					if (data == 0) {
 						showalert('Thông báo', 'Thất bại - Ghi dữ liệu không thành công!');
 					} else if (data == 409) {
@@ -1321,6 +1317,9 @@
 					} else if (data == 200) {
 						showalert('Thông báo', 'Thành công - Số liệu đã được xác nhận và lưu vào cơ sở dữ liệu!');
 						$('.sub_check').removeClass('btn-warning').addClass('btn-success');
+
+						data_from_CSKD = 0;
+
 					} else {
 						showalert('Thông báo', 'Thất bại - Bạn hãy thử lại lần sau!');
 					}
@@ -1348,7 +1347,7 @@
 
 	function set_xacnhan_btn_status(data){
 
-		//console.log('set_xacnhan_btn_status ',data);
+		console.log('set_xacnhan_btn_status ',data);
 		$('.pc_check , .sub_check').removeClass('btn-success').removeClass('btn-warning');
 		
 		//Nếu đúng điện lực mới enable nút
@@ -1392,7 +1391,7 @@
 
 	function apply_thongso(data){
 		
-		//console.log('apply_thongso :',data);
+		console.log('apply_thongso :',data);
 		
 		hide_edit_btn(data.type, data.confirminfo.sub_confirm);
 
@@ -1590,20 +1589,12 @@
 					dataconfirm = data;
 					datakd = data;
 					
-					//console.log('chart : ', datakd);
+					console.log('chart : ', datakd);
 
 					/*
 					*	Kiểm tra nếu confirm ko phải loại bt (loại kiểm định) thì hiện bảng tab lên (đồng thời gọi sau kiểm định?)
 					*/
-
-					/*
-					*	check kiemdinhcongto btn status 
-					*/
-					check_kiemdinhcongto_btn_status(datakd['nhapkiemdinh']);
-
-					//if (datakd.type!=0) { $('#myTab').show(); } else { $('#myTab').css('display', 'none'); }
-
-					check_tab_kiemdinhcongto_status(datakd.type, datakd);
+					if (datakd.type!=0) { $('#myTab').show(); } else { $('#myTab').css('display', 'none'); }
 					
 					apply_thongso(data);
 					set_loading_pos(1);
@@ -1623,7 +1614,7 @@
 	
 	}
 	
-
+	
 
 	function checksecurity(callbackfnc){
 
@@ -1640,8 +1631,6 @@
 	      $('#inputdialogcontent').html(inputcontent);
 	      
 	      }
-	      
-	      $('#inputpassword').focus();
 
 	      $('.btnhuybo').click(function(){
 	          $('#inputdialog').remove();
@@ -1766,20 +1755,13 @@
         return v;
     }
 
-/*
-*	BEGIN
-*	phần check status chỉ số kiểm định 
-*	nút nào đc hiện nút nào không được hiện
-*/
-
    $(function(){
 		$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
 			// Get the name of active tab
 			var activeTab = $(e.target).text();
 
 			currentTAB = $(e.target)[0].hash;   
-			//console.log(currentTAB);
-			
+			console.log(currentTAB);
 			// Get the name of previous tab
 			var previousTab = $(e.relatedTarget).text(); 
 			$(".active-tab span").html(activeTab);
@@ -1787,80 +1769,10 @@
 	   	});
 	});
 
-   	function check_kiemdinhcongto_btn_status(type){
-   		//console.log('type kdct btn ', type);
-		if (parseInt(type)) {															//	1. 	Type : Nếu ko phải là dữ liệu kiểm định thì mới hiện nút kiểm định
-
-			if (usertype==3&&globalobject.writable==1&&globalobject.editable==1){		//	2.	Có quyền
-				
-					$('.kiemdinh_btn').removeClass('displaynone');
-	
-			} 
-
-		} else {
-
-			if (!$('.kiemdinh_btn').hasClass('displaynone')){ $('.kiemdinh_btn').addClass('displaynone');}
-
-		}
-	}
-
-	function check_tab_kiemdinhcongto_status(type, data){
-
-		/*
-		*	phần này chỉ chạy 1 lần khi load table csct
-		*/
-		//console.log('check_tab_kiemdinhcongto_status');
-
-		if (parseInt(type)) {
-
-			$('ul#myTab.nav').removeClass('displaynone');
-			/*
-			*	hiện tab kiểm định lên thì mặc định đặt định dạng data :data_from_CSKD là 1 <> trước kiểm định
-			*/
-			data_from_CSKD = 1;
-			check_group_kiemdinh_btn_status(data);
-
-		} else {
-			if (!$('ul#myTab.nav').hasClass('displaynone')){ $('ul#myTab.nav').addClass('displaynone');}
-			if (!$('.chisokiemdinh').hasClass('displaynone')){ $('.chisokiemdinh').addClass('displaynone');}
-		}
-	}
-
-	function check_group_kiemdinh_btn_status(data){
-
-		//console.log('check_group_kiemdinh_btn_status : ', data);
-
-		var showgroupbtn = 1, type = 0;
-
-		try {
-			showgroupbtn = data.confirminfo.sub_confirm;
-			type = parseInt(data.type);
-		} catch (e) {}
-		//console.log(showgroupbtn, type, data.confirminfo.sub_confirm);
-		if (showgroupbtn==0&&type){
-			$('.chisokiemdinh').removeClass('displaynone');
-		} else {
-			if (!$('.chisokiemdinh').hasClass('displaynone')){ $('.chisokiemdinh').addClass('displaynone');}
-		}	
-	}
-
-/*
-*	END
-*	phần check status chỉ số kiểm định 
-*	nút nào đc hiện nút nào không được hiện
-*/
-
-
-
-/*
-*	BEGIN
-*	nhập số liệu kiểm định
-*/
-
 	$('.kiemdinh_btn').click(function(){
-
-	  	$('#myTab').removeClass('displaynone');
-	  	$('.chisokiemdinh').removeClass('displaynone');
+		//hide_edit_btn(datakd.type, datakd.confirminfo.sub_confirm);
+	  	$('#myTab').show();
+	  	$('.chisokiemdinh').show();
 
 	});
 
@@ -1897,31 +1809,44 @@
 			showalert('Thông báo', 'Bạn hãy xác nhận chỉ số Trước Kiểm Định trước khi nhập giá trị Sau Kiểm Định');
 			return false;
 		} else {
-			if (!$('.kiemdinh_nhap_sl_skd_btn').hasClass('editing')){ 
-				$('.kiemdinh_nhap_sl_skd_btn').addClass('editing');
-				nhapskd();
-			}
+
+			nhapskd();
+
 		}
 
 	});
 
 	$('.kiemdinh_ketthuc_nhap_sl_skd_btn').click(function(){
-
-		if ($('.kiemdinh_nhap_sl_skd_btn').hasClass('editing')){ 
-			$('.kiemdinh_nhap_sl_skd_btn').removeClass('editing');
-			kiemdinh_push_edited_data_to_html('skd');
-		}
-		
+		kiemdinh_push_edited_data_to_html('skd');
 	});
 
 	$('.kiemdinh_ghi_sl_dauky_sau_kiemdinh_btn').click(function(){
-		
 		if (editing_input==0){
 			set_dauky_saukiemdinh();
 		} else {
 			showalert('Thông báo', 'Bạn hãy kết thúc nhập số liệu trước khi lưu số liệu đầu kỳ sau kiểm định');
 		}
 		
+
+	});
+
+
+	$('.kethucghisdk').click(function(e){
+		/*
+		*	Usage: kiểm tra xem số liệu trước kiểm định đã nhập chưa?
+		*/
+
+		if (!is_sub_confirm(datakd)){
+			showalert('Thông báo', 'Bạn hãy xác nhận chỉ số Trước Kiểm Định trước khi nhập giá trị Sau Kiểm Định');
+			return false;
+		} else {
+			datakd_type = 2;							//đánh dấu trạng thái là SKD
+			
+			//alert(' chưa có hàm cho nhập chỉ số SKD như phần trước SK nhaptkd()');
+			console.log(datakd);
+			nhapskd();
+		}
+
 	});
 
 	
@@ -2053,7 +1978,7 @@
 	}
 
 	function enable_SKD_confirm(data){
-		//console.log('enable_SKD_confirm: ',data);
+		console.log('enable_SKD_confirm: ',data);
 		var returnvalue = 0;
 		if (data.type==1) {
 			if (data.confirminfo!=undefined){
@@ -2189,6 +2114,8 @@
 	}
 
 	function nhaptkd(){
+		
+		//$('.chisokiemdinh').show();
 	
 		/*
 		* 	edit chot chi so thang
@@ -2242,6 +2169,10 @@
 		*	Xác nhận (công tơ offline -> quay lại chỗ nhập số liệu bình thường)
 		*/
 
+		
+
+		//$('.chisokiemdinh').show();
+
 
 		/*
 		* 	edit chot chi so thang
@@ -2249,7 +2180,9 @@
 		*	status == 1 cto ko online
 		*/
 		
-		if (editing_input==0){	
+		if (editing_input==0){
+
+			
 
 			if (usertype==3){
 
@@ -2279,6 +2212,7 @@
 					
 				}
 				$('.sinputdauky15').attr("placeholder","3/1/2015 00:00:00");
+				//$('.sinputcuoiky15').attr("placeholder","4/1/2015 00:00:00");
 			}
 		}
 
@@ -2290,7 +2224,7 @@
 		*/
 		//đưa type vào để select: datakd_type == 1 dauky và datakd_type == 2 sdauky
 		
-		//console.log('cuoi ky', data);
+		console.log('cuoi ky', data);
 		
 		var prefix = '';
 		data_from_CSKD = 1;
@@ -2304,7 +2238,7 @@
 			var t1 = '.'+prefix+'dauky'+__i;
 			$(t1).html(data.dauky[key]);
 
-			//console.log(t1+ ' -- '+data.dauky[key]);
+			console.log(t1+ ' -- '+data.dauky[key]);
 			__i++;
 		}
 		
@@ -2417,11 +2351,9 @@ $('.tabtruockiemdinh').click(function(){
 	*	get new API return value%.
 	*/
 
-	data_from_CSKD = 1;
 	hide_edit_btn(datakd.type, datakd.confirminfo.sub_confirm);
 	set_xacnhan_btn_status(datakd);
 	datakd_type=1;
-	check_group_kiemdinh_btn_status(datakd);
 });
 
 $('.tabsaukiemdinh').click(function(e){
@@ -2437,16 +2369,11 @@ $('.tabsaukiemdinh').click(function(e){
 		return false;
 	}
 
-	data_from_CSKD = 2;
 	datakd_type=2;
 	get_saukiemdinh_value();
-	
 
 });
 
-function tab_kiemdinh_click(type){
-
-}
 function get_SKD_value(){
 
 	alert('get_SKD_value');
@@ -2493,9 +2420,7 @@ function get_saukiemdinh_value(){
 				//alert('get_saukiemdinh_value : '+data);
 				data=JSON.parse(data);
 
-				//hide_edit_btn(data.type, data.confirminfo.sub_confirm);
-
-				check_group_kiemdinh_btn_status(data);
+				hide_edit_btn(data.type, data.confirminfo.sub_confirm);
 
 				apply_nhapcs_KD(data);
 
@@ -2546,20 +2471,9 @@ function set_dauky_saukiemdinh(){
 	
 }
 
-
 </script>
 
-<style>
-	.displaynone {
-		display:none;
-	}
-	.chisokiemdinh .btn {
-		width: 195px;
-		display: block;
-		margin-top: 3px!important;
-		height: 30px;
-	}
-</style>
+
 
 
 

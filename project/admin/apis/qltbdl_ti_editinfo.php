@@ -39,7 +39,7 @@ $start = microtime(true);
     $year_production = clean_text($data ->{'year_production'});
     $timestart_ti = clean_text($data ->{'timestart_ti'});
 
-    echo $sql = 'UPDATE `ti` SET `id_pwc`='.$id_pwc.',`id_invester`='.$id_invester.',`id_sub`='.$id_sub.',
+    $sql = 'UPDATE `ti` SET `id_pwc`='.$id_pwc.',`id_invester`='.$id_invester.',`id_sub`='.$id_sub.',
     		`name_ti`="'.$name_ti.'",`serial_ti`="'.$serial_ti.'",`level_ti`='.$level_ti.',
     		`relation_ti`="'.$relation_ti.'",`ratio_ti`="'.$ratio_ti.'",`exactlevel_ti`="'.$exactlevel_ti.'",
     		`capacity_ti`="'.$capacity_ti.'", `version_ti`="'.$version_ti.'",`manufacturer_ti`="'.$manufactirer_ti.'",
