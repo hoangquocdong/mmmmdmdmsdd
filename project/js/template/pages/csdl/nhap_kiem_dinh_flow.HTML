@@ -1,0 +1,111 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+
+</head>
+<body>
+load trang -> kiểm tra xem chốt chỉ số chưa </br>
+<p>---------------------------------------------------</p>
+autorun : chart(serial_meter) -> gọi API: url:api_link+'/chotchisothang.php' : <br />
+
+chưa đưa param chốt chỉ số chưa -> đưa thêm vào API chotchisothang<br />
+key: nhapkiemdinh: 0/1<br />
+khi có dữ liệu trong h1 confirm (cả thường và kiểm định) thì nhapkiemdinh = 0 (ẩn nút) và ngc lại =1 hiện nút<br />
+1. đã -> ẩn chức năng nhập kiểm định</br>
+2. chưa -> hiện nút nhập</br>
+<p>
+-> function ẩn/hiện nút nhập: check_kiemdinhcongto_btn_status(type):
+<p>check permission confirm/type sub/check data confirm</p>
+<p>---------------------------------------------------</p>
+<p>
+<p>TAB trước - sau kiểm định hiện ra khi nào?</p>
+<p>1. Khi bấm nút nhập kiểm đinh</p>
+<p>2. khi load h1 confirm ra type # 0 (chỉ cần type # 0 là hiện TAB)</p>
+<p>==> gọi hàm check_kiemdinhcongto_btn_status</p>
+<p>---------------------------------------------------</p>
+<p>
+<p>Nhóm nút nhập/sửa/ghi dữ liệu trước/ sau kiểm định hiện ra khi nào?</p>
+<p>1. chỉ hiện khi tab trước/sau kiểm định xuất hiện </p>
+<p>2. chỉ hiện khi chưa confirm</p>
+<p>Kiểm tra lại api "chotchisothang" phần confirm <> nhà máy confirm trước sau kiểm định không thay đổi giá trị</p>
+<p>==> kiểm tra lại thì thấy : chotchisothang_get_skd api <> phần này quy định data trong bảng "sau kiểm định" đồng thời quy định group btn</p>
+<p>API Update/Check khi load trang + bấm vào 1 trong 2 tab</p>
+<p>---------------------------------------------------</p>
+<p>
+<p>Bấm nút nhập số liệu sau kiểm định -> add class edditing vào luôn nút đó để đánh dấu đang edit và gọi hàm nhapskd();</p>
+<p>Bấm nút kiemdinh_ketthuc_nhap_sl_skd_btn -> kiểm tra xem có class editing ko nếu có thì mới remove class edditing và gọi hàm kiemdinh_push_edited_data_to_html('skd');</p>
+<p>Ghi số liệu sau kiểm định <> chỉ ghi số liệu đầu của sau kiểm định, khi chốt số sẽ ghi lại trong h1_confirm</p>
+<p>---------------------------------------------------</p>
+<p>API: ccst_cf.php thay đổi</p>
+<p>record_exist($serial, $month, $kdstatus) -> thay đổi từ select * xem tồn tại chưa chuyển thành select subconfirm nếu = 1 thì là đã tồn tại, và 0 là chưa</p>
+<p>thay đổi cơ chế, nếu type gửi lên là 2 thì sẽ update trước, ko có để update thì insert</p>
+<p>---------------------------------------------------</p>
+<p>Confirm sau kiểm định xong ngày xác nhận thành trước kiểm định?</p>
+<p>==> api đã trả ra đúng , chưa xử lý phần html</p>
+<p style="color:red; font-weight:bold;">17h34 4.8.15 lỗi phát sinh, bấm liên tục xác nhận sẽ insert thêm dòng mới vào h1confirm làm hiện ra lỗi (dòng mới type = 0) : error status: pending...</p>
+<p>---------------------------------------------------</p>
+<p style="color:red; font-weight:bold;">Chưa quy hoạch lại việc đánh dấu xem dữ liệu thường, dữ liệu kiểm đinh (trước/sau)</p>
+<p style="color:red; font-weight:bold;">ngoài việc check confirm ở server -> check ở client cứ success rồi là ko cho bấm nữa</p>
+
+<p>---------------------------------------------------</p>
+<p>9h320 5.8.15 chốt số liệu, số liệu kiểm định thành công (bỏ biến reset type khi confirmed success)</p>
+
+<p>---------------------------------------------------</p>
+<p>
++ với trường hợp:</br>
+nhập kiểm định -> đã chốt trước/ sau</br>
+
+chốt thường -> có tháng + type 0</br>
+chốt kiểm định -> tháng + type 1/2</br>
+
+==> khi chưa có dữ liệu tháng chốt -> có hiện nút kiểm định</br>
+==> có dữ liệu tháng chốt -> ẩn (cả trường hợp chốt thường và kiểm định)</br>
+
+==> có tháng chốt -> select type</br>
+nếu type = 0 -> ẩn tab trước/ sau kiểm định</br>
+type # 0 hiện tab trước/ sau kiểm định</br>
+
+mặc định hiện só liệu trước kd (type = 1) lên trước</br>
+hiện số liệu sau kd (type = 2) khi bấm vào tab</br>
+
+edit & save dữ liệu</br>
+
+type # 0 hoặc nhấn nút kiểm định -> hiện tab kiểm định</br>
+
+check dữ liệu trước/ sau kiểm định</br>
+
+chưa có thì cho phép nhập trước kiểm định/ chốt (có cần cho lưu xong chốt sau ???)</br>
+
+<span style="color:red; font-weight:bold;">CHỖ NÀY Ý LÀ: CHO LƯU GIÁ TRỊ TRƯỚC KIỂM ĐỊNH - NHƯNG CHƯA CHỐT - CHO CHỐT SAU -> ĐÃ CHỌN PHƯƠNG ÁN NHƯ CŨ, SỬA XONG CHỐT LUÔN KO CHO LƯU XONG SAU QUAY LẠI CHỐT!. CỨ THEO CŨ ĐI BÁC, XONG CHO NÓ XÁC NHẬN LUÔN TRƯỚC KIỂM ĐỊNH RỒI MỚI ĐẾN SAU KIỂM ĐỊNH </span></br>
+
+chỉ số đầu trước kd lấy trong db confirm hoặc online, chỉ số sau nhập tay</br>
+
+<span style="color:red; font-weight:bold;"> LÚC TRƯỚC MÌNH CHỐT, CHO CẢ TRƯỜNG HỢP NHẬP TAY LÀ CHỈ SỐ ĐẦU KỲ PHẢI CÓ RỒI, CÓ NGHĨA LÀ CÓ TRONG CONFIRM</span></br>
+
+save chỉ số <> update data status để lấy điều kiện bấm nút sau kiểm định</br>
+
+bấm vào sau kiểm định -> chưa chốt trước kiểm định thì ko cho tiếp</br>
+
+đã chốt thì cho phép vào, nhập số đầu sau kiểm định. Số sau thì lấy online? cuối tháng? ( trường hợp tháng hiện tại chưa đến ngày cuối tháng và trường hợp tháng trước đó đã có ngày cuối tháng?)</br>
+<p style="color:red; font-weight:bold;">
+1. LÀM ĐÚNG QUY TRÌNH: KHI KIỂM ĐỊNH SẼ THỰC HIỆN NHẬP NGAY, NHƯ VẬY CHẮC CHẮN SẼ CHƯA CÓ CHỈ SỐ CUỐI KỲ (SỐ SAU CỦA NHẬP SAU KIỂM ĐINH) NHƯ VẬY SẼ CHỜ ĐẾN ĐẦU THÁNG SAU MỚI CÓ</br>
+2. KO LÀM ĐÚNG QUY TRÌNH, ĐẾN ĐẦU THÁNG SAU KHI CÓ CHỈ SỐ CHỐT THÁNG RỒI MỚI QUAY LẠI LÀM VIỆC NHẬP KIỂM ĐỊNH, THÌ CÓ 2 TRƯỜNG HỢP:</br>
++ 1. NÓ LỠ XÁC NHẬN --> KO CHO NÓ NHẬP KIỂM ĐỊNH, NÓ PHẢI GỌI VÀ TRUNG TÂM SẼ XỬ LÝ</br>
++ 2. NÓ CHƯA XÁC NHẬN --> CHO NÓ NHẬP NHƯ BÌNH THƯỜNG, VÀ TRƯỜNG HỢP NÀY, SAU KIỂM ĐỊNH --> CHỈ SỐ CUỐI KỲ SẼ LÀ LẤY ONLINE (NHƯ HÔM NAY)</br>
+</p>
+kiểm tra và lưu trữ</br>
+
+khi dữ liệu đã confirm thì ko cho save nữa</br>
+
+check các điều kiện</br>
+1 quyền confirm</br>
+2 trạng thái edit</br>
+3 trang thái finished editing</br>
+4 trang thái cancel</br>
+4.1 check số liệu có đầy đủ ko</br>
+5 check security password</br>
+6 đầu kỳ confirm</br>
+7 month, tab, page change...</br>
+</body>

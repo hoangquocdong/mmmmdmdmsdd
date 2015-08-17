@@ -1,0 +1,157 @@
+
+        <div class="container">
+
+          <!-- Table -->
+
+            <div class="row">
+
+              <div class="col-md-12">
+
+                <div class="widget">
+
+                <div class="widget-head">
+                  <div class="pull-left">Tables</div>
+                  <div class="widget-icons pull-right">
+                    <a href="#" class="wminimize"><i class="fa fa-chevron-up"></i></a> 
+                    <a href="#" class="wclose"><i class="fa fa-times"></i></a>
+                  </div>  
+                  <div class="clearfix"></div>
+                </div>
+
+                  <div class="widget-content">
+					
+					<div class="table-responsive">
+						<table class="table table-striped table-bordered table-hover">
+						  <thead>
+							<tr>
+							  <th>Stt</th>
+							  <th>Điện lực</th>
+							  <th>TB đo đếm</th>
+							  <th>Kiểm định</th>							  
+							  <th>Cấp chính xác</th>								  
+							  <th>Serial</th>
+							  <th>Cấp thiết bị</th>
+							  <th>Dung lượng</th>
+							  <th>Dòng điện</th>
+							  <th>Điện áp</th>							  
+							  <th>Loại TB</th>
+							  <th>Nhà SX</th>
+							  <th>Xuất Xứ</th>
+							  <th>TB đo đếm</th>
+
+							</tr>
+						  </thead>
+						  <tbody class="tbody-content">
+							
+						  </tbody>
+						</table>
+					</div>
+					
+					
+                   <div class="widget-foot">
+
+                      
+                        <ul class="pagination pagination-sm pull-right">
+                          <li><a href="#">Prev</a></li>
+                          <li><a href="#">1</a></li>
+                          <li><a href="#">2</a></li>
+                          <li><a href="#">3</a></li>
+                          <li><a href="#">4</a></li>
+                          <li><a href="#">Next</a></li>
+                        </ul>
+                      
+                      <div class="clearfix"></div> 
+
+                    </div>
+
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+
+        </div>
+
+
+		<!-- Matter ends -->
+
+<script type="text/javascript">
+  
+$.ajax({
+  url:'http://mdms.npc.com.vn/mdms2015/apis/equipments.php',
+      type:"POST",
+      data:{id:userid, token:token},
+      success:function(data){
+          //console.log('e ',data);
+          data = JSON.parse(data);
+          var html = '';
+          $.each(data,function(index, value){
+
+            //console.log(value); return false;
+            var subname = '';
+            $.each(value[1],function(index1, value1){
+
+
+              var listmeters = '';
+              $.each(value1['meterinfo'],function(index2, value2){
+                
+
+                var listtu = '';
+                $.each(value2['listtu'],function(index3, value3){
+                 listtu +='<tr class="underpower">'+
+                            '<td></td><td style="text-align: right;"></td>'+ <!--'+value3['stt']+'-->
+                            '<td style="padding-left:15px;">'+value3['name_tu']+'</td>'+
+                            '<td></td><td>'+value3['exactlevel_tu']+'</td><td>'+value3['serial_tu']+'</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>'+
+                          '</tr>';
+                });
+
+
+                var listti = '';
+                $.each(value2['listti'],function(index3, value3){
+                 listti +='<tr class="underpower">'+
+                            '<td></td><td style="text-align: right;"></td>'+ <!--'+value3['stt']+'-->
+                            '<td style="padding-left:15px;">'+value3['name_ti']+'</td>'+
+                            '<td></td><td>'+value3['exactlevel_ti']+'</td><td>'+value3['serial_ti']+'</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>'+
+                          '</tr>';
+                });
+				var level='Dự phòng';
+				if (value2['level_meter']==0){ level ='Chính';};
+                listmeters +='<tr class="underpower">'+
+                            '<td >'+(index+1)+'.'+(index1+1)+'.'+value2['stt']+'</td>'+
+                            '<td ></td>'+
+                            '<td>'+value2['name_meter']+'</td><td></td><td></td><td>'+value2['serial_meter']+'</td><td>'+ level +'</td><td></td><td></td><td></td><td></td><td>'+value2['manufacturer_meter']+'</td><td>'+value2['original_meter']+'</td><td></td>'+
+                          '</tr>'+listtu+listti;
+              });
+
+
+
+              subname +='<tr class="underpower subpower">'+
+                          '<td >'+(index+1)+'.'+(index1+1)+'</td>'+
+                          '<td >'+value1['name_sub']+'</td>'+
+                          '<td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>'+
+                        '</tr>'+listmeters;
+
+            });
+              
+              //<tbody class="tbody-content">
+              html+='<tr class="power">'+
+                '<td class="">'+(index+1)+'</td>'+
+                '<td>'+value[0]['name_pwc']+'</td>'+
+                '<td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>'+
+              '</tr>'+subname;
+
+          });
+
+          $('.tbody-content').append(html);
+		  $('tr:not(.underpower)').click(function(){
+	//alert('1');
+   $(this).nextUntil('tr:not(.underpower)').toggle();
+});
+      },
+      error:function(e){
+          console.log('e '+e);
+      }
+});
+
+</script>

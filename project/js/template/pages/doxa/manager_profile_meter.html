@@ -1,0 +1,177 @@
+
+<!-- Matter -->
+<!--div class="matter"-->
+<div class="container">
+	<!-- Today status ends -->
+	<!-- Date Picker -->
+	<div class="row">
+		<div class="col-md-4" style="margin-top: 5px;">			
+				<h4 style="display: inline-block; float: left; margin-right: 10px;">Date Picker</h4>
+				 <div id="datetimepicker1" class="input-append input-group dtpicker">
+					<input data-format="yyyy-MM-dd" type="text" class="form-control">
+					<span class="input-group-addon add-on">
+						<i data-time-icon="fa fa-times" data-date-icon="fa fa-calendar" class="fa fa-calendar"></i>
+					</span>
+				</div>
+		</div>		
+		<div class="col-md-4" style="margin-top: 5px;">	
+				<h4 style="display: inline-block; float: left; margin-right: 10px;">Date Picker</h4>
+				 <div id="datetimepicker3" class="input-append input-group dtpicker">
+					<input data-format="yyyy-MM-dd" type="text" class="form-control">
+					<span class="input-group-addon add-on">
+						<i data-time-icon="fa fa-times" data-date-icon="fa fa-calendar" class="fa fa-calendar"></i>
+					</span>
+				</div>
+		</div>	
+		<button type="submit" class="btn btn-info" style="margin-top: 5px;">Xem dữ liệu</button>
+	</div>    
+	<!-- Dashboard Graph starts -->
+	<div class="row">
+		<div class="col-md-12">
+			<!-- Widget -->
+			<div class="widget">
+			<!-- Widget head -->
+			<div class="widget-head">
+			<div class="nav nav-pills pull-left">
+
+			<!-- Comment button with number of latest comments count -->
+			<li class="dropdown dropdown-big">
+			<a class="dropdown-toggle" href="#" data-toggle="dropdown" style="padding: 0px 15px;">
+			<i class="fa fa-comments"></i> Dòng điện <span class="label label-info">I</span> 
+			</a>
+			</li>
+
+			<!-- Message button with number of latest messages count-->
+			<li class="dropdown dropdown-big">
+			<a class="dropdown-toggle" href="#" data-toggle="dropdown" style="padding: 0px 15px;">
+			<i class="fa fa-envelope"></i> Điện áp <span class="label label-primary">U</span> 
+			</a>
+			</li>
+
+			<!-- Members button with number of latest members count -->
+			<li class="dropdown dropdown-big">
+			<a class="dropdown-toggle" href="#" data-toggle="dropdown" style="padding: 0px 15px;">
+			<i class="fa fa-user"></i> Công suất <span class="label label-success">P</span> 
+			</a>
+			</li> 
+
+			</div>
+
+			<div class="widget-icons pull-right">
+			<a href="#" class="wminimize"><i class="fa fa-chevron-up"></i></a> 
+			<a href="#" class="wclose"><i class="fa fa-times"></i></a>
+			</div>  
+			<div class="clearfix"></div>
+			</div>              
+
+			<!-- Widget content -->
+			<div class="widget-content">
+			<div id="container" style="min-width: 310px; height: 250px; margin: 0 auto"></div>
+			</div>
+			<!-- Widget ends -->
+
+			</div>
+			</div>
+	</div>
+	<!-- Dashboard graph ends -->
+	<!-- Chats, File upload and Recent Comments -->
+	<div class="row">
+		<div class="col-md-12">
+			<div class="widget">
+				<div class="widget-head">
+					<div class="pull-left">Data Tables</div>
+					<div class="widget-icons pull-right">
+						<a href="#" class="wminimize"><i class="fa fa-chevron-up"></i></a> 
+						<a href="#" class="wclose"><i class="fa fa-times"></i></a>
+					</div>  
+					<div class="clearfix"></div>
+				</div>
+				<div class="widget-content">
+					<div class="padd">
+						<!-- Table Page -->
+						<div class="page-tables" >
+							<!-- Table -->
+							<div class="table-responsive">
+							<div class="clearfix"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="widget-foot">
+				<!-- Footer goes here -->
+				</div>
+			</div>
+		</div>             
+	</div>
+</div>
+<script src="js/jquery-ui.min.js"></script> <!-- jQuery UI -->
+<script src="js/bootstrap-datetimepicker.min.js"></script> <!-- Date picker -->
+<script src="js/custom.js"></script> 
+<!-- Menu left + content Page 1 -->
+<script>
+api_link='http://mdms.npc.com.vn/mdms2015/apis'        
+page1_meter(firstsub);		  
+function data_table(dataSet){
+$('.table-responsive').html( '<table cellpadding="0" cellspacing="0" border="0" class="display" id="example"></table>' );
+ 
+    $('#example').dataTable( {
+        "data": dataSet,
+		//		"scrollY":        "300px",
+       // "scrollCollapse": false,		
+        "columns": [
+            { "title": "Ngày giờ" },
+            { "title": "P giao" },
+            { "title": "P nhận" },
+            { "title": "P tổng", "class": "center" },
+            { "title": "Q1", "class": "center" },
+			{ "title": "Q2" },
+			{ "title": "Q3" },
+			{ "title": "Q4" }
+        ]
+
+    } );		
+}
+
+var chart = function(serial){
+	dt =[], dt0 =[], dt1 =[];
+	$.ajax({
+            url:api_link+'/page2_profile.php',
+            type:"POST",
+            data:{serial: serial},
+            success:function(data){
+
+				dt = JSON.parse(data);
+				console.log('tuan nam',dt.pgiao);
+
+					var array_finish =[];
+					$.each(dt.dulieu,function(index,value){ 
+						arr = $.map(value, function(el) { return  el; });
+						array_finish.push(arr);
+					});
+					data_table (array_finish);
+					$('#container').highcharts('StockChart', {
+						rangeSelector: {
+							selected: 1
+						},
+
+						title: {
+							text: 'AAPL Stock Price'
+						},
+
+						series: [{
+							name: 'AAPL Stock Price',
+							data: dt.pgiao[0],
+							type: 'line',
+							tooltip: {
+								valueDecimals: 2
+							}
+						}]
+					});	
+            }, error: function(e){
+                console.log('e '+e);
+            }        
+        });
+}
+	
+</script>
+

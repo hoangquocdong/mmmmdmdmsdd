@@ -1,0 +1,544 @@
+<div class="container">
+
+  <!-- Table -->
+
+	<div class="row">
+
+	  <div class="col-md-5">
+
+		<div class="widget">
+
+		<div class="widget-head">
+		  <div class="pull-left"  style="width:100%; text-align:center">Bảng thống kê </div>
+		  <div class="widget-icons pull-right">
+			<a href="#" class="wminimize"><i class="fa fa-chevron-up"></i></a> 
+			<a href="#" class="wclose"><i class="fa fa-times"></i></a>
+		  </div>  
+		  <div class="clearfix"></div>
+		</div>
+
+		  <div class="widget-content">
+			
+			<div class="table-responsive">
+				<table class="table table-striped table-bordered table-hover nowrap compact " style="color:#0C4B7F">
+				  <thead>
+					<tr style="white-space:nowrap; text-align:center;">
+						<th>Stt</th>						
+						<th>Tên Điện lực</th>							
+						<th>Mã Điện lực</th>
+						<th>Trạng thái </th>						
+				
+					</tr>
+						
+				  </thead>
+				  <tbody class="tbody-content">
+						
+				  </tbody>
+				</table>
+			</div>
+			
+			
+		   <div class="widget-foot">
+
+			  
+				<ul class="pagination pagination-sm pull-right">
+				  <li><a href="#">Prev</a></li>
+				  <li><a href="#">1</a></li>
+				  <li><a href="#">2</a></li>
+				  <li><a href="#">3</a></li>
+				  <li><a href="#">4</a></li>
+				  <li><a href="#">Next</a></li>
+				</ul>
+			  
+			  <div class="clearfix"></div> 
+
+			</div>
+
+		  </div>
+		</div>
+
+	  </div>
+	  
+	  
+	<div class="col-md-7 userdetail_table">
+
+		<div class="widget userdetail">
+
+		<div class="widget-head">
+		  <div class="pull-left"  style="width:100%; text-align:center">Bảng quản lý thao tác dữ liệu thông tin các Điện lực</div>
+		  <div class="widget-icons pull-right">
+			<a href="#" class="wminimize"><i class="fa fa-chevron-up"></i></a> 
+			<a href="#" class="wclose"><i class="fa fa-times"></i></a>
+		  </div>  
+		  <div class="clearfix"></div>
+		</div>
+
+		  <div class="widget-content">
+			
+			<div class="table-responsive">
+				<table class="table table-striped table-bordered table-hover  order-table " style="color:#0C4B7F">
+				  <thead>
+					<tr style="white-space:nowrap; text-align:center; background-color:#BBFC7F ;">
+						<th>Trường dữ liệu</th>
+						<th>Thông số</th>
+						<th >Thông tin</th>						
+						<th>Trường dữ liệu</th>
+						<th>Thông số</th>
+						<th >Thông tin</th>							
+					</tr>				  
+					<tr style="white-space:nowrap; ">
+						<th style="background:#B5CEE3;">Tên điện lực</th>
+						<td></td>
+						<td class="input_text" id="pc_name" data-name="pcname"></td>						
+						<th style="background:#B5CEE3;">ID Điện lực</th>
+						<td></td>
+						<td  class="input_text notinput" id="pc_id" data-name="pcid"></td>						
+					</tr>	
+					<tr style="white-space:nowrap;">
+						<th style="background:#B5CEE3;">CB vận hành ĐL</th>
+						<td></td>
+						<td  class="input_text" id="pc_operator" data-name="operator"></td>						
+						<th style="background:#B5CEE3;">Điện thoại</th>
+						<td></td>
+						<td  class="input_text" id="pc_phone" data-name="phone"></td>						
+					</tr>
+					<tr style="white-space:nowrap;">
+						<th style="background:#B5CEE3;">Email</th>
+						<td></td>
+						<td  class="input_text" id="pc_email" data-name="email"></td>						
+						<th style="background:#B5CEE3;">Trạng thái NM</th>
+						<td>int(10)</td>
+						<td  class="input_text" id="pc_status" data-name="status"></td>						
+					</tr>
+					<tr style="white-space:nowrap; ">
+						<th style="background:#B5CEE3;">Thứ tự điện lực</th>
+						<td></td>
+						<td class="input_text" id="pc_idorderby" data-name="pcidorderby"></td>						
+						<th style="background:#B5CEE3;"></th>
+						<td></td>
+						<td  class="" ></td>						
+					</tr>
+
+
+						
+				  </thead>
+				  <tbody class="tbody-content-details">
+						
+				  </tbody>
+				</table>
+			</div>
+			
+			
+		   <div class="widget-foot">
+
+			  
+				<button  class="btn btn-primary addnew_btn" style="margin-top: 5px;"> Thêm mới </button>
+				<button  class="btn btn-primary edit_btn" style="margin-top: 5px;"> Sửa </button>
+
+				<button  class="btn disabled edit_confirm_btn" style="margin-top: 5px;"> Xong </button>
+				<button  id = "edit_save_btn" class="btn disabled edit_save_btn" style="margin-top: 5px;"> Lưu lại </button>
+				<span> - - </span>
+			  	<button  class="btn btn-warning cancel_btn" style="margin-top: 5px;"> Hủy bỏ </button>
+			  	<span> - - </span>
+			  	<button  class="btn btn-warning del_btn" style="margin-top: 5px;"> Xóa </button>
+			  <div class="clearfix"></div> 
+
+			</div>
+
+		  </div>
+		</div>
+
+	  </div>  
+	  
+	  
+
+	</div>
+
+</div>
+		 
+
+		<!-- Matter ends -->
+
+<script>
+
+pwdtemp = '';
+user_editing = 0;
+edit_userid = 0;
+
+task = 1; //task = 1 - thêm mới/ = 2 edit
+crpage = getpage();
+crmenu = getdefaulthash();
+crdongnm=0;
+count_click_plus=0;
+input_doing=0;
+
+apilink = 'http://mdms.npc.com.vn/mdms2015/admin/apis/';
+
+$('.mainmenu').text(namepage[crpage]);
+$('.listmenu').text(submenu[crmenu]);
+var all_pc='';
+
+init_info();
+
+
+
+var now = 0;
+if($('body').find('.userdetail_table').length != 0){
+    var target = $('.userdetail_table').offset().top;
+}
+
+$(window).scroll(function(){
+    now = $(this).scrollTop();
+    if(now > 128){
+    		$('.userdetail_table').addClass('fixed_table');
+    }else{
+    		$('.userdetail_table').removeClass('fixed_table');
+    }
+});
+
+function init_info(){
+	$.ajax({
+		  url:apilink+'qlpcconfig.php',
+		      type:"POST",
+		      data:{id:userid, token:token},
+		      success:function(data){
+			 	data = JSON.parse(data); 
+			 	if (data.status ==200) {
+				data = data.data;
+				all_pc = data;
+		          var html = ''; 
+				  indexx=0;
+		          $.each(data,function(index, value){
+					indexx++;			
+		            html+='<tr class="pw" data-id="'+value['ID']+'" style="white-space:nowrap;"><td >'+ indexx +'</td>'+
+		                  '<td >'+value['name_pwc']+'</td>'+	  
+		                  '<td>'+value['id_pwc']+'</td>'+
+						  '<td>'+value['status']+'</td>'+                
+		                '</tr>'; 
+		          });
+
+					$('.tbody-content').html(html);
+					
+					$('tr.pw').click(function(){
+
+						cancel_editing();
+
+						var pc_id = $(this).data("id");
+						$('tr.pw').css('background','#FFFFFF');
+						$(this).css('background','#BBFC7F');
+
+						console.log(all_pc);
+						var key = 'pcid_'+pc_id;
+						console.log(all_pc[key]);
+						$('#pc_name').html(all_pc[key].name_pwc);
+						$('#pc_idorderby').html(all_pc[key].id_orderby);
+						$('#pc_id').html(all_pc[key].id_pwc);
+						$('#pc_operator').html(all_pc[key].name_operator_pc);
+						$('#pc_phone').html(all_pc[key].phone_operator_pc);
+						$('#pc_email').html(all_pc[key].email_operator_pc);
+						$('#pc_status').html(all_pc[key].status);
+					
+					});
+				 
+				 }
+			
+				$('.addnew_btn').click(function(){
+
+					if (user_editing == 0){
+						task = 1;
+						user_editing = 1;
+						$('.input_text').each(function(){
+							if (!$(this).hasClass('notinput')){
+								$(this).html('<input type="text">');
+							} else {
+								$(this).html('');
+							}
+							
+							$('.edit_confirm_btn').removeClass('disabled').addClass('btn-primary');
+							$('.edit_save_btn').removeClass('btn-primary').addClass('disabled');
+							$('.edit_btn').removeClass('btn-primary').addClass('disabled');
+							
+						});
+						//$('#pc_id').html('');
+					}
+					
+				});
+				
+
+				$('.edit_btn').click(function(){
+
+					if (user_editing == 0){
+
+						user_editing = 1;
+
+						task = 2;
+
+
+						$('.input_text').each(function(){
+
+							if (!$(this).hasClass('notinput')){
+								var tmp = $(this).text();
+								$(this).html('<input type="text" value="'+tmp+'">');
+							}
+
+							// if ($(this).data('name')!='pcid'){
+							// 	var tmp = $(this).text();
+							// 	$(this).html('<input type="text" value="'+tmp+'">');
+							// }
+							
+							$('.edit_confirm_btn').removeClass('disabled').addClass('btn-primary');
+							$('.edit_save_btn').removeClass('btn-primary').addClass('disabled');
+							$('.addnew_btn').removeClass('btn-primary').addClass('disabled');
+
+						});
+					}
+					
+				});
+
+
+				 
+				$('.edit_confirm_btn').click(function(){
+
+					check_inputtext_empty(finishediting);
+
+				});
+
+				$('.edit_save_btn').click(function(e){
+					//console.log(e);
+					if (user_editing == 0) {
+						
+						checksecurity(save_callback);
+						
+						$('.edit_confirm_btn').removeClass('btn-primary').addClass('disabled');
+						$('.edit_save_btn').removeClass('btn-primary').addClass('disabled');
+						$('.addnew_btn').removeClass('disabled').addClass('btn-primary');
+						$('.edit_btn').removeClass('disabled').addClass('btn-primary');
+
+					}
+				});
+
+				$('.cancel_btn').click(function(){
+
+					cancel_editing();
+
+				});
+
+		      },
+		      error:function(e){
+		          console.log('e '+e);
+		      }
+		});
+}
+
+
+$('.del_btn').click(function(){
+
+	checksecurity(delete_pc);
+
+});
+
+function delete_pc(){
+
+	var pcid = parseInt($('#pc_id').html());
+	$.ajax({
+		url:apilink+'qlpcconfig_delete.php',
+			type:"POST",
+			data:{userid:userid, id:pcid},
+			success:function(data){
+				//console.log(data);
+				data = JSON.parse(data);
+				showalert_withcallback('Thông báo', data.content, 11000, reload);
+			},
+			error:function(e){ }
+	});
+
+}
+
+
+function get_text_input(){
+
+	var obj = {};
+
+	$('.input_text').each(function(){
+		
+		obj[$(this).data('name')] = $(this).html()
+
+		if ($(this).hasClass('pwd')){
+
+			$(this).html(pwdtemp);
+			obj[$(this).data('name')] = pwdtemp;
+
+		}
+
+	});
+
+	return obj;
+}
+
+
+function check_inputtext_empty(callbackfnc){
+	
+	var boo = 1;
+	$('.input_text').each(function(){
+				
+		var text = $(this).find('input').val();
+
+		if (text==''){
+			boo = 0;
+		} 
+		
+	});
+
+	if ((boo == 1) && (typeof callbackfnc === 'function')) { callbackfnc(); }
+	if (boo == 0) { 
+		showalert('Thông báo', 'Bạn hãy điền đầy đủ thông tin trước khi tiếp tục', 11000);
+	}
+}
+
+
+function save_callback(){
+
+	var obj = get_text_input();
+	var apilinks='';
+
+	if (task == 1) {
+		apilinks=apilink+'qlpcconfig_createnew.php';
+	} else {
+		task = 2;
+		apilinks=apilink+'qlpcconfig_editinfo.php';
+	}
+
+	//console.log(obj); //return false;
+	obj = JSON.stringify(obj);
+	//console.log(task,'  -  ', apilinks);
+
+	$.ajax({
+		url:apilinks,
+			type:"POST",
+			data:{userid:userid, info:obj},
+			success:function(data){
+				//console.log(data);
+				data = JSON.parse(data);
+				showalert_withcallback('Thông báo', data.content, 11000, reload);
+			},
+			error:function(e){ }
+	});
+
+}
+
+
+function reload() {
+	location.reload();
+}
+
+
+function cancel_editing(){
+
+	finishediting();
+	$('.edit_confirm_btn').removeClass('btn-primary').addClass('disabled');
+	$('.edit_save_btn').removeClass('btn-primary').addClass('disabled');
+	$('.addnew_btn').removeClass('disabled').addClass('btn-primary');
+	$('.edit_btn').removeClass('disabled').addClass('btn-primary');
+
+}
+
+function finishediting(){
+	user_editing = 0;
+
+	$('.input_text').each(function(){
+		if (!$(this).hasClass('pwd')){
+			var text = $(this).find("input").val();
+			$(this).html(text);
+			
+		} else {
+			pwdtemp = $(this).find("input").val();
+			$(this).find("input").prop('disabled', true);
+		}
+
+		$('.edit_confirm_btn').removeClass('disabled').addClass('btn-primary');
+		$('.edit_save_btn').removeClass('btn-primary').addClass('disabled');
+
+		
+	});
+
+	$('.edit_save_btn').removeClass('disabled').addClass('btn-primary');
+}
+
+
+// hàm kiểm tra password và xác nhận việc cập nhật, thay đổi thông tin
+		
+function checksecurity(callbackfnc){
+
+	var inputcontent =  '<div style="text-align: center;font-size: 16px;font-weight: 500;margin-top: 15px;">Thông báo</div>'+
+						'<div style="text-align: center; font-size: 15px;margin-top: 8px;">Bạn hãy nhập mật khẩu xác nhận</div>'+
+						'<div style="margin:18px 10px; "><input type="password" id="inputpassword" placeholder="Mật khẩu" style="width: 100%;"></div>'+
+						'<div class="btnxacnhaninput btn btn-success" style="margin-left:10px;">Xác nhận</div><div class="btn btn-warning btnhuybo" style="margin-left:20px;">Hủy bỏ</div>';
+
+	if (!$('.inputdialog').length) {
+
+	  var $divbg = $('<div id="inputdialog" class="inputdialog" style="height: 100%;background-color: rgba(0,0,0,0.5);position: fixed;top: 0px;left: 0px;right: 0px;z-index: 10002;"></div>').appendTo('body');
+
+	  var $divcontent = $('<div id="inputdialogcontent" style="position: absolute;left: 50%;top: 50%;transform: translate(-50%, -50%);background-color: rgb(255,255,255);height: 200px;width: 360px;z-index: 10001;border-radius: 5px;padding: 10px;"></div>').appendTo($('#inputdialog'));
+	  $('#inputdialogcontent').html(inputcontent);
+	  
+	  $('#inputpassword').focus();
+
+	}
+
+	  $('.btnhuybo').click(function(){
+		  $('#inputdialog').remove();
+		  if (count_click_plus==0){ 				  
+			$('#plus_sub_row'+crdongnm_cancel).remove();
+			crdongnm=crdongnm_cancel;					
+		  }
+		  return false;
+	  });
+
+	  $('.btnxacnhaninput').click(function(){
+
+		  var pass= $('#inputpassword').val();
+		  $.post('http://mdms.npc.com.vn/mdms2015/apis/xacnhanpass.php',{userid:userid,password:pass}, function(data){
+			  //alert(data);
+			  if (data == 500){
+				showalert('Thông báo', 'Lỗi kết nối server, bạn hãy thử lại lần sau!', 11000);
+				return false;
+			  } else if (data == 404){
+				showalert('Thông báo', 'Sai mật khẩu, bạn hãy thử lại lần sau!', 11000);
+				return false;
+			  } else if (data == 200) {
+				//console.log('thanh cong');
+				$('#inputdialog').remove();
+				if(callbackfnc) {callbackfnc();}
+				//replace_chiso(csdauky, cscuoiky);
+				return true;
+
+			  }else if (data == 404){
+				showalert('Thông báo', 'Xác nhận mật khẩu thất bại!', 11000);
+				return false;
+			  }
+		  });
+		  return false;
+	  });
+
+}
+
+
+</script>
+
+<script src="js/jquery.dataTables.min.js"></script> <!-- Data tables -->
+
+<style type="text/css">
+
+	.fixed_table {
+		position:fixed; 
+		right:0px;
+		top:55px;
+	}
+	.input_text input {
+		width: 120px;
+		border: 1px solid black;
+	}
+	.user_detail, .user_permission, .pwdtitle{
+		cursor: pointer;
+	}
+</style>

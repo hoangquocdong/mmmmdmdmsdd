@@ -20,7 +20,7 @@ $password = clean_text($password);
 
     $returnvalue = '';
 	
-	$sql = 'SELECT `currentpos` FROM `user`  WHERE password = "'.MD5($password).'" AND user_name = "'.$username.'" AND enable = 1';
+	$sql = 'SELECT `currentpos` FROM `useradmin2015`  WHERE password = "'.MD5($password).'" AND user_name = "'.$username.'" AND enable = 1';
     $result = mysql_query($sql) or die('0');
     
     while($rsl=mysql_fetch_array($result)){
@@ -31,7 +31,7 @@ $password = clean_text($password);
 	$crposarr = explode(',', $returnvalue);
 
 	if (isset($crposarr[0])){ $crpage = $crposarr[0];} else {$crpage = 'qldx';}
-	if (isset($crposarr[1])){ $crmenu = $crposarr[1];} else {$crmenu = 'htdx';}
+	if (isset($crposarr[1])){ $crmenu = $crposarr[1];} else {$crmenu = '';}
 
 	$pages = array('qldx', 'tkvh', 'csdl', 'qlnm');
 	if (in_array($crpage, $pages)) {
@@ -39,12 +39,12 @@ $password = clean_text($password);
 	}
 	$pages = array('htdx', 'tbcb', 'tsvh', 'tspt', 'tscs', 'csct', 'tonghop', 'giambd', 'qlttnm', 'qltbdl', 'qlhsnm');
 	if (in_array($crmenu, $pages)) {
-	    $crmenu = 'htdx';
+	    $crmenu = '';
 	}
 
 	$token = $password.' - '.date("d/m/y H:i:s"); 
 	$token = substr(MD5($token),0,18);
-	$sql='SELECT ID, full_name, phone_number, email, writable, usertype, editable FROM user WHERE password = "'.MD5($password).'" AND user_name = "'.$username.'" AND enable = 1';
+	$sql='SELECT ID, full_name, phone_number, email, writable, usertype, editable FROM useradmin2015 WHERE password = "'.MD5($password).'" AND user_name = "'.$username.'" AND enable = 1';
 
 	$rows = 0;$rs=array();
 	
@@ -84,11 +84,12 @@ $password = clean_text($password);
 	    }
 	    echo json_encode($rs);
 
-		$sql = 'UPDATE `user` SET `token`="'.$token.'" WHERE ID = '.$rs['id'];
+		$sql = 'UPDATE `useradmin2015` SET `token`="'.$token.'" WHERE ID = '.$rs['id'];
 		$result = mysql_query($sql) or die('0');
 
-		$action = 'đăng nhập';
-		userlogs($userid, $fullname, $action);
+		$actioncode = 1; //'đăng nhập'
+		//userlogs($userid, $fullname, $action);
+		useradminlogs($useid, $actioncode);
 
 	} else { echo "0";}
 

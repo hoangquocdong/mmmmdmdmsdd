@@ -5,7 +5,9 @@ header('Access-Control-Max-Age: 1000');
 require "libs/config.php";
 require "libs/db_functions.php";
 require "libs/common_functions.php";
+require "libs/custom_functions.php";
 
+$id =  (int)isset($_REQUEST['id'])? $_REQUEST['id'] : 0;
 $userid =  (int)isset($_REQUEST['userid'])? $_REQUEST['userid'] : 0;
 $info =  isset($_REQUEST['info'])? $_REQUEST['info'] : '';
 
@@ -14,7 +16,6 @@ $start = microtime(true);
   CONNECT_DB();
 
     mysql_query("SET NAMES utf8");
-
     
 
     update_userinfo($userid, $info);
@@ -68,6 +69,10 @@ $start = microtime(true);
             'status' => 200,
             'content'=> 'Create new user info succesfully!'
         );
+
+        $actioncode = 22; //create new user info profile
+        $moredetail = 'create username : '.$user_name;
+        useradminlogs($userid, $actioncode, $moredetail);
 
         echo json_encode($returnarray); 
     }

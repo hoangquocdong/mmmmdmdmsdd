@@ -1,0 +1,308 @@
+<div class="container" >
+    <div class="row">
+        <div class="col-md-6">
+		
+					<!-- Widget -->
+			<div class="widget">
+
+				<!-- Widget content -->
+				
+					<div class="panel panel-info">
+								<div class="panel-heading">
+								  <h3 class="panel-title fullname">Nguyễn Tuấn Nam</h3>
+								</div>
+								<div class="panel-body">
+								  <div class="row">
+									<div class="col-md-3 col-lg-3 " align="center"> <img alt="User Pic" src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=100" class="img-circle"> </div>
+									<div class=" col-md-9 col-lg-9 "> 
+									  <table class="table table-user-information">
+										<tbody>
+										  <tr>
+											<td>Tên tài khoản:</td>
+											<td class="username">****</td>
+										  </tr>
+										  <tr>
+											<td>Ngày tạo tài khoản:</td>
+											<td class="createdate">06/23/2013</td>
+										  </tr>
+										  <tr>
+											<td>Đơn vị:</td>
+											<td class="office_name">Công ty CNTT ĐLMB</td>
+										  </tr>
+									   
+											 <tr>
+												 <tr>
+											<td>Phòng ban:</td>
+											<td class="phongban">Giải pháp và tự động hóa</td>
+										  </tr>
+											<tr>
+											<td>Số điện thoại:</td>
+											<td class="phone_number">0963888836</td>
+										  </tr>
+										  <tr>
+											<td>Email</td>
+											<td class="email"><a href="mailto:info@support.com">info@support.com</a></td>
+										  </tr>
+
+											   
+										  </tr>
+										 
+										</tbody>
+									  </table>
+									  
+									  <a href="#" class="">Mọi thông tin yêu cầu xin hãy gửi về địa chỉ email:  info@mdms.npc.com.vn</a>
+
+									</div>
+								  </div>
+								</div>
+									
+					</div>
+				
+			</div>
+			<div class="widget">
+
+				<!-- Widget content -->
+				
+					<div class="panel panel-info">
+								<div class="panel-heading">
+								  <h3 class="panel-title"><strong>Thay đổi mật khẩu</strong></h3>
+								</div>
+								<div class="panel-body">
+								  <div class="row">
+									<div class="col-md-3 col-lg-3 " align="center"> <img alt="User Pic" src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=100" class="img-circle"> </div>
+									<div class=" col-md-9 col-lg-9 "> 
+									  <table class="table table-user-information" style="border:none;">
+										<tbody>
+										  <tr style="line-height:32px;border-top: 0px solid #fff;">
+											<td style="border-top: 0px solid #fff;">Nhập mật khẩu cũ: </td>
+											<td style="border-top: 0px solid #fff;"><input class="form-control oldpassword" type="password" placeholder="*****" value="" width="200"/></td>
+										  </tr>
+										  <tr style="line-height:32px;border-top: 0px solid #fff;">
+											<td style="border-top: 0px solid #fff;">Nhập mật khẩu mới: </td>
+											<td style="border-top: 0px solid #fff;"><input class="form-control newpassword" type="password" placeholder="*****" value="" width="200"/></td>
+										  </tr>
+										  <tr style="line-height:32px;border-top: 0px solid #fff;">
+											<td style="border-top: 0px solid #fff;">Nhập mật lại khẩu mới: </td>
+											<td style="border-top: 0px solid #fff;"><input class="form-control renewpassword" type="password" placeholder="*****" value="" width="200"/></td>
+										  </tr>
+										 
+										</tbody>
+									  </table>
+									  
+									  <a style="cursor:pointer;" class="btn btn-primary changepass_btn">Xác nhận thay đổi</a>
+
+									</div>
+								  </div>
+								</div>
+									
+					</div>
+				
+			</div>
+		</div>
+				<!-- Widget ends -->
+        <div class="col-md-6">
+			<div class="widget">
+					<div class="panel panel-info">
+								<div class="panel-heading">
+								  <h3 class="panel-title "><strong>Lịch sử hoạt động của : <span class="fullname">Nguyễn Tuấn Nam</span></strong></h3>
+								</div>
+								<div class="panel-body">
+								  <div class="row">
+									<div class="col-md-3 col-lg-3 " align="center"> <img alt="User Pic" src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=100" class="img-circle"> </div>
+							
+									<div class=" col-md-9 col-lg-9 "> 
+									  <table class="table table-user-information">
+										<tbody class="user_history">
+										  <tr>
+											<td><strong>Thời gian:</strong></td>
+											<td><strong>Hoạt động</strong></td>
+										  </tr>
+										  <tr>
+											<td>06/23/2013</td>
+											<td>Đăng nhập hệ thống</td>
+										  </tr>
+										  									 
+										</tbody>
+									  </table>
+
+									</div>
+								  </div>
+								</div>
+								
+					</div>
+
+			</div>
+
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+ 
+crpage = getpage();
+crmenu = getdefaulthash();
+sendcrpos();
+$('.mainmenu').text(namepage[crpage]);
+$('.listmenu').text(submenu[crmenu]);
+
+
+</script>
+
+<script src="http://maps.google.com/maps/api/js?sensor=false"></script>
+
+<script type="text/javascript">
+
+	$.ajax({
+			url:api_link+'/qluser.php',
+			type:"POST",
+			data:{userid: userid},
+			success:function(data){	
+				
+				//alert(data);
+				data=JSON.parse(data);
+
+				$('.fullname').html(data.full_name);
+				$('.username').html(data.user_name);
+				$('.createdate').html(data.full_name);
+				$('.office_name').html(data.office_name);
+				$('.phongban').html(data.phongban);
+				$('.phone_number').html(data.phone_number);
+				$('.email').html(data.email);
+				$('.createdate').html(data.register_date);
+				
+			}, error: function(e){
+				console.log('e '+e);
+			}
+		
+	}); 
+
+
+	
+
+	$.ajax({
+			url:api_link+'/qluser_history.php',
+			type:"POST",
+			data:{userid: userid},
+			success:function(data){	
+				var userhistorycontent='<tr><td><strong>Thời gian:</strong></td><td><strong>Hoạt động</strong></td></tr>';
+				$('.user_history').html(userhistorycontent);
+				//alert(data);
+				data=JSON.parse(data);
+				console.log(data);
+				$.each(data.result,function(index, val){
+					userhistorycontent+='<tr> <td>'+val.datetime+'</td>'+
+										'<td>'+val.action+'</td></tr>';
+										  
+				});
+				$('.user_history').html(userhistorycontent);
+				
+			}, error: function(e){
+				console.log('e '+e);
+			}
+		
+	});
+
+	$('.changepass_btn').click(function(){
+		var oldpassword = $('.oldpassword').val();
+		var newpassword = $('.newpassword').val();
+		var renewpassword = $('.renewpassword').val();
+		if (oldpassword==''||newpassword==''||renewpassword==''){
+			showalert('Thông báo', 'Mật khẩu không được để trống');
+			return false;
+		}
+		if (newpassword!=renewpassword){
+			showalert('Thông báo', 'Mật khẩu mới không trùng nhau!');
+			return false;
+		}
+		$.ajax({
+				url:api_link+'/qluser_changepass.php',
+				type:"POST",
+				data:{userid: userid, password: oldpassword, newpassword: newpassword},
+				success:function(data){	
+					
+					//alert(data);
+					if (data==404){
+						showalert('Thông báo', 'Mật khẩu cũ không đúng, bạn hãy kiểm tra lại!');
+					} else if (data==200){
+						showalert('Thông báo', 'Mật khẩu đã được thay đổi thành công!');
+					}  else if (data==500){
+						showalert('Thông báo', 'Thất bại, mật khẩu chưa được cập nhật!');
+					}
+					
+				}, error: function(e){
+					showalert('Thông báo', 'Kết nối đến máy chủ thất bại, bạn hãy thử lại sau!');
+					console.log('e '+e);
+				}
+			
+		}); 
+
+	});
+
+
+    jQuery(function ($) {
+        function init_map1() {
+            var myLocation = new google.maps.LatLng(38.885516, -77.09327200000001);
+            var mapOptions = {
+                center: myLocation,
+                zoom: 16
+            };
+            var marker = new google.maps.Marker({
+                position: myLocation,
+                title: "Property Location"
+            });
+            var map = new google.maps.Map(document.getElementById("map1"),
+                mapOptions);
+            marker.setMap(map);
+        }
+        init_map1();
+    });
+</script>
+
+<style>
+    .map {
+        min-width: 300px;
+        min-height: 300px;
+        width: 100%;
+        height: 100%;
+    }
+
+
+	.header {
+        color: #36A0FF;
+        font-size: 27px;
+        padding: 10px;
+    }
+
+    .bigicon {
+        font-size: 35px;
+        color: #36A0FF;
+    }
+	
+	.user-row {
+    margin-bottom: 14px;
+	}
+
+	.user-row:last-child {
+		margin-bottom: 0;
+	}
+
+	.dropdown-user {
+		margin: 13px 0;
+		padding: 5px;
+		height: 100%;
+	}
+
+	.dropdown-user:hover {
+		cursor: pointer;
+	}
+
+	.table-user-information > tbody > tr {
+		border-top: 1px solid rgb(221, 221, 221);
+	}
+
+	.table-user-information > tbody > tr:first-child {
+		border-top: 0;
+	}
+</style>
+
+
+

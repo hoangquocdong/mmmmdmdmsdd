@@ -1015,6 +1015,23 @@
 	data_from_CSKD = 0;
 
 	var chisodauky='';
+	
+	$.ajax({
+			url:api_link+'/getprice_seasons.php',
+			type:"POST",
+			data:{userid: userid},
+			success:function(data){	
+
+				data=JSON.parse(data);
+				console.log(data);
+				
+			}, error: function(e){
+				console.log('e '+e);
+			}
+		
+	});
+	
+	
 
 	$('.xnbtninputh1').click(function(){
 	
@@ -1483,7 +1500,7 @@
 			$('.cto'+index).html(set_comma(slcto));		
 			if (index==14){Q4nhan=slcto;}	
 			
-			var slttdz = slcto*(1-data.meter.lineloss_meter);
+			var slttdz = slcto*(1+data.meter.lineloss_meter);
 			slttdz = slttdz.toFixed(0);
 			
 			//if (index!=9){$('.ttdz'+index).html(set_comma(slttdz));}	
@@ -2363,7 +2380,7 @@
 			if (index!=9){$('.'+prefix+'cto'+index).html(set_comma(slcto));}				
 			if (index==14){Q4nhan=slcto;}	
 			
-			var slttdz = slcto*(1-data.meter.lineloss_meter);
+			var slttdz = slcto*(1+data.meter.lineloss_meter);
 			slttdz = slttdz.toFixed(count_point_meter);
 			if (index!=9){$('.'+prefix+'ttdz'+index).html(set_comma(slttdz));}				
 

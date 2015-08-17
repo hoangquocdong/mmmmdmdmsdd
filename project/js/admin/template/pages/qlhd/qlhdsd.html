@@ -1,0 +1,18 @@
+
+
+<script type="text/javascript">
+	crpage = getpage();
+	crmenu = getdefaulthash();
+	sendcrpos();
+		
+	$('.mainmenu').text(namepage[crpage]);
+	$('.listmenu').text(submenu[crmenu]);
+
+    crguide = 'template/pages/qlhd/hd1.html';
+	load_home(crguide);
+	function load_home(pathguide){
+		$(".matter").load(pathguide);		
+	}
+
+
+</script>

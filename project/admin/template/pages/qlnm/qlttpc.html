@@ -92,7 +92,7 @@
 						<td class="input_text" id="pc_name" data-name="pcname"></td>						
 						<th style="background:#B5CEE3;">ID Điện lực</th>
 						<td></td>
-						<td  class="input_text" id="pc_id" data-name="pcid"></td>						
+						<td  class="input_text notinput" id="pc_id" data-name="pcid"></td>						
 					</tr>	
 					<tr style="white-space:nowrap;">
 						<th style="background:#B5CEE3;">CB vận hành ĐL</th>
@@ -136,7 +136,7 @@
 				<button  class="btn btn-primary edit_btn" style="margin-top: 5px;"> Sửa </button>
 
 				<button  class="btn disabled edit_confirm_btn" style="margin-top: 5px;"> Xong </button>
-				<button  class="btn disabled edit_save_btn" style="margin-top: 5px;"> Lưu lại </button>
+				<button  id = "edit_save_btn" class="btn disabled edit_save_btn" style="margin-top: 5px;"> Lưu lại </button>
 				<span> - - </span>
 			  	<button  class="btn btn-warning cancel_btn" style="margin-top: 5px;"> Hủy bỏ </button>
 			  	<span> - - </span>
@@ -165,7 +165,7 @@ pwdtemp = '';
 user_editing = 0;
 edit_userid = 0;
 
-task = 0; //task = 1 - thêm mới/ = 2 edit
+task = 1; //task = 1 - thêm mới/ = 2 edit
 crpage = getpage();
 crmenu = getdefaulthash();
 crdongnm=0;
@@ -248,16 +248,18 @@ function init_info(){
 						task = 1;
 						user_editing = 1;
 						$('.input_text').each(function(){
+							if (!$(this).hasClass('notinput')){
+								$(this).html('<input type="text">');
+							} else {
+								$(this).html('<input type="text">');
+							}
 							
-							$(this).html('<input type="text">');
-
 							$('.edit_confirm_btn').removeClass('disabled').addClass('btn-primary');
 							$('.edit_save_btn').removeClass('btn-primary').addClass('disabled');
 							$('.edit_btn').removeClass('btn-primary').addClass('disabled');
 							
 						});
-
-						$('#pc_id').html('');
+						//$('#pc_id').html('');
 					}
 					
 				});
@@ -273,10 +275,16 @@ function init_info(){
 
 
 						$('.input_text').each(function(){
-							if ($(this).data('name')!='pcid'){
+
+							if (!$(this).hasClass('notinput')){
 								var tmp = $(this).text();
 								$(this).html('<input type="text" value="'+tmp+'">');
 							}
+
+							// if ($(this).data('name')!='pcid'){
+							// 	var tmp = $(this).text();
+							// 	$(this).html('<input type="text" value="'+tmp+'">');
+							// }
 							
 							$('.edit_confirm_btn').removeClass('disabled').addClass('btn-primary');
 							$('.edit_save_btn').removeClass('btn-primary').addClass('disabled');
@@ -295,15 +303,16 @@ function init_info(){
 
 				});
 
-				$('.edit_save_btn').click(function(){
+				$('.edit_save_btn').click(function(e){
+					//console.log(e);
 					if (user_editing == 0) {
 						
 						checksecurity(save_callback);
 						
-						$('.pc_edit_confirm_btn').removeClass('btn-primary').addClass('disabled');
-						$('.pc_edit_save_btn').removeClass('btn-primary').addClass('disabled');
-						$('.pc_addnew_btn').removeClass('disabled').addClass('btn-primary');
-						$('.pc_edit_btn').removeClass('disabled').addClass('btn-primary');
+						$('.edit_confirm_btn').removeClass('btn-primary').addClass('disabled');
+						$('.edit_save_btn').removeClass('btn-primary').addClass('disabled');
+						$('.addnew_btn').removeClass('disabled').addClass('btn-primary');
+						$('.edit_btn').removeClass('disabled').addClass('btn-primary');
 
 					}
 				});
@@ -323,8 +332,28 @@ function init_info(){
 
 
 $('.del_btn').click(function(){
-	showalert('Thông báo', 'Chúc mừng bạn đã xóa sạch dữ liệu thành công!', 11000);
+
+	checksecurity(delete_pc);
+
 });
+
+function delete_pc(){
+
+	var pcid = parseInt($('#pc_id').html());
+	$.ajax({
+		url:apilink+'qlpcconfig_delete.php',
+			type:"POST",
+			data:{userid:userid, id:pcid},
+			success:function(data){
+				//console.log(data);
+				data = JSON.parse(data);
+				showalert_withcallback('Thông báo', data.content, 11000, reload);
+			},
+			error:function(e){ }
+	});
+
+}
+
 
 function get_text_input(){
 
@@ -370,30 +399,36 @@ function check_inputtext_empty(callbackfnc){
 function save_callback(){
 
 	var obj = get_text_input();
-	var apilinks=apilink+'qlpcconfig_editinfo.php';
+	var apilinks='';
 
 	if (task == 1) {
 		apilinks=apilink+'qlpcconfig_createnew.php';
+	} else {
+		task = 2;
+		apilinks=apilink+'qlpcconfig_editinfo.php';
 	}
 
-	console.log(obj); //return false;
+	//console.log(obj); //return false;
 	obj = JSON.stringify(obj);
-	//console.log(obj);
+	//console.log(task,'  -  ', apilinks);
 
 	$.ajax({
 		url:apilinks,
 			type:"POST",
-			data:{userid:edit_userid, info:obj},
+			data:{userid:userid, info:obj},
 			success:function(data){
-				console.log(data);
+				//console.log(data);
 				data = JSON.parse(data);
-				showalert_withcallback('Thông báo', data.content, 11000, init_info);
+				showalert_withcallback('Thông báo', data.content, 11000, reload);
 			},
 			error:function(e){ }
 	});
 
-	task = 0;
+}
 
+
+function reload() {
+	location.reload();
 }
 
 

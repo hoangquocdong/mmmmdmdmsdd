@@ -5,6 +5,7 @@ header('Access-Control-Max-Age: 1000');
 require "libs/config.php";
 require "libs/db_functions.php";
 require "libs/common_functions.php";
+require "libs/custom_functions.php";
 
 $id =  (int)isset($_REQUEST['id'])? $_REQUEST['id'] : 0;
 $token =  isset($_REQUEST['token'])? $_REQUEST['token'] : '';
@@ -24,7 +25,7 @@ $start = microtime(true);
 	);
 
 
-    $sql = 'DELETE FROM `user` WHERE `ID`='.$userid;
+    $sql = 'DELETE FROM `user` WHERE `ID`='.$id;
 
 	$result = mysql_query($sql) or die(json_encode($returnarray));
 
@@ -32,6 +33,10 @@ $start = microtime(true);
 		'status' => 200,
 		'content'=>	'Delete user info succesfully!'
 	);
+
+	$actioncode = 23; //del user info profile
+    $moredetail = 'del username : '.$id;
+    useradminlogs($userid, $actioncode, $moredetail);
 
 	echo json_encode($returnarray);	
 

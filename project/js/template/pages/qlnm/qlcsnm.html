@@ -1,0 +1,267 @@
+
+        <div class="container">
+
+          <!-- Table -->
+          <!-- Table -->
+            <!-- Date Picker -->
+            <div class="row">
+              <div class="col-md-3" style="margin-top: 5px;">     
+                  <h4 style="display: inline-block; float: left; margin-right: 10px;">Chọn năm: </h4>
+                   <div id="" class="input-append input-group">
+                    <select class="chonnam">
+                    </select>
+                  </div>
+              </div>  
+              <div class="col-md-3" style="margin-top: 5px;">     
+                  <h4 style="display: inline-block; float: left; margin-right: 10px;">Chọn tháng: </h4>
+                   <div id="" class="input-append input-group">
+                    <select class="chonthang">
+                    </select>
+                  </div>
+              </div>    
+
+              <script type="text/javascript">
+                month='';
+                var d = new Date();
+                var n = d.getFullYear();
+                var m = d.getMonth()+1;
+
+                var html = '';
+                for (i=1; i<=12; i++){
+                  html +='<option value="'+i+'">Tháng '+i+'</option>'
+                }
+                $('.chonthang').html(html);
+                $('.chonthang').val(m);
+                html='';
+                for (i=n; i>=2013; i--){
+                  html +='<option value="'+i+'">Năm '+i+'</option>'
+                }
+                $('.chonnam').html(html);
+
+                $('.chonthang, .chonnam').change(function(){
+                  month = $('.chonnam').val()+'-'+$('.chonthang').val();
+                });
+
+                function prevmonth(){
+                  var y = month.split('-');
+                  var m = y[1]; y = y[0];
+
+                  f = new Date(y, m - 1, 1);
+                  d = (f.getTime()-10*86400*1000);
+
+                  d = new Date(d);
+                  return (d.getFullYear()+'-'+(d.getMonth()+1));
+                }
+              </script>
+              <div class="col-md-3" style="margin-top: 5px;"> 
+                <button type="submit" class="btn btn-primary qlcsnm_btn" style="margin-top: 5px;">Xem dữ liệu</button>
+              </div>
+            </div> 
+            <div class="row">
+
+              <div class="col-md-12">
+
+                <div class="widget">
+
+                <div class="widget-head">
+                  <div class="pull-left" style="width:100%; text-align:center">Bảng thống kê hiện trạng xác nhận chỉ số hàng tháng của các nhà máy thủy điện IPP</div>
+                  <div class="widget-icons pull-right" style="position: absolute; right: 20px;">
+                    <a href="#" class="wminimize"><i class="fa fa-chevron-up"></i></a> 
+                    <a href="#" class="wclose"><i class="fa fa-times"></i></a>
+                  </div>  
+                  <div class="clearfix"></div>
+                </div>
+
+                  <div class="widget-content">
+					
+					<div class="table-responsive">
+						<table class="table table-striped table-bordered table-hover order-table " id="qlcsnm_table" cellspacing="0" width="100%" style="color: #0C4B7F;" >
+						  <thead>
+							<tr >
+							  <th>Stt</th>
+							  <th>Điện lực</th>
+							  <th>Nhà máy</th>
+							  <th>Điểm đo</th>							  
+							  <th>Serial</th>
+							  <th>Cấp thiết bị</th>
+							  <th>Điện lực xác nhận</th>
+							  <th>Người xác nhận</th>
+							  <th>Ngày xác nhận</th>							  
+							  <th>Nhà máy xác nhận</th>
+							  <th>Người xác nhận</th>
+							  <th>Ngày xác nhận</th>
+
+							</tr>
+						  </thead>
+						  <tbody class="tbody-content" >
+							
+						  </tbody>
+						</table>
+					</div>
+					
+					
+                   <div class="widget-foot">              
+                        <ul class="pagination pagination-sm pull-right">
+                          <li><a href="#">Prev</a></li>
+                          <li><a href="#">1</a></li>
+                          <li><a href="#">2</a></li>
+                          <li><a href="#">3</a></li>
+                          <li><a href="#">4</a></li>
+                          <li><a href="#">Next</a></li>
+                        </ul>
+                      
+                      <div class="clearfix"></div> 
+
+                    </div>
+
+                  </div>
+				  
+				  
+				  
+                </div>
+				
+
+              </div>
+
+            </div>
+
+        </div>
+
+
+		<!-- Matter ends -->
+<script src="js/dataTables.tableTools.js"></script> 		
+
+<script type="text/javascript">
+
+
+      
+var d = new Date();
+var n = d.getFullYear(), m = d.getMonth()+1;
+var tmpmonth=n+'-'+m;
+getdata(tmpmonth);      
+
+crpage = getpage();
+crmenu = getdefaulthash();
+sendcrpos();
+$('.mainmenu').text(namepage[crpage]);
+$('.listmenu').text(submenu[crmenu]);
+
+function checkh1status(param){
+	var result='';
+	if (param==1){
+		result='<span style="color:green;"><i class="fa fa-check-circle "></i> Đã xác nhận</span>';
+	} else {
+		result='<span style="color:orange;"><i class="fa fa-ban "></i> Chưa xác nhận</span> ';
+	}
+	return result;
+}
+ 
+$('.chonthang').change(function(){
+
+    mon = $('.chonnam').val()+'-'+$('.chonthang').val();
+    //alert(mon);
+    getdata(mon); 
+
+});
+
+$('.qlcsnm_btn').click(function(){
+
+    mon = $('.chonnam').val()+'-'+$('.chonthang').val();
+    //alert(mon);
+    getdata(mon); 
+
+});
+
+function getdata(mon){
+     $('.tbody-content').html('');
+	 set_loading_pos(0);
+    $.ajax({
+      url:'http://mdms.npc.com.vn/mdms2015/apis/qlcsnm.php',
+          type:"POST",
+          data:{id:userid, token:token, month: mon},
+          success:function(data){
+              
+              data = JSON.parse(data);
+              console.log('e ',data);
+              
+              var html = '';
+              $.each(data,function(index, value){
+
+                //console.log(value); return false;
+                var subname = '';
+                $.each(value[1],function(index1, value1){
+
+
+                  var listmeters = '';
+
+                  $.each(value1['meterinfo'],function(index2, value2){
+
+                    var level='Dự phòng';
+
+                    if (value2['level_meter']==0){ level ='Chính';};
+
+                    listmeters +='<tr style="cursor: pointer;" class="underpower child" data-serial="'+value2['serial_meter']+'" data-subid="'+value1['id_sub']+'" data-namesub="'+value1['name_sub']+'">'+
+                                '<td >'+(index+1)+'.'+(index1+1)+'.'+value2['stt']+'</td>'+
+                                '<td style="color:#FFFFFF;" >'+value[0]['name_pwc']+'</td>'+
+								'<td style="color:#FFFFFF;"  >'+value1['name_sub']+'</td>'+
+                                '<td class="loadpagetest">'+value2['name_meter']+'</td><td>'+value2['serial_meter']+'</td><td>'+ level +'</td><td>'+checkh1status(value2['dlxacnhan'])+'</td><td>'+value2['dl_nguoi_xn']+'</td><td>'+value2['dl_ngay_xn']+'</td><td>'+checkh1status(value2['subxacnhan'])+'</td><td>'+value2['sub_nguoi_xn']+'</td><td>'+value2['sub_ngay_xn']+'</td>'+
+                              '</tr>';
+                  });
+
+
+
+                  subname +='<tr class="underpower subpower">'+
+                              '<td >'+(index+1)+'.'+(index1+1)+'</td>'+
+                              '<td style="color: #BADCF0;" >'+value[0]['name_pwc']+'</td>'+
+                              '<td >'+value1['name_sub']+'</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>'+
+                            '</tr>'+listmeters;
+
+                });
+                  
+                  //<tbody class="tbody-content">
+                  html+='<tr class="power">'+
+                    '<td class="">'+(index+1)+'</td>'+
+                    '<td>'+value[0]['name_pwc']+'</td>'+
+                    '<td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>'+
+                  '</tr>'+subname;
+
+              });
+
+              $('.tbody-content').html(html); 
+          $('.loadpagetest').click ( function(){ loadinpage(crpage, 'csct');});
+         
+         $('tr:not(.underpower)').click(function(){
+            //alert('1');
+             $(this).nextUntil('tr:not(.underpower)').toggle();
+          });
+         //sendcrpos = function(callback)
+         $('.child').click ( function(){ 
+              crmeter = $(this).data("serial");
+              crpage = 'csdl'; crmenu='csct';
+              crsubid = $(this).data("subid");
+			  crnamesub = $(this).data("namesub");
+			  crmonth = mon;
+			  sendcrpos(goto_unconfirm_meter);
+              //alert('csct'+$(this).data("serial"));
+			  
+          });
+		  
+		  set_loading_pos(1);
+        },
+        error:function(e){
+            console.log('e '+e);
+        }
+    });
+}
+
+
+
+function goto_unconfirm_meter(serial){
+    //alert(crmeter);
+	//alert (crnamesub);
+    window.location.href="http://mdms.npc.com.vn/mdms2015/index.php?page=csdl#csct";
+	
+    //loadinpage('csdl','csct');
+}
+
+</script>

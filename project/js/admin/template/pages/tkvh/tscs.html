@@ -1,0 +1,103 @@
+
+<!-- Matter -->
+<!--div class="matter"-->
+<div class="container">
+	<div class="row">
+		<div class="col-md-5">
+			<div class="widget">
+				<div class="widget-content">
+					<div id="container" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
+				</div>
+			</div>
+		</div>       
+	
+		<div class="col-md-7">
+			<div class="widget">
+				<div class="widget-content">
+					<div id="container1" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+				</div>
+			</div>
+		</div>    
+	</div> 	
+
+</div>
+<script src="js/jquery-ui.min.js"></script> <!-- jQuery UI -->
+<script src="js/bootstrap-datetimepicker.min.js"></script> <!-- Date picker -->
+<script src="js/custom.js"></script> 
+<script src="js/themes/sand-signika.js"></script>
+<!-- Menu left + content Page 1 -->
+
+<script>
+apilink='http://mdms.npc.com.vn/mdms2015/admin/apis/';
+
+chartsum ();	
+
+ function chartsum(){
+	dt =[], dt0 =[], dt1 =[];
+	$.ajax({
+            url:apilink+'/incident_manager_sum.php',
+            type:"POST",
+            data:{id:userid, token:token},
+            success:function(data){
+            	//alert(data); 
+				dt = JSON.parse(data);
+				console.log('tuan nam',dt.sum_incident_type_pie);
+				drawchart (dt.sum_incident_type_pie,'#container','Thống kê số lượng sự cố','','Số lượng sự cố');
+				drawchart (dt.sum_incident_cause_pie,'#container1','Thống kê nguyên nhân sự cố','','Số lượng sự cố');
+				
+            }, error: function(e){
+                console.log('e '+e);
+            }        
+        });
+}
+
+
+function drawchart(arr,element,title_x,sub_title, title_y){
+	console.log('jdhfjhdhfhd',arr);
+	
+	$(element).highcharts({
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                type: 'pie'
+            },
+            title: {
+                text: title_x
+            },
+            tooltip: {
+                pointFormat: '{series.name}: <b>{point.percentage:.1f}% ({point.y} sự cố) </b>'
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+					
+                    dataLabels: {
+                        enabled: true
+                    },
+                    showInLegend: true
+                }
+            },
+        legend: {
+            layout: 'vertical',
+            align: 'right',
+            verticalAlign: 'bottom',
+            x: 1,
+            y: 20,
+            floating: true,
+            borderWidth: 1,
+            backgroundColor: ((Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'),
+            shadow: true
+        },
+            series: [{
+                name: "Tỉ lệ",
+                colorByPoint: true,
+                data: arr
+            }]
+        });
+}
+
+
+</script>
+

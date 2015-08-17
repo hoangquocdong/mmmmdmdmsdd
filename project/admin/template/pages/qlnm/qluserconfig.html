@@ -182,7 +182,7 @@
 				<span> - - </span>
 			  	<button  class="btn btn-warning user_cancel_btn" style="margin-top: 5px;"> Hủy bỏ </button>
 			  	<span> - - </span>
-			  	<button  class="btn btn-warning user_del_btn" style="margin-top: 5px;"> Xóa USER </button>
+			  	<button  class="btn btn-warning user_del_btn" style="margin-top: 5px;"> Xóa </button>
 			  <div class="clearfix"></div> 
 
 			</div>
@@ -347,7 +347,7 @@ function init_info(){
 				crdongnm=dongnm;
 				
 				$(".plus_sub").click(function(){
-					alert($(this).closest('tr').attr('id'));
+					//alert($(this).closest('tr').attr('id'));
 					if (count_click_plus==0 && input_doing==0) {
 					
 						cridpc =$(this).find('span').attr('id'); // lấy ID của điện lực hiện tại cho vào giá trị input
@@ -605,7 +605,7 @@ function change_user_pwd(password){
 	$.ajax({
 		url:apilink,
 			type:"POST",
-			data:{userid:edit_userid, password:password},
+			data:{userid:userid, id:edit_userid, password:password},
 			success:function(data){
 				// console.log(data);
 				data = JSON.parse(data);
@@ -627,9 +627,36 @@ function show_permission_dialog(){
 
 }
 
+// $('.user_del_btn').click(function(){
+// 	showalert('Thông báo', 'Chúc mừng bạn đã xóa sạch dữ liệu thành công!', 11000);
+// });
+
+function reload() {
+	location.reload();
+}
+
+
 $('.user_del_btn').click(function(){
-	showalert('Thông báo', 'Chúc mừng bạn đã xóa sạch dữ liệu thành công!', 11000);
+
+	checksecurity(delete_user);
+
 });
+
+function delete_user(){
+
+	$.ajax({
+		url:apilink+'qluserconfig_deluser.php',
+			type:"POST",
+			data:{userid:userid, id:edit_userid},
+			success:function(data){
+				console.log(data);
+				data = JSON.parse(data);
+				showalert_withcallback('Thông báo', data.content, 11000, reload);
+			},
+			error:function(e){ }
+	});
+
+}
 
 function get_text_input(){
 
@@ -689,7 +716,7 @@ function usersave_callback(){
 	$.ajax({
 		url:apilink,
 			type:"POST",
-			data:{userid:edit_userid, info:obj},
+			data:{userid:userid, id:edit_userid, info:obj},
 			success:function(data){
 				// console.log(data);
 				data = JSON.parse(data);

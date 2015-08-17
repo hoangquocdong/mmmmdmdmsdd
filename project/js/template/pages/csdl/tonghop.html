@@ -1,0 +1,1419 @@
+			<div class="container">
+
+          <!-- Table -->
+          	<!-- Date Picker -->
+	<div class="row">
+		<div class="col-md-6" style="margin-top: 5px;">	
+			<table class="table table-striped table-bordered table-hover nowrap compact">
+				<thead>
+					<th> Serial </th>
+					<th> Cấp</th>
+					<th> Lộ</th>
+					<th> NMTĐ chốt </th>
+					<th> ĐL chốt</th>
+					<th> Tháng chốt</th>
+					<th> Loại chỉ số</th>					
+					<th> Báo cáo</th>
+				</thead>
+				<tbody class="tonghop_listmeter">
+
+				</tbody>
+				<tfoot>
+				</tfoot>
+			</table>			
+		</div>
+		<div class="col-md-3" style="margin-top: 5px;">			
+				<h4 style="display: inline-block; float: left; margin-right: 10px; width:100px;">Chọn năm: </h4>
+				 <div id="" class="input-append input-group">
+					<select class="chonnam">
+					</select>
+				</div>
+		
+				<h4 style="display: inline-block; float: left; margin-right: 10px; width:100px;">Chọn tháng: </h4>
+				 <div id="" class="input-append input-group">
+					<select class="chonthang">
+					</select>
+				</div>
+		</div>		
+
+		<script type="text/javascript">
+			
+			/*
+			*	month has been init in header file
+			*/
+			var d = new Date();
+			var n = d.getFullYear();
+			var m = d.getMonth()+1;
+
+			var html = '';
+			for (i=1; i<=12; i++){
+				html +='<option value="'+i+'">Tháng '+i+'</option>'
+			}
+			$('.chonthang').html(html);
+			$('.chonthang').val(m);
+			html='';
+			for (i=n; i>=2013; i--){
+				html +='<option value="'+i+'">Năm '+i+'</option>'
+			}
+			$('.chonnam').html(html);
+
+			$('.chonthang, .chonnam').change(function(){
+				month = $('.chonnam').val()+'-'+$('.chonthang').val();
+				//alert(month);
+			});
+
+			function prevmonth(){
+				var y = month.split('-');
+				var m = y[1]; y = y[0];
+
+				f = new Date(y, m - 1, 1);
+				d = (f.getTime()-10*86400*1000);
+
+				d = new Date(d);
+				return (d.getFullYear()+'-'+(d.getMonth()+1));
+			}
+		</script>
+		<!--<div class="col-md-3" style="margin-top: 5px;">	
+			<button type="submit" class="btn btn-primary csctbtn" style="margin-top: 5px;">Xem dữ liệu</button>
+		</div> -->
+		<div class="col-md-3" style="margin-top: 5px;">	
+			<button type="submit" class="btn btn-primary editname" style="margin-top: 5px; width:150px;">Nhập thành phần </button>
+			<br>
+			<button type="submit" class="btn btn-primary ngcinput" style="margin-top: 15px; width:150px;">Bổ sung NGC</button>			
+		</div>		
+	</div>   
+            <div class="row">
+				<div class="col-md-12">
+				<div class="widget">
+
+                <div class="widget-head">
+                  <div class="pull-left graphmenu"  style="width:100%; text-align:center" >
+						<span>Báo cáo chốt chỉ số tháng:</span> <span class="month_meter label label-danger" style="color:red"></span> 
+				  </div>
+					<div class="pull-left " style="position:absolute; left:20px;" >
+						<input type="button" onclick="tableToExcel('testTable', 'BB chốt chỉ số')" value="Excel" style="  padding: 1px; font-size: 12px; line-height: 15px; color: red;">	 
+				  </div>
+				  
+                  <div class="widget-icons pull-right" style="position: absolute; right: 20px;">
+                    <a href="#" class="wminimize"><i class="fa fa-chevron-up"></i></a> 
+                    <a href="#" class="wclose"><i class="fa fa-times"></i></a>
+                  </div>  
+                  <div class="clearfix"></div>
+                </div>
+
+                  <div class="widget-content" style="background:#D8E0E7;">
+					<!-- <div class="row" style="  margin-left: 5px; padding-top:5px; padding-bottom:5px;" >
+                      <div class="col-md-4">
+						<button type="submit" class="btn btn-warning pc_check" style="margin-top: 5px;">Công ty ĐL xác nhận</button>			
+                        <p>
+						  Trạng thái xác nhận: <span class="pc_status_checked"></span><br>
+                          Đơn vị xác nhận: <strong><span class="pc_room_checked"></span></strong> <br>						
+                          Người xác nhận: <strong><span class="pc_user_checked"></span></strong><br>
+                          Ngày xác nhận: <strong><span class="pc_date_checked"></span></strong> <br>
+                        </p>
+                      </div>
+
+                      <div class="col-md-4">
+						<button type="submit" class="btn btn-warning sub_check" style="margin-top: 5px;">Công ty ĐL xác nhận</button>		  
+                          <p>
+						  Trạng thái xác nhận: <span class="sub_status_checked"></span><br>
+                          Đơn vị xác nhận: <strong><span class="sub_room_checked"></span></strong> <br>						
+                          Người xác nhận: <strong><span class="sub_user_checked"></span></strong><br>
+                          Ngày xác nhận: <strong><span class="sub_date_checked"></span></strong> <br>
+                        </p>                        
+                      </div>
+
+                      <div class="col-md-4">
+						<button type="submit" class="btn btn-primary btninputh1" style="margin-top: 5px;">Nhập chỉ số chốt </button>	
+                        <p>
+                          Chỉ dành cho các nhà máy <br>
+                          chưa tham gia hệ thống đo xa
+                        </p>
+                      </div>
+
+                    </div> -->
+					
+					<div class="table-responsive">
+					
+				 	
+				<table  id="testTable" class="table table-striped table-bordered table-hover nowrap compact">
+					<thead>
+					  <tr>
+						<th colspan="5" style="text-align:center; font-weight:bold; border:none; text-transform: uppercase;" class="tonghop_investorname change_name">CÔNG TY...</th>
+						<th colspan="8" style="text-align:center; font-weight:bold; border:none;">CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM </th>
+						<th colspan="6" style="text-align:center; font-weight:bold; border:none;">TỔNG CÔNG TY ĐIỆN LỰC MIỀN BẮC</th>
+						
+					  </tr>
+					  <tr>
+						<th colspan="5" style="text-align:center; font-weight:bold; border:none; text-transform: uppercase;" class="tonghop_subname change_name">NHÀ MÁY THUỶ ĐIỆN...</th>
+						<th colspan="8" style="text-align:center; font-weight:bold; border:none;">Độc Lập - Tự Do - Hạnh Phúc </th>
+						<th colspan="6" style="text-align:center; font-weight:bold; border:none; text-transform: uppercase;" class="tonghop_pcname change_name">CÔNG TY ĐIỆN LỰC ...</th>
+
+					  </tr>	
+					  <tr>
+						<th colspan="19" style="text-align:center; font-weight:bold; border:none;">BIÊN BẢN XÁC NHẬN CHỈ SỐ CÔNG TƠ VÀ SẢN LƯỢNG ĐIỆN NĂNG</th>
+					  </tr>	
+					  <tr>
+						<th colspan="19" style="text-align:center; font-weight:bold; border:none;" class="tonghop_month change_name">Tháng ..- Năm ...</th>
+					  </tr>
+					  <tr>
+						<th colspan="19" style="text-align:center; font-weight:bold; font-style:italic; border:none;">( Làm căn cứ xác định điện năng giao nhận giữa Tổng Công ty Điện lực Miền Bắc và <span class="tonghop_subname change_name" style="text-transform:capitalize;">Nhà máy thủy điện... </span>) </th>
+					  </tr>
+					  <tr>
+						<th colspan="19" style="text-align:center; font-weight:bold; font-style:italic; border:none;">Vào lúc 00h, ngày 1 tháng <span>...</span> năm 2014, tại <span class="tonghop_subname change_name" style="text-transform:capitalize;"></span>   </th>
+					  </tr>	
+					  <tr></tr>
+					  <tr>
+						<th colspan="10" style="text-align:left; font-weight:bold; border:none;">I. <span class="tonghop_pcname change_name">Công ty Điện Lực .............</span></th>
+						<th colspan="9" style="text-align:left; font-weight:bold; border:none;" >II. <span class="tonghop_investorname change_name">Công ty .............</span></th>
+					  </tr>
+					  <tr>
+						<th colspan="5" style="text-align:left; font-weight:bold; border:none;" >Họ và Tên: <span class="nameboss1">.........</span> </th>
+						<th colspan="5" style="text-align:left; font-weight:bold; border:none;" >Chức vụ: <span class="office1">.........</span> </th>					
+				
+						<th colspan="4" style="text-align:left; font-weight:bold; border:none;" >Họ và Tên: <span class="nameboss2">.........</span> </th>
+						<th colspan="5" style="text-align:left; font-weight:bold; border:none;" >Chức vụ: <span class="office2">.........</span> </th>	
+	
+					  </tr>					  
+					  <tr>
+						<th colspan="5" style="text-align:left; font-weight:bold; border:none;" >Họ và Tên: <span class="nameboss3">.........</span> </th>
+						<th colspan="5" style="text-align:left; font-weight:bold; border:none;" >Chức vụ: <span class="office3">.........</span> </th>					
+				
+						<th colspan="4" style="text-align:left; font-weight:bold; border:none;" >Họ và Tên: <span class="nameboss4">.........</span> </th>
+						<th colspan="5" style="text-align:left; font-weight:bold; border:none;" >Chức vụ: <span class="office4">.........</span> </th>	
+					  </tr>	
+					  <tr id="ngc1"></tr>
+					 <tr></tr>					  
+					  <tr>
+						<td colspan="19" style="text-align:center; border:none;">Các bên thống nhất xác nhận chỉ số công tơ và sản lượng điện năng giao nhận tại <span class="tonghop_subname change_name" style="text-transform:capitalize;">Nhà máy thủy điện... </span> như sau:</td>
+					  </tr>					 
+					 <tr style="font-weight:bold; border:0px solid #000; text-align:center; background: rgb(244, 244, 244)">
+						<th width="20%" colspan="2" style="text-align:center; border: thin solid black;" >Hệ thống đo đếm</th>
+						<th width="80%" colspan="8" style="text-align:center; border: thin solid black;">Điểm đo đếm: <span class="level_metera" style="color:red"> - - - </span> - Số công tơ:  <span class="serial_meter metera" style="color:red"> - - - </span> </th>
+
+						
+						<th width="80%" colspan="8" style="text-align:center; border: thin solid black;">Điểm đo đếm: <span class="level_meterb" style="color:red"> - - - </span> - Số công tơ:  <span class="serial_meter meterb" style="color:red"> - - - </span> </th>
+						<th style="border: thin solid black;"></th>
+					 </tr>
+					<tr style="font-weight:bold; text-align:center; background: rgb(244, 244, 244)" >
+						  <td style="border: thin solid black;" rowspan="2" width="10%">Chiều điện năng</td>
+						  <td style="border: thin solid black;" rowspan="2" width="8%">Thanh ghi</td>
+						  <td style="border: thin solid black;" colspan="2" width="14%">Chỉ số công tơ</td>  
+						  <td style="border: thin solid black;" rowspan="2" width="9%">Hiệu số</td>
+						  <td style="border: thin solid black;" rowspan="2" width="9%">Hệ số nhân</td>
+						  <td style="border: thin solid black;" rowspan="2" width="10%">Hệ số tổn thất ĐZ</td>
+						  <td style="border: thin solid black;" colspan="2" width="14%">Sản lượng (tính theo)</td>
+						  <td style="border: thin solid black;" rowspan="2" width="6%">Cosphi</td>  						  
+				  
+
+						  <td style="border: thin solid black;" colspan="2" width="14%">Chỉ số công tơ</td>  
+						  <td style="border: thin solid black;" rowspan="2" width="9%">Hiệu số</td>
+						  <td style="border: thin solid black;" rowspan="2" width="9%">Hệ số nhân</td>
+						  <td style="border: thin solid black;" rowspan="2" width="10%">Hệ số tổn thất ĐZ</td>
+						  <td style="border: thin solid black;" colspan="2" width="14%">Sản lượng (tính theo)</td>
+						  <td style="border: thin solid black;" rowspan="2" width="6%">Cosphi</td>  
+						  <td style="border: thin solid black;" rowspan="2" width="6%">Chênh lệch</td>  						  
+						 
+					 </tr>
+					 <tr style="font-weight:bold; text-align:center; background: rgb(244, 244, 244)" >
+						  <td style="border: thin solid black;" >Đầu kỳ</td>  
+						  <td style="border: thin solid black;">Cuối kỳ</td>
+						  <td style="border: thin solid black;">Công tơ</td>  
+						  <td style="border: thin solid black;" >T.thất ĐZ</td>
+						  
+						  <td style="border: thin solid black;" >Đầu kỳ</td>  
+						  <td style="border: thin solid black;">Cuối kỳ</td>
+						  <td style="border: thin solid black;">Công tơ</td>  
+						  <td style="border: thin solid black;" >T.thất ĐZ</td>
+
+					 </tr>	
+					 
+			 
+					</thead>
+					<tbody>
+
+					  <tr style="font-weight:bold; text-align:center; background: #DBE0E4; " >
+						  <td style=" font-weight:bold; border: thin solid black;" >Chiều giao</td> 
+						  <td style="border: thin solid black;"></td>  						  
+						  <td style="border: thin solid black;">a</td>  
+						  <td style="border: thin solid black;" >b</td>
+						  <td style="border: thin solid black;"  >c=b-a</td>  
+						  <td style="border: thin solid black;">d</td>
+						  <td style="border: thin solid black;">e</td>  
+						  <td style="border: thin solid black;" >g=c*d</td>
+						  <td style="border: thin solid black;"  >h=g*(1-e)</td>
+						  <td style="border: thin solid black;"  ></td>						 
+			  
+						  <td style="border: thin solid black;">a</td>  
+						  <td style="border: thin solid black;" >b</td>
+						  <td style="border: thin solid black;"  >c=b-a</td>  
+						  <td style="border: thin solid black;">d</td>
+						  <td style="border: thin solid black;">e</td>  
+						  <td style="border: thin solid black;" >g=c*d</td>
+						  <td style="border: thin solid black;"  >h=g*(1-e)</td>
+						  <td style="border: thin solid black;"  ></td>					  
+						  <td style="border: thin solid black;"></td>
+					  </tr>
+					  <tr>
+						  <td style="border: thin solid black; vertical-align: middle; font-weight:bold;" rowspan="4"> Giao Ap (kWh)</td>
+						  <td style="font-weight:bold; border: thin solid black; border-bottom: thin dotted black;" align ="left" class="chieugiao">Tổng</td> 
+						  <td class="daukya1" style="border: thin solid black; border-bottom: thin dotted black;" ></td>  
+						  <td class="cuoikya1" style="border: thin solid black; border-bottom: thin dotted black;"></td>
+						  <td class="hieusoa1" style="border: thin solid black; border-bottom: thin dotted black;"></td>
+						  <td class="hsnhana1" style="border: thin solid black; border-bottom: thin dotted black;"></td>
+						  <td class="hstonthata1" style="border: thin solid black; border-bottom: thin dotted black;"></td>
+						  <td class="ctoa1 red_icon" style="border: thin solid black; border-bottom: thin dotted black;"></td>
+						  <td class="ttdza1" style="border: thin solid black; border-bottom: thin dotted black;"></td> 
+						  <td class="cosa1" style="border: thin solid black; border-bottom: thin dotted black;"></td> 
+						  
+
+						  <td class="daukyb1" style="border: thin solid black; border-bottom: thin dotted black;" ></td>  
+						  <td class="cuoikyb1" style="border: thin solid black; border-bottom: thin dotted black;"></td>
+						  <td class="hieusob1" style="border: thin solid black; border-bottom: thin dotted black;"></td>
+						  <td class="hsnhanb1" style="border: thin solid black; border-bottom: thin dotted black;"></td>
+						  <td class="hstonthatb1" style="border: thin solid black; border-bottom: thin dotted black;"></td>
+						  <td class="ctob1 red_icon" style="border: thin solid black; border-bottom: thin dotted black;"></td>
+						  <td class="ttdzb1" style="border: thin solid black; border-bottom: thin dotted black;"></td> 
+						  <td class="cosb1" style="border: thin solid black; border-bottom: thin dotted black;"></td> 
+						  <td style="border: thin solid black; border-bottom: thin dotted black;"></td>
+					  </tr>
+					  
+					  <tr class="spaceUnder" >
+						  <td class="chieugiao" style="font-weight:bold; border: thin solid black;border-top: thin dotted black; border-bottom: thin dotted black;">Biểu 1</td> 					  
+						  <td class="daukya2" style="border: thin solid black;border-top: thin dotted black; border-bottom: thin dotted black;"></td>  
+						  <td class="cuoikya2" style="border: thin solid black;border-top: thin dotted black; border-bottom: thin dotted black;"></td>
+						  <td class="hieusoa2" style="border: thin solid black;border-top: thin dotted black; border-bottom: thin dotted black;"></td>
+						  <td class="hsnhana2" style="border: thin solid black;border-top: thin dotted black; border-bottom: thin dotted black;"></td>
+						  <td class="hstonthata2" style="border: thin solid black;border-top: thin dotted black; border-bottom: thin dotted black;"></td>
+						  <td class="ctoa2" style="border: thin solid black;border-top: thin dotted black; border-bottom: thin dotted black;"></td>
+						  <td class="ttdza2" style="border: thin solid black;border-top: thin dotted black; border-bottom: thin dotted black;"></td> 
+						  <td class="cosa2" style="border: thin solid black;border-top: thin dotted black; border-bottom: thin dotted black;"></td>  
+						  
+				  
+						  <td class="daukyb2" style="border: thin solid black;border-top: thin dotted black; border-bottom: thin dotted black;" ></td>  
+						  <td class="cuoikyb2" style="border: thin solid black;border-top: thin dotted black; border-bottom: thin dotted black;"></td>
+						  <td class="hieusob2" style="border: thin solid black;border-top: thin dotted black; border-bottom: thin dotted black;"></td>
+						  <td class="hsnhanb2" style="border: thin solid black;border-top: thin dotted black; border-bottom: thin dotted black;"></td>
+						  <td class="hstonthatb2" style="border: thin solid black;border-top: thin dotted black; border-bottom: thin dotted black;"></td>
+						  <td class="ctob2" style="border: thin solid black;border-top: thin dotted black; border-bottom: thin dotted black;"></td>
+						  <td class="ttdzb2" style="border: thin solid black;border-top: thin dotted black; border-bottom: thin dotted black;"></td> 
+						  <td class="cosb2" style="border: thin solid black;border-top: thin dotted black; border-bottom: thin dotted black;"></td> 
+ 						  <td style="border: thin solid black;border-top: thin dotted black; border-bottom: thin dotted black;"></td>
+					  </tr>	
+					  <tr class="spaceUnder" >
+						
+						  <td style="font-weight:bold; border: thin solid black; border-top: thin dotted black; border-bottom: thin dotted black;" class="chieugiao">Biểu2</td> 					  
+						  <td class="daukya3" style="border: thin solid black; border-top: thin dotted black; border-bottom: thin dotted black;" ></td>  
+						  <td class="cuoikya3" style="border: thin solid black; border-top: thin dotted black; border-bottom: thin dotted black;"></td>
+						  <td class="hieusoa3" style="border: thin solid black; border-top: thin dotted black; border-bottom: thin dotted black;"></td>
+						  <td class="hsnhana3" style="border: thin solid black; border-top: thin dotted black; border-bottom: thin dotted black;"></td>
+						  <td class="hstonthata3" style="border: thin solid black; border-top: thin dotted black; border-bottom: thin dotted black;"></td>
+						  <td class="ctoa3" style="border: thin solid black; border-top: thin dotted black; border-bottom: thin dotted black;"></td>
+						  <td class="ttdza3" style="border: thin solid black; border-top: thin dotted black; border-bottom: thin dotted black;"></td> 
+						  <td class="cosa3" style="border: thin solid black; border-top: thin dotted black; border-bottom: thin dotted black;"></td>  
+						  
+				  
+						  <td class="daukyb3" style="border: thin solid black; border-top: thin dotted black; border-bottom: thin dotted black;" ></td>  
+						  <td class="cuoikyb3" style="border: thin solid black; border-top: thin dotted black; border-bottom: thin dotted black;"></td>
+						  <td class="hieusob3" style="border: thin solid black; border-top: thin dotted black; border-bottom: thin dotted black;"></td>
+						  <td class="hsnhanb3" style="border: thin solid black; border-top: thin dotted black; border-bottom: thin dotted black;"></td>
+						  <td class="hstonthatb3" style="border: thin solid black; border-top: thin dotted black; border-bottom: thin dotted black;"></td>
+						  <td class="ctob3" style="border: thin solid black; border-top: thin dotted black; border-bottom: thin dotted black;"></td>
+						  <td class="ttdzb3" style="border: thin solid black; border-top: thin dotted black; border-bottom: thin dotted black;"></td> 
+						  <td class="cosb3" style="border: thin solid black; border-top: thin dotted black; border-bottom: thin dotted black;"></td>
+  						  <td style="border: thin solid black; border-top: thin dotted black; border-bottom: thin dotted black;"></td>
+					  </tr>	
+					  <tr class="spaceUnder" >
+					  
+						
+					  	  <td style="font-weight:bold; border: thin solid black; border-top: thin dotted black; border-bottom: thin solid black;" class="chieugiao"  >Biểu3</td> 					  
+						  <td class="daukya4" style="border: thin solid black; border-top: thin dotted black; border-bottom: thin solid black;" ></td>  
+						  <td class="cuoikya4" style="border: thin solid black; border-top: thin dotted black; border-bottom: thin solid black;" ></td>
+						  <td class="hieusoa4" style="border: thin solid black; border-top: thin dotted black; border-bottom: thin solid black;"></td>
+						  <td class="hsnhana4" style="border: thin solid black; border-top: thin dotted black; border-bottom: thin solid black;"></td>
+						  <td class="hstonthata4" style="border: thin solid black; border-top: thin dotted black; border-bottom: thin solid black;"></td>
+						  <td class="ctoa4" style="border: thin solid black; border-top: thin dotted black; border-bottom: thin solid black;"></td>
+						  <td class="ttdza4" style="border: thin solid black; border-top: thin dotted black; border-bottom: thin solid black;"></td> 
+						  <td class="cosa4" style="border: thin solid black; border-top: thin dotted black; border-bottom: thin solid black;"></td> 
+						  
+			  
+						  <td class="daukyb4" style="border: thin solid black; border-top: thin dotted black; border-bottom: thin solid black;" ></td>  
+						  <td class="cuoikyb4"  style="border: thin solid black; border-top: thin dotted black; border-bottom: thin solid black;"></td>
+						  <td class="hieusob4" style="border: thin solid black; border-top: thin dotted black; border-bottom: thin solid black;"></td>
+						  <td class="hsnhanb4" style="border: thin solid black; border-top: thin dotted black; border-bottom: thin solid black;"></td>
+						  <td class="hstonthatb4" style="border: thin solid black; border-top: thin dotted black; border-bottom: thin solid black;"></td>
+						  <td class="ctob4" style="border: thin solid black; border-top: thin dotted black; border-bottom: thin solid black;"></td>
+						  <td class="ttdzb4" style="border: thin solid black; border-top: thin dotted black; border-bottom: thin solid black;"></td> 
+						  <td class="cosb4" style="border: thin solid black; border-top: thin dotted black; border-bottom: thin solid black;"></td> 
+						  <td style="border: thin solid black; border-top: thin dotted black; border-bottom: thin solid black;"></td>
+					  </tr>	
+					  <tr class="spaceUnder" >
+						  <td style=" font-weight:bold; vertical-align:center; border: thin solid black;" rowspan="3" >Giao Aq (kVArh)</td>
+						  <td style="font-weight:bold; border: thin solid black;border-bottom: thin dotted black;" align ="left" class="chieugiao" >Q Tổng</td> 					  
+						  <td class="daukya5" style="border: thin solid black;border-bottom: thin dotted black;" ></td>  
+						  <td class="cuoikya5" style="border: thin solid black;border-bottom: thin dotted black;" ></td>
+						  <td class="hieusoa5" style="border: thin solid black;border-bottom: thin dotted black;" ></td>
+						  <td class="hsnhana5" style="border: thin solid black;border-bottom: thin dotted black;" ></td>
+						  <td class="hstonthata5" style="border: thin solid black;border-bottom: thin dotted black;" ></td>
+						  <td class="ctoa5 red_icon" style="border: thin solid black;border-bottom: thin dotted black;" ></td>
+						  <td class="ttdza5" style="border: thin solid black;border-bottom: thin dotted black;" ></td> 
+						  <td class="cosa5" style="border: thin solid black;border-bottom: thin dotted black;" ></td>
+
+				  
+						  <td class="daukyb5" style="border: thin solid black;border-bottom: thin dotted black;"  ></td>  
+						  <td class="cuoikyb5" style="border: thin solid black;border-bottom: thin dotted black;" ></td>
+						  <td class="hieusob5" style="border: thin solid black;border-bottom: thin dotted black;" ></td>
+						  <td class="hsnhanb5" style="border: thin solid black;border-bottom: thin dotted black;" ></td>
+						  <td class="hstonthatb5" style="border: thin solid black;border-bottom: thin dotted black;" ></td>
+						  <td class="ctob5 red_icon" style="border: thin solid black;border-bottom: thin dotted black;" ></td>
+						  <td class="ttdzb5" style="border: thin solid black;border-bottom: thin dotted black;" ></td> 
+						  <td class="cosb5" style="border: thin solid black;border-bottom: thin dotted black;" ></td>
+ 						  <td style="border: thin solid black;border-bottom: thin dotted black;"></td>
+					  </tr>
+						<tr class="spaceUnder" >	
+												
+						  <td style="font-weight:bold; border: thin solid black; border-top: thin dotted black; border-bottom: thin dotted black;" class="chieugiao" >Q1</td> 					  
+						  <td class="daukya6" style="border: thin solid black; border-top: thin dotted black; border-bottom: thin dotted black;" ></td>  
+						  <td class="cuoikya6" style="border: thin solid black; border-top: thin dotted black; border-bottom: thin dotted black;"></td>
+						  <td class="hieusoa6" style="border: thin solid black; border-top: thin dotted black; border-bottom: thin dotted black;"></td>
+						  <td class="hsnhana6" style="border: thin solid black; border-top: thin dotted black; border-bottom: thin dotted black;"></td>
+						  <td class="hstonthata6" style="border: thin solid black; border-top: thin dotted black; border-bottom: thin dotted black;"></td>
+						  <td class="ctoa6" style="border: thin solid black; border-top: thin dotted black; border-bottom: thin dotted black;"></td>
+						  <td class="ttdza6" style="border: thin solid black; border-top: thin dotted black; border-bottom: thin dotted black;"></td> 
+						  <td class="cosa6" style="border: thin solid black; border-top: thin dotted black; border-bottom: thin dotted black;"></td> 
+						  
+		  
+						  <td class="daukyb6" style="border: thin solid black; border-top: thin dotted black; border-bottom: thin dotted black;" ></td>  
+						  <td class="cuoikyb6" style="border: thin solid black; border-top: thin dotted black; border-bottom: thin dotted black;"></td>
+						  <td class="hieusob6" style="border: thin solid black; border-top: thin dotted black; border-bottom: thin dotted black;"></td>
+						  <td class="hsnhanb6" style="border: thin solid black; border-top: thin dotted black; border-bottom: thin dotted black;"></td>
+						  <td class="hstonthatb6" style="border: thin solid black; border-top: thin dotted black; border-bottom: thin dotted black;"></td>
+						  <td class="ctob6" style="border: thin solid black; border-top: thin dotted black; border-bottom: thin dotted black;"></td>
+						  <td class="ttdzb6" style="border: thin solid black; border-top: thin dotted black; border-bottom: thin dotted black;"></td> 
+						  <td class="cosb6" style="border: thin solid black; border-top: thin dotted black; border-bottom: thin dotted black;"></td>
+ 						  <td style="border: thin solid black; border-top: thin dotted black; border-bottom: thin dotted black;"></td>
+					  </tr>	
+					  <tr class="spaceUnder" >	
+						
+						  <td style="font-weight:bold; border: thin solid black; border-top: thin dotted black; border-bottom: thin solid black;" class="chieugiao"  >Q2</td> 					  
+						  <td class="daukya7" style="border: thin solid black; border-top: thin dotted black; border-bottom: thin solid black;" ></td>  
+						  <td class="cuoikya7" style="border: thin solid black; border-top: thin dotted black; border-bottom: thin solid black;"></td>
+						  <td class="hieusoa7" style="border: thin solid black; border-top: thin dotted black; border-bottom: thin solid black;"></td>
+						  <td class="hsnhana7" style="border: thin solid black; border-top: thin dotted black; border-bottom: thin solid black;"></td>
+						  <td class="hstonthata7" style="border: thin solid black; border-top: thin dotted black; border-bottom: thin solid black;"></td>
+						  <td class="ctoa7" style="border: thin solid black; border-top: thin dotted black; border-bottom: thin solid black;"></td>
+						  <td class="ttdza7" style="border: thin solid black; border-top: thin dotted black; border-bottom: thin solid black;"></td> 
+						  <td class="cosa7" style="border: thin solid black; border-top: thin dotted black; border-bottom: thin solid black;"></td> 
+						  
+						  
+					  
+						  <td class="daukyb7" style="border: thin solid black; border-top: thin dotted black; border-bottom: thin solid black;" ></td>  
+						  <td class="cuoikyb7" style="border: thin solid black; border-top: thin dotted black; border-bottom: thin solid black;"></td>
+						  <td class="hieusob7" style="border: thin solid black; border-top: thin dotted black; border-bottom: thin solid black;"></td>
+						  <td class="hsnhanb7" style="border: thin solid black; border-top: thin dotted black; border-bottom: thin solid black;"></td>
+						  <td class="hstonthatb7" style="border: thin solid black; border-top: thin dotted black; border-bottom: thin solid black;"></td>
+						  <td class="ctob7" style="border: thin solid black; border-top: thin dotted black; border-bottom: thin solid black;"></td>
+						  <td class="ttdzb7" style="border: thin solid black; border-top: thin dotted black; border-bottom: thin solid black;"></td> 
+						  <td class="cosb7" style="border: thin solid black; border-top: thin dotted black; border-bottom: thin solid black;"></td> 
+						  <td style="border: thin solid black; border-top: thin dotted black; border-bottom: thin solid black;"></td>
+						  
+					  </tr>	
+
+					  <tr style="font-weight:bold; text-align:center; background:#DBE0E4"  >
+						  <td style="border: thin solid black;"  >Chiều nhận</td>  			
+						<td></td>						  
+						  <td style="border: thin solid black;">a</td>  
+						  <td style="border: thin solid black;" >b</td>
+						  <td style="border: thin solid black;"  >c=b-a</td>  
+						  <td style="border: thin solid black;">d</td>
+						  <td style="border: thin solid black;">e</td>  
+						  <td style="border: thin solid black;">g=c*d</td>
+						  <td style="border: thin solid black;">h=g*(1+e)</td> 
+						  <td style="border: thin solid black;"></td>  	
+
+						  
+						  <td style="border: thin solid black;">a</td>  
+						  <td style="border: thin solid black;">b</td>
+						  <td style="border: thin solid black;">c=b-a</td>  
+						  <td style="border: thin solid black;">d</td>
+						  <td style="border: thin solid black;">e</td>  
+						  <td style="border: thin solid black;">g=c*d</td>
+						  <td style="border: thin solid black;">h=g*(1+e)</td> 
+						  <td style="border: thin solid black;"></td>
+						  <td style="border: thin solid black;"></td>
+					  </tr>
+					  
+					  <tr class="spaceUnder" >
+						  <td style=" font-weight:bold; vertical-align:middle; border: thin solid black;" rowspan="4" >Nhận Ap (kWh)</td>
+						  <td style=" font-weight:bold; border: thin solid black; border-bottom: thin dotted black;"  class="chieunhan">Tổng</td> 					  
+						  <td class="daukya8" style="border: thin solid black; border-bottom: thin dotted black;" ></td>  
+						  <td class="cuoikya8" style="border: thin solid black; border-bottom: thin dotted black;" ></td>
+						  <td class="hieusoa8" style="border: thin solid black; border-bottom: thin dotted black;"></td>
+						  <td class="hsnhana8" style="border: thin solid black; border-bottom: thin dotted black;"></td>
+						  <td class="hstonthata8" style="border: thin solid black; border-bottom: thin dotted black;"></td>
+						  <td class="ctoa8 red_icon" style="border: thin solid black; border-bottom: thin dotted black;"></td>
+						  <td class="ttdza8" style="border: thin solid black; border-bottom: thin dotted black;"></td> 
+						  <td class="cosa8" style="border: thin solid black; border-bottom: thin dotted black;"></td> 
+						  
+				  
+						  <td class="daukyb8" style="border: thin solid black; border-bottom: thin dotted black;"></td>  
+						  <td class="cuoikyb8" style="border: thin solid black; border-bottom: thin dotted black;" ></td>
+						  <td class="hieusob8" style="border: thin solid black; border-bottom: thin dotted black;"></td>
+						  <td class="hsnhanb8" style="border: thin solid black; border-bottom: thin dotted black;"></td>
+						  <td class="hstonthatb8" style="border: thin solid black; border-bottom: thin dotted black;"></td>
+						  <td class="ctob8 red_icon" style="border: thin solid black; border-bottom: thin dotted black;"></td>
+						  <td class="ttdzb8" style="border: thin solid black; border-bottom: thin dotted black;"></td> 
+						  <td class="cosb8" style="border: thin solid black; border-bottom: thin dotted black;"></td> 	
+						  <td style="border: thin solid black; border-bottom: thin dotted black;"></td>
+					  </tr>
+					  <tr class="spaceUnder" >
+						 
+						  <td style="font-weight:bold; border: thin solid black; border-top: thin dotted black; border-bottom: thin dotted black;" class="chieunhan"  >Biểu1</td> 					  
+						  <td class="daukya9" style="border: thin solid black; border-top: thin dotted black; border-bottom: thin dotted black;"></td>  
+						  <td class="cuoikya9" style="border: thin solid black; border-top: thin dotted black; border-bottom: thin dotted black;"></td>
+						  <td class="hieusoa9" style="border: thin solid black; border-top: thin dotted black; border-bottom: thin dotted black;"></td>
+						  <td class="hsnhana9" style="border: thin solid black; border-top: thin dotted black; border-bottom: thin dotted black;"></td>
+						  <td class="hstonthata9" style="border: thin solid black; border-top: thin dotted black; border-bottom: thin dotted black;"></td>
+						  <td class="ctoa9" style="border: thin solid black; border-top: thin dotted black; border-bottom: thin dotted black;"></td>
+						  <td class="ttdza9" style="border: thin solid black; border-top: thin dotted black; border-bottom: thin dotted black;"></td> 
+						  <td class="cosa9" style="border: thin solid black; border-top: thin dotted black; border-bottom: thin dotted black;"></td> 
+						  
+			  
+						  <td class="daukyb9" style="border: thin solid black; border-top: thin dotted black; border-bottom: thin dotted black;"></td>  
+						  <td class="cuoikyb9" style="border: thin solid black; border-top: thin dotted black; border-bottom: thin dotted black;"></td>
+						  <td class="hieusob9" style="border: thin solid black; border-top: thin dotted black; border-bottom: thin dotted black;"></td>
+						  <td class="hsnhanb9" style="border: thin solid black; border-top: thin dotted black; border-bottom: thin dotted black;"></td>
+						  <td class="hstonthatb9" style="border: thin solid black; border-top: thin dotted black; border-bottom: thin dotted black;"></td>
+						  <td class="ctob9" style="border: thin solid black; border-top: thin dotted black; border-bottom: thin dotted black;"></td>
+						  <td class="ttdzb9" style="border: thin solid black; border-top: thin dotted black; border-bottom: thin dotted black;"></td> 
+						  <td class="cosb9" style="border: thin solid black; border-top: thin dotted black; border-bottom: thin dotted black;"></td>
+ 						  <td style="border: thin solid black; border-top: thin dotted black; border-bottom: thin dotted black;"></td>
+					  </tr>	
+					  <tr class="spaceUnder" >
+						
+						  <td style="font-weight:bold; border: thin solid black; border-top: thin dotted black; border-bottom: thin dotted black;" class="chieunhan" >Biểu2</td> 					  
+						  <td class="daukya10" style="border: thin solid black; border-top: thin dotted black; border-bottom: thin dotted black;" ></td>  
+						  <td class="cuoikya10" style="border: thin solid black; border-top: thin dotted black; border-bottom: thin dotted black;"></td>
+						  <td class="hieusoa10" style="border: thin solid black; border-top: thin dotted black; border-bottom: thin dotted black;"></td>
+						  <td class="hsnhana10" style="border: thin solid black; border-top: thin dotted black; border-bottom: thin dotted black;"></td>
+						  <td class="hstonthata10" style="border: thin solid black; border-top: thin dotted black; border-bottom: thin dotted black;"></td>
+						  <td class="ctoa10" style="border: thin solid black; border-top: thin dotted black; border-bottom: thin dotted black;"></td>
+						  <td class="ttdza10" style="border: thin solid black; border-top: thin dotted black; border-bottom: thin dotted black;"></td> 
+						  <td class="cosa10" style="border: thin solid black; border-top: thin dotted black; border-bottom: thin dotted black;"></td> 
+						  
+			  
+						  <td class="daukyb10" style="border: thin solid black; border-top: thin dotted black; border-bottom: thin dotted black;" ></td>  
+						  <td class="cuoikyb10" style="border: thin solid black; border-top: thin dotted black; border-bottom: thin dotted black;"></td>
+						  <td class="hieusob10" style="border: thin solid black; border-top: thin dotted black; border-bottom: thin dotted black;"></td>
+						  <td class="hsnhanb10" style="border: thin solid black; border-top: thin dotted black; border-bottom: thin dotted black;"></td>
+						  <td class="hstonthatb10" style="border: thin solid black; border-top: thin dotted black; border-bottom: thin dotted black;"></td>
+						  <td class="ctob10" style="border: thin solid black; border-top: thin dotted black; border-bottom: thin dotted black;"></td>
+						  <td class="ttdzb10" style="border: thin solid black; border-top: thin dotted black; border-bottom: thin dotted black;"></td> 
+						  <td class="cosb10" style="border: thin solid black; border-top: thin dotted black; border-bottom: thin dotted black;"></td> 
+						  <td style="border: thin solid black; border-top: thin dotted black; border-bottom: thin dotted black;"></td>
+					  </tr>	
+					  <tr class="spaceUnder" >
+						
+						 <td style="font-weight:bold; border: thin solid black; border-top: thin dotted black;" class="chieunhan" >Biểu3</td> 					  
+						  <td class="daukya11" style="border: thin solid black; border-top: thin dotted black; " ></td>  
+						  <td class="cuoikya11" style="border: thin solid black; border-top: thin dotted black; " ></td>
+						  <td class="hieusoa11" style="border: thin solid black; border-top: thin dotted black; "></td>
+						  <td class="hsnhana11" style="border: thin solid black; border-top: thin dotted black; "></td>
+						  <td class="hstonthata11" style="border: thin solid black; border-top: thin dotted black; "></td>
+						  <td class="ctoa11" style="border: thin solid black; border-top: thin dotted black; "></td>
+						  <td class="ttdza11" style="border: thin solid black; border-top: thin dotted black; "></td> 
+						  <td class="cosa11" style="border: thin solid black; border-top: thin dotted black; "></td> 
+						  
+				  
+						  <td class="daukyb11"  style="border: thin solid black; border-top: thin dotted black; " ></td>  
+						  <td class="cuoikyb11" style="border: thin solid black; border-top: thin dotted black; " ></td>
+						  <td class="hieusob11" style="border: thin solid black; border-top: thin dotted black; "></td>
+						  <td class="hsnhanb11" style="border: thin solid black; border-top: thin dotted black; "></td>
+						  <td class="hstonthatb11" style="border: thin solid black; border-top: thin dotted black; "></td>
+						  <td class="ctob11" style="border: thin solid black; border-top: thin dotted black; "></td>
+						  <td class="ttdzb11" style="border: thin solid black; border-top: thin dotted black; "></td> 
+						  <td class="cosb11" style="border: thin solid black; border-top: thin dotted black; "></td>
+ 						  <td style="border: thin solid black; border-top: thin dotted black; "></td>
+					  </tr>	
+					  <tr class="spaceUnder" >
+						  <td rowspan="3" style=" font-weight:bold; vertical-align:middle; border: thin solid black;">Nhận Aq (kVArh)</td>
+						  <td style="font-weight:bold; border: thin solid black; border-bottom: thin dotted black;" class="chieunhan"  >Q Tổng</td> 					  
+						  <td class="daukya12" style="border: thin solid black; border-bottom: thin dotted black; "></td>  
+						  <td class="cuoikya12" style="border: thin solid black; border-bottom: thin dotted black;"></td>
+						  <td class="hieusoa12" style="border: thin solid black; border-bottom: thin dotted black; "></td>
+						  <td class="hsnhana12" style="border: thin solid black; border-bottom: thin dotted black; "></td>
+						  <td class="hstonthata12" style="border: thin solid black; border-bottom: thin dotted black;"></td>
+						  <td class="ctoa12 red_icon" style="border: thin solid black; border-bottom: thin dotted black; "></td>
+						  <td class="ttdza12" style="border: thin solid black; border-bottom: thin dotted black; "></td> 
+						  <td class="cosa12" style="border: thin solid black; border-bottom: thin dotted black; "></td> 
+						  
+				  
+						  <td class="daukyb12" style="border: thin solid black; border-bottom: thin dotted black;" ></td>  
+						  <td class="cuoikyb12" style="border: thin solid black; border-bottom: thin dotted black; "></td>
+						  <td class="hieusob12" style="border: thin solid black; border-bottom: thin dotted black; "></td>
+						  <td class="hsnhanb12" style="border: thin solid black; border-bottom: thin dotted black; "></td>
+						  <td class="hstonthatb12" style="border: thin solid black; border-bottom: thin dotted black; "></td>
+						  <td class="ctob12 red_icon" style="border: thin solid black; border-bottom: thin dotted black;"></td>
+						  <td class="ttdzb12" style="border: thin solid black; border-bottom: thin dotted black;"></td> 
+						  <td class="cosb12" style="border: thin solid black; border-bottom: thin dotted black;"></td> 
+						  <td style="border: thin solid black; border-bottom: thin dotted black;"></td>
+					  </tr>	
+					  <tr class="spaceUnder" >
+						  
+						  <td style="border: thin solid black; border-top: thin dotted black; border-bottom: thin dotted black; font-weight:bold;" class="chieunhan" >Q3</td> 					  
+						  <td class="daukya13" style="border: thin solid black; border-top: thin dotted black; border-bottom: thin dotted black; "></td>  
+						  <td class="cuoikya13" style="border: thin solid black; border-top: thin dotted black; border-bottom: thin dotted black; "></td>
+						  <td class="hieusoa13" style="border: thin solid black; border-top: thin dotted black; border-bottom: thin dotted black; "></td>
+						  <td class="hsnhana13" style="border: thin solid black; border-top: thin dotted black; border-bottom: thin dotted black; "></td>
+						  <td class="hstonthata13" style="border: thin solid black; border-top: thin dotted black; border-bottom: thin dotted black; "></td>
+						  <td class="ctoa13" style="border: thin solid black; border-top: thin dotted black; border-bottom: thin dotted black; "></td>
+						  <td class="ttdza13" style="border: thin solid black; border-top: thin dotted black; border-bottom: thin dotted black; "></td> 
+						  <td class="cosa13" style="border: thin solid black; border-top: thin dotted black; border-bottom: thin dotted black; "></td> 						  
+						  
+				  
+						  <td class="daukyb13" style="border: thin solid black; border-top: thin dotted black; border-bottom: thin dotted black; "></td>  
+						  <td class="cuoikyb13" style="border: thin solid black; border-top: thin dotted black; border-bottom: thin dotted black; "></td>
+						  <td class="hieusob13" style="border: thin solid black; border-top: thin dotted black; border-bottom: thin dotted black; "></td>
+						  <td class="hsnhanb13" style="border: thin solid black; border-top: thin dotted black; border-bottom: thin dotted black; "></td>
+						  <td class="hstonthatb13" style="border: thin solid black; border-top: thin dotted black; border-bottom: thin dotted black; "></td>
+						  <td class="ctob13" style="border: thin solid black; border-top: thin dotted black; border-bottom: thin dotted black; "></td>
+						  <td class="ttdzb13" style="border: thin solid black; border-top: thin dotted black; border-bottom: thin dotted black; "></td> 
+						  <td class="cosb13" style="border: thin solid black; border-top: thin dotted black; border-bottom: thin dotted black; "></td> 	
+						  <td style="border: thin solid black; border-top: thin dotted black; border-bottom: thin dotted black; "></td>
+					  </tr>	
+					  <tr class="spaceUnder" style="border:1px;" >
+					      
+						  <td style="border: thin solid black; border-top: thin dotted black; font-weight:bold;" class="chieunhan"  >Q4</td> 					  
+						  <td class="daukya14" style="border: thin solid black; border-top: thin dotted black;"></td>  
+						  <td class="cuoikya14" style="border: thin solid black; border-top: thin dotted black;" ></td>
+						  <td class="hieusoa14" style="border: thin solid black; border-top: thin dotted black;"></td>
+						  <td class="hsnhana14" style="border: thin solid black; border-top: thin dotted black;"></td>
+						  <td class="hstonthata14" style="border: thin solid black; border-top: thin dotted black;"></td>
+						  <td class="ctoa14" style="border: thin solid black; border-top: thin dotted black;"></td>
+						  <td class="ttdza14" style="border: thin solid black; border-top: thin dotted black;"></td> 
+						  <td class="cosa14" style="border: thin solid black; border-top: thin dotted black;"></td> 
+						  
+				  
+						  <td class="daukyb14" style="border: thin solid black; border-top: thin dotted black;"></td>  
+						  <td class="cuoikyb14" style="border: thin solid black; border-top: thin dotted black;" ></td>
+						  <td class="hieusob14" style="border: thin solid black; border-top: thin dotted black;"></td>
+						  <td class="hsnhanb14" style="border: thin solid black; border-top: thin dotted black;"></td>
+						  <td class="hstonthatb14" style="border: thin solid black; border-top: thin dotted black;"></td>
+						  <td class="ctob14" style="border: thin solid black; border-top: thin dotted black;"></td>
+						  <td class="ttdzb14" style="border: thin solid black; border-top: thin dotted black;"></td> 
+						  <td class="cosb14" style="border: thin solid black; border-top: thin dotted black;"></td> 
+						  <td style="border: thin solid black; border-top: thin dotted black;"></td>
+					  </tr>	
+					  
+					</tbody>
+					<tfoot >
+					  <tr>
+						<td colspan="10" style="border: thin solid black">
+						  <div id="paging" style="font-weight:bold; color: #058DC7; ">
+							
+									<a> 	
+									<span  id="csdau"> Thời gian chốt đầu: <span style="color:red;" class="daukya15">.../.../...</span></span>
+									<span id="cscuoi"> - - - Thời gian chốt cuối: <span style="color:red;" class="cuoikya15">.../.../...</span></span>
+									</a>
+
+						  </div>
+						</td>
+						<td colspan="9"  style="border: thin solid black">
+						  <div id="paging" style="font-weight:bold; color: #058DC7; ">
+							
+									<a> 	
+									<span  id="csdau"> Thời gian chốt đầu: <span style="color:red;" class="daukyb15">.../.../...</span></span>
+									<span id="cscuoi"> - - - Thời gian chốt cuối: <span style="color:red;" class="cuoikyb15">.../.../...</span></span>
+									</a>
+
+						  </div>
+						</td>
+					  </tr>
+					  <tr></tr>
+						  <tr > 
+							<td colspan="19" style="font-style:italic; text-decoration:underline; text-align:left; border:none;">Ghi chú</td>
+						  </tr>
+						<tr>
+						<td colspan="19" style="border:none;">1. Ap là Điện năng tác dụng; Aq là điện năng phản kháng </td>
+						</tr>
+						<tr>	
+						<td colspan="19" style="border:none;">2. Giao Ap, Aq: là lượng điện năng <span class="tonghop_subname" style="text-transform:capitalize;">Nhà máy thủy điện </span> phát vào hệ thống </td>	
+						</tr>
+						<tr>
+						<td colspan="19" style="border:none;">3. Nhận Ap, Aq: là lượng điện năng <span class="tonghop_subname" style="text-transform:capitalize;">Nhà máy thủy điện </span> nhận từ hệ thống </td>
+						</tr>
+						<tr>
+						<td colspan="19" style="border:none;">4. Q1, Q2 là điện năng vô công <span class="tonghop_subname" style="text-transform:capitalize;">Nhà máy thủy điện </span> phát vào hệ thống; Trong đó: Q1 là điện năng vô công phát khi NM phát P lên hệ thống, Q2 là điện năng vô công phát khi NM nhận P về từ hệ thống </td>	
+						</tr>
+						<tr>
+						<td colspan="19" style="border:none;">5. Q3, Q4 là điện năng vô công <span class="tonghop_subname" style="text-transform:capitalize;">Nhà máy thủy điện </span> nhận từ hệ thống, trong đó Q3 là điện năng vô công khi NM nhận P về từ hệ thống, Q4 là điện năng vô công nhận về khi phát P lên hệ thống </td>	
+						</tr>
+						<tr>
+						<td colspan="19" style="border:none;">Q3 nhận tương ứng với P nhận dùng để tính phạt Cosφ theo chiều nhận của HĐMBĐ với các Cty ĐL . Q4 nhận để tính qui đổi thành P theo HĐMBĐ phát lưới với Tổng Công ty   </td>							
+						</tr>
+						<tr>
+						<td colspan="19" style="border:none; font-weight:bold;">6.Biểu giá giờ Bình thường: 6h đến 17h, 20h đến 22h; Cao điểm: Từ 4h00 đến 06h00, 17h đến 20h (trừ ngày chủ nhật) , Thấp điểm: 0h đến 4h,22h đến 24h</td>
+						</tr>
+						<tr></tr>
+					  <tr>
+						<th colspan="7" style="text-align:center; font-weight:bold; border:none;text-transform: uppercase;" class="tonghop_investorname change_name">CÔNG TY....</th>
+						<th colspan="5" style="text-align:center; font-weight:bold; border:none;" > </th>
+						<th colspan="7" style="text-align:center; font-weight:bold; border:none; border:none;">TỔNG CÔNG TY ĐIỆN LỰC MIỀN BẮC</th>
+					  </tr>
+					  <tr>
+						<th colspan="7" style="text-align:center; font-weight:bold; border:none; text-transform: uppercase;" class="tonghop_subname change_name">NHÀ MÁY THUỶ ĐIỆN... </th>
+						<th colspan="5" style="text-align:center; font-weight:bold; border:none;" > </th>
+						<th colspan="7" style="text-align:center; font-weight:bold; border:none;text-transform: uppercase;" class="tonghop_pcname change_name">CÔNG TY ĐIỆN LỰC... </th>
+					  </tr>
+					  <tr></tr><tr></tr><tr></tr><tr></tr><tr></tr>
+					  <tr id="ngc2"></tr>					  
+					</tfoot> 
+				</table>
+						
+					</div>
+
+                    <div class="widget-foot">
+                      <div class="clearfix"></div> 
+
+                    </div>
+
+                  </div>
+
+                </div>
+			</div>
+		</div>	
+		
+		<!--<div class="row">
+				<div class="col-md-12">
+				<div class="widget">
+
+                <div class="widget-head">
+                  <div class="pull-left graphmenu"  style="width:100%; text-align:center" >
+					Báo cáo doanh thu điện năng tháng: <span class="month_meter label label-danger" style="color:red"></span> 
+		
+				  </div>
+                  <div class="widget-icons pull-right" style="position: absolute; right: 20px;">
+                    <a href="#" class="wminimize"><i class="fa fa-chevron-up"></i></a> 
+                    <a href="#" class="wclose"><i class="fa fa-times"></i></a>
+                  </div>  
+                  <div class="clearfix"></div>
+                </div>
+
+                   <div class="widget-content">
+
+					<div class="table-responsive">
+						<table class="table table-striped table-bordered table-hover" id="example1">
+							<thead style="border-top:1px solid #0070A8;">
+							  <tr>
+								<th style="white-space:nowrap">Chiều công suất</th>
+								<th >A tính theo TTĐZ (quy về điểm ranh giới đo đếm)</th>
+								<th >Sản lượng điện năng gây tổn thất</th>
+								<th >A quy đổi khi bên bán điện nhận Q của bên mua điện</th>
+								<th >A thanh toán thực tế</th>	
+								<th >Đơn giá tiền điện </br> (VNĐ)</th>	
+								<th >Số tiền điện thanh toán trước VAT </br> (VNĐ)</th>	
+								<th >VAT </br> (VNĐ)</th>	
+								<th >Số tiền điện thanh toán thực tế </br> (VNĐ)</th>
+							  </tr>
+							</thead>
+
+							<tbody>
+							  <tr>
+								<td style="font-weight:bold;">1. NM Giao P</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>					
+							  </tr>
+							  <tr>
+								<td style="font-weight:bold;" >Tổng P </td>
+								<td style="font-weight:bold;"  class="doanhthu_TongP"></td>
+								<td></td>
+								<td></td>
+								<td style="font-weight:bold;" class="doanhthu_TongPfinal"></td>
+								<td ></td>
+								<td style="font-weight:bold;" class="doanhthu_TongCP"></td>
+								<td style="font-weight:bold;" class="doanhthu_vatTongCP"></td>
+								<td style="font-weight:bold;" class="doanhthu_TongDT"></td>					
+							  </tr>
+							  <tr>
+								<td >Biểu 1</td>
+								<td class="doanhthu_b1"></td>
+								<td></td>
+								<td></td>
+								<td class="doanhthu_b1"></td>
+								<td>634</td>
+								<td class="doanhthu_b1CP"></td>
+								<td></td>
+								<td></td>					
+							  </tr>
+							  <tr>
+								<td >Biểu 2</td>
+								<td class="doanhthu_b2"></td>
+								<td></td>
+								<td ></td>
+								<td class="doanhthu_b2"></td>
+								<td>2796</td>
+								<td class="doanhthu_b2CP"></td>
+								<td></td>
+								<td></td>					
+							  </tr>
+							  <tr>
+								<td>Biểu 3</td>
+								<td class="doanhthu_b3"></td>
+								<td></td>
+								<td class="doanhthu_pconvert"></td>
+								<td class="doanhthu_b3final"></td>
+								<td>631</td>
+								<td class="doanhthu_b3CP"></td>
+								<td></td>
+								<td></td>					
+							  </tr>
+							  <tr>
+								<td style="font-weight:bold;">2. NM Nhận Q</td>
+								<td style="font-weight:bold;" class="doanhthu_Q4nhanTong"></td>
+								<td></td>
+								<td class="doanhthu_pconvert"></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>					
+							  </tr >
+							  <tr  style="border-bottom:1px solid #0070A8;"> 
+								<td >Nhận Q tháng <span class="doanhthu_thang"></span></td>
+								<td class="doanhthu_Q4nhan"></td>
+								<td></td>
+								<td class="doanhthu_pconvert"></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>					
+							  </tr>
+							
+							</tbody>
+						</table>
+				
+						
+					</div>
+
+                    <div class="widget-foot">
+                      <div class="clearfix"></div> 
+
+                    </div>
+
+                  </div> 
+
+                </div>
+			</div>
+		</div>	-->
+		
+		
+		
+		
+	</div>
+	
+
+	    <!-- Matter -->
+<script src="js/custom.js"></script> 
+<script src="js/dataTables.tableTools.js"></script> 	
+		
+<script>
+    api_link='http://mdms.npc.com.vn/mdms2015/apis'     
+	$(document).ready(function() {
+		$('.mainbar').css('margin-left','230px');
+		$('.sidebar').css('left','0px');
+	});
+
+	$('.chonthang, .chonnam').change(function(){
+		month = $('.chonnam').val()+'-'+$('.chonthang').val();
+		page1_meter(crsubid);
+	});
+	
+	page1_meter(crsubid); 
+	
+	
+	// *	Đánh dấu meter nào vào bên trái cái nào bên phải (1/2-a/b)
+	// *	opt1 -> phía bên trái opt2 -> phía bên phải
+	
+	
+	// $('.select_report').click(function(){
+	// 	alert('bao cao');
+	// 	tonghop_getcheckreport($(this), crsubid);
+	// });
+	
+	
+	countmeterreport=0;
+	reportarray=[];reportarray["opt1"]=0;reportarray["opt2"]=0;
+
+	function tonghop_getcheckreport($this, id_sub){
+
+		tmp='<span class="label check_to_report">BC</span>';	
+		if ($this.hasClass('meter_checked')) { 
+			$this.removeClass('meter_checked'); 
+			
+			$this.find('.check_to_report').remove(); 
+			countmeterreport--; 
+			if ($this.hasClass('opt1')){ $this.removeClass('opt1'); reportarray["opt1"]=0; tonghop_remove_meter_report(1)}
+				if ($this.hasClass('opt2')){ $this.removeClass('opt2'); reportarray["opt2"]=0; tonghop_remove_meter_report(2)}
+		} 
+		else {
+			if (countmeterreport<2) {
+			
+				/*
+				*	Đánh dấu meter nào vào bên trái cái nào bên phải (1/2-a/b)
+				*/
+				
+				crmeter = $this.parent().find('.serial_report').text(); //alert (crmeter);
+				chart(crmeter);
+				sendcrpos();
+				tonghop_getmeter_infor($this, tmp, crmeter, id_sub);
+			} else{
+				showalert('Thông báo', 'Chọn tối đa 2 công tơ để lập báo cáo ');
+			}
+		}
+	}
+
+	function reset_meter_checked(){
+		reportarray["opt1"]=0;reportarray["opt2"]=0;
+		clear_ccsttbl(1);
+		clear_ccsttbl(2);
+		$('.meter_checked, .op1, .opt2').remove();
+		for (i=0; i<20; i++){
+			$('.daukya'+i+', .daukyb'+i).html('- -');
+			$('.cuoikya'+i+', .cuoikyb'+i).html('- -');
+			$('.hieusoa'+i+', .hieusob'+i).html('- -');
+			$('.hsnhana'+i+', .hsnhanb'+i).html('- - ');
+			$('.hstonthata'+i+', .hstonthatb'+i).html('- -');
+			$('.ctoa'+i+', .ctob'+i).html('- -');
+			$('.ttdza'+i+', .ttdzb'+i).html('- -');
+			$('.cosa'+i+', .cosb'+i).html('- -');
+		}
+	}
+
+	$('.chonthang, .chonnam').change(function(){
+		reportarray["opt1"]=0;reportarray["opt2"]=0;
+		countmeterreport=0;
+		clear_ccsttbl(1);
+		clear_ccsttbl(2);
+	});
+	
+
+	tonghop_remove_meter_report=function(option){
+
+		/*
+		*	Tổng hợp
+		*	option=1/2 => remove bên trái/phải (a/b)
+		*/
+		clear_ccsttbl(option);
+
+	}
+	//?userid=32&token=e45030c63f4743a267&id_sub=18&month=2015-2
+	function tonghop_getlistmeter(id_sub){
+	
+		//alert(month+ ' ||| '+userid+' ||| '+token+ '||| '+id_sub);
+		$.ajax({
+			url:api_link+'/page1_meter_th.php',
+			type:"POST",
+			data:{month: month, userid: userid, token: token, id_sub:id_sub},
+			success:function(data){
+				var data = JSON.parse(data);
+				console.log(data);
+				var html='';
+				$.each(data, function(index, value){
+					var levelmeter = 'Chính', sub_confirm = '<i class="fa fa-check-circle green_icon "></i>', pc_confirm = '<i class="fa fa-check-circle green_icon "></i>', datatype='Bình thường';
+					if (value.level_meter==1) {levelmeter = 'Phụ';}
+					if (value.sub_confirm!=1) {sub_confirm = '<i class="fa fa-ban red_icon"></i>'; }
+					if (value.pc_confirm!=1) {pc_confirm = '<i class="fa fa-ban red_icon"></i>'; }
+					if (value.type==1) {datatype = 'Trước kiểm định';}
+					if (value.type==2) {datatype = 'Sau kiểm định';}
+					html+=	'<tr><td class="serial_report">'+value.serial_meter+
+							'<td> '+levelmeter+'</td><td>'+value.relation_meter +'</td><td align="center" > '+sub_confirm+'</td><td align="center"> '+pc_confirm+'</td><td>'+month+'</td><td> '+datatype+'</td>'+
+							'<td class="select_report" style="cursor:pointer;"> Chọn</td></tr>';
+				});
+
+				$('.tonghop_listmeter').html(html);
+
+				/*
+				*	Đánh dấu meter nào vào bên trái cái nào bên phải (1/2-a/b)
+				*	opt1 -> phía bên trái opt2 -> phía bên phải
+				*/
+				
+				$('.select_report').click(function(){
+					//alert('bao cao');
+					tonghop_getcheckreport($(this), crsubid);
+				});
+
+				
+			}, error: function(e){
+				console.log('e '+e);
+			}
+		});
+	}
+	
+	tonghop_getmeter_infor = function($thismeter, symbol, crmeter, id_sub){
+		
+		
+		/*
+		*	lấy thông tin từ bảng confirm meter serial == crmeter, sub = id_sub, 
+		*	side = 1/2(a/b) -> điền thông tin bên trái hay phải
+		*/
+
+		//alert(crmeter+' - '+mon+' - '+id_sub+' - '+userid+' - '+token+' - '+option);
+
+		$.ajax({
+			url:api_link+'/chotchisotonghop.php',
+			type:"POST",
+			data:{serial: crmeter, month: month, userid: userid, token: token, subid:id_sub},
+			success:function(data){
+				//alert(data);
+				if (data!=0){
+					data = JSON.parse(data);
+					if (data.status==404) {
+						showalert('Thông báo','Không có dữ liệu đã xác nhận để lập báo cáo');
+					} else if (data.status==200) {
+						/*
+						*	Thành công <> có dữ liệu mới đánh dấu check vào meter
+						*/
+						countmeterreport++;
+						var side=1;
+
+						if (!reportarray["opt1"]){
+							reportarray["opt1"]=1;
+							side=1;
+						} else {
+							if (!reportarray["opt2"]){
+								reportarray["opt2"]=1;
+								side=2;
+							}
+						}
+						if (side==1){option='a';} 
+							else if (side==2){option='b';}
+						//alert(countmeterreport);
+						
+						var opt = 'opt'+side;
+						$thismeter.addClass('meter_checked').addClass('opt'+side); 
+						$thismeter.append(symbol); 
+
+						var data1 = {};
+						data1.confirminfo = data.confirminfo;
+						data1.investorinfo = data.investorinfo;
+						data1.meter = data.meter;
+						data1.status = data.status;
+						data1.type = data.type;
+						data1.dauky = data.data1.dauky;
+						data1.cuoiky = data.data1.cuoiky;
+
+						apply_thongso(data1,option);
+
+					} else {
+						showalert('Thông báo','Thất bại, bạn hãy thử lại lần sau!');
+					}
+				} else {}
+			}, error: function(e){
+				console.log('e '+e);
+			}
+		}); 
+	}
+
+	/*
+	* edit chot chi so thang
+	*/
+
+    $('.csctbtn').click(function(){
+		chart(crmeter);
+	});
+
+	
+	// click ẩn hiện nhập họ tên và chức vụ Điện lực + Nhà máy trong bảng báo cáo tổng hợp
+	count_click=0;
+    $('.editname').click(function(){
+		if (count_click==0) {
+			$('.editname').text('Nhấn kết thúc');
+			for (i=1;i<7;i++){
+			$('.nameboss'+i).html('<input class="inputnameboss'+i+'" placeholder="Nhập họ và tên" value="'+$('.nameboss'+i).text()+'" />');
+			}
+			for (j=1;j<7;j++){
+			$('.office'+j).html('<input class="inputoffice'+j+'"  placeholder="Nhập chức vụ"  value="'+$('.office'+j).text()+'" />');
+			}
+			count_click=1;
+			
+		} else {
+			$('.editname').text('Nhập thành phần');
+			for (i=1;i<7;i++){
+				tmp1= $('.inputnameboss'+i).val();
+				$('.nameboss'+i).text(tmp1);
+			}
+			for (j=1;j<7;j++){
+				tmp2= $('.inputoffice'+j).val();
+				$('.office'+j).text(tmp2);			
+			}
+			count_click=0;
+		}
+	});	
+	
+	// click ẩn hiện nhập họ tên và chức vụ của NGC trong bảng báo cáo tổng hợp
+	
+	count_click_ngc=0;
+	
+	html1= 	'<tr class="ngc">'+
+				'<th colspan="10" style="text-align:left; font-weight:bold; border:none;">III. <span class="">Công ty Lưới điện cao thế miền Bắc</span></th>'+
+				'<th colspan="9" style="text-align:left; font-weight:bold; border:none;" ><span class=""></span></th>'+
+			'</tr>'+					  
+			'<tr class="ngc">'+
+				'<th colspan="5" style="text-align:left; font-weight:bold; border:none;" >Họ và Tên: <span class="nameboss5">.........</span> </th>'+
+				'<th colspan="5" style="text-align:left; font-weight:bold; border:none;" >Chức vụ: <span class="office5">.........</span> </th>'+					
+
+				'<th colspan="4" style="text-align:left; font-weight:bold; border:none;" ><span class=""></span> </th>'+
+				'<th colspan="5" style="text-align:left; font-weight:bold; border:none;" ><span class=""></span> </th>'+	
+			'</tr>'+
+			'<tr class="ngc">'+
+				'<th colspan="5" style="text-align:left; font-weight:bold; border:none;" >Họ và Tên: <span class="nameboss6">.........</span> </th>'+
+				'<th colspan="5" style="text-align:left; font-weight:bold; border:none;" >Chức vụ: <span class="office6">.........</span> </th>'+				
+
+				'<th colspan="4" style="text-align:left; font-weight:bold; border:none;" ><span class=""></span> </th>'+
+				'<th colspan="5" style="text-align:left; font-weight:bold; border:none;" ><span class=""></span> </th>'+	
+			'</tr>';
+	
+	html2=	'<tr class="ngc"><th colspan="19" style="text-align:center; font-weight:bold; border:none;" > CÔNG TY LƯỚI ĐIỆN CAO THẾ MIỀN BẮC</th></tr>'+
+			'<tr class="ngc"><th colspan="19" style="text-align:center; font-weight:bold; border:none;" > CHI NHÁNH LĐCT<span class="ngc_CN">....</span></th></tr>';
+			
+	$('.ngcinput').click(function(){
+	
+		if (count_click_ngc==0 ){
+			if (count_click==0){
+				$('#ngc1').after(html1);
+				$('#ngc2').after(html2);			
+				$('.ngcinput').text('Bỏ thành phần NGC');
+				count_click_ngc=1;
+			}else {
+				showalert('Thông báo!', 'Đang nhập dữ liệu, không thêm thành phần');
+			}	
+		} else {
+			$('.ngc').remove();
+			$('.ngcinput').text('Bổ sung NGC');
+			count_click_ngc=0;
+		}
+		
+	});
+	
+	
+	
+	
+	function apply_thongso(data,option){
+
+		console.log('applythongso ', data, data.confirminfo.month );
+		var bieu1,bieu1dz,bieu2,bieu3,bieu4,bieu4dz,Q4nhan;
+		var i =1; j=1;
+		count_point_meter = data.meter.count_point_meter;
+		
+		mm = month.split('-');
+		$('.tonghop_month').html('Tháng '+mm[1]+' - Năm '+mm[0]);
+
+		if (data.investorinfo!=undefined){
+			$('.tonghop_subname').html('Nhà máy thủy điện '+data.investorinfo.name_sub);
+			$('.tonghop_pcname').html('Công ty '+data.investorinfo.name_pwc);
+			$('.tonghop_investorname').html(data.investorinfo.name_investor);
+			
+		}
+		$('.meter'+option).html(crmeter);
+		for (var key in data.dauky){
+			var t1 = '.dauky'+option+i;
+			$(t1).html(data.dauky[key]);
+			i++;
+		}
+		
+		for (var key in data.cuoiky){
+			var t2 = '.cuoiky'+option+j;
+			$(t2).html(data.cuoiky[key]);
+			j++;
+		}
+		
+		$('.month_meter').html($('.chonthang').val() +'-'+ $('.chonnam').val()); 
+		$('.level_meter'+option+'').html(data.meter.level_meter_string_plus +' Lộ - '+ data.meter.relation_meter );
+		//$('.serial_meter').html(crmeter); 
+		
+		$('.chieugiao').each(function(indexx,val){
+			var index= indexx+1;
+			var cuoiky = '.cuoiky'+option+index, dauky = '.dauky'+option+index;
+			var hieuso = convert_float($(cuoiky).text())-convert_float($(dauky).text());
+			hieuso = hieuso.toFixed(count_point_meter);
+			$('.hieuso'+option+index).html(set_comma(hieuso));
+
+			$('.hsnhan'+option+index).html(data.meter.factor_meter);
+			$('.hstonthat'+option+index).html(data.meter.lineloss_meter);
+
+			var slcto = hieuso*data.meter.factor_meter;
+			slcto = slcto.toFixed(0);
+			if (index==1){TongP=slcto;}				
+			if (index!=2){$('.cto'+option+index).html(set_comma(slcto));}	
+			if (index==3){bieu2=slcto;}			
+			if (index==4){bieu3=slcto;}	
+			
+			var slttdz = slcto*(1-data.meter.lineloss_meter);
+			slttdz = slttdz.toFixed(0);
+			if (index!=2){$('.ttdz'+option+index).html(set_comma(slttdz));}	
+			
+		});
+			
+			//bieu1 = convert_float($('.cto'+option+'1').text())-(convert_float($('.cto'+option+'3').text())+convert_float($('.cto'+option+'4').text()));	
+			//bieu1 = bieu1.toFixed(count_point_meter);	
+			//$('.cto'+option+'2').html(set_comma(bieu1));
+
+			bieu1 = convert_float($('.cto'+option+'1').text())-(convert_float($('.cto'+option+'3').text())+convert_float($('.cto'+option+'4').text()));	
+			bieu1 = bieu1.toFixed(0);		
+			$('.cto'+option+'2').html(set_comma(bieu1));				
+			
+			
+			bieu1dz = convert_float($('.ttdz'+option+'1').text())-(convert_float($('.ttdz'+option+'3').text())+convert_float($('.ttdz'+option+'4').text()));	
+			bieu1dz = bieu1dz.toFixed(0);		
+			$('.ttdz'+option+'2').html(set_comma(bieu1dz));		
+
+			cosphi=convert_float($('.cto'+option+'1').text())/Math.sqrt(convert_float($('.cto'+option+'1').text())*convert_float($('.cto'+option+'1').text()) + convert_float($('.cto'+option+'6').text())*convert_float($('.cto'+option+'6').text()));
+			cosphi = cosphi.toFixed(2);
+			//Aquydoi= Q4nhan*65/631;
+			
+			$('.cos'+option+'1').html(set_comma(cosphi)); 
+		
+		$('.chieunhan').each(function(indexx,val){
+			var index= indexx+8;
+			var cuoiky = '.cuoiky'+option+index, dauky = '.dauky'+option+index;
+			var hieuso = convert_float($(cuoiky).text())-convert_float($(dauky).text());
+			hieuso = hieuso.toFixed(count_point_meter);
+			$('.hieuso'+option+index).html(set_comma(hieuso));
+
+			$('.hsnhan'+option+index).html(data.meter.factor_meter);
+			$('.hstonthat'+option+index).html(data.meter.lineloss_meter);
+
+			var slcto = hieuso*data.meter.factor_meter;
+			slcto = slcto.toFixed(0);
+			if (index!=9){$('.cto'+option+index).html(set_comma(slcto));}				
+			if (index==14){Q4nhan=slcto;}	
+			
+			var slttdz = slcto*(1+data.meter.lineloss_meter);
+			slttdz = slttdz.toFixed(0);
+			if (index!=9){$('.ttdz'+option+index).html(set_comma(slttdz));}				
+
+		});
+			bieu4 = convert_float($('.cto'+option+'8').text())-(convert_float($('.cto'+option+'10').text())+convert_float($('.cto'+option+'11').text()));	
+			bieu4 = bieu4.toFixed(0);		
+			$('.cto'+option+'9').html(set_comma(bieu4));
+			
+			bieu4dz = convert_float($('.ttdz'+option+'8').text())-(convert_float($('.ttdz'+option+'10').text())+convert_float($('.ttdz'+option+'11').text()));	
+			bieu4dz = bieu4dz.toFixed(0);		
+			$('.ttdz'+option+'9').html(set_comma(bieu4dz));	
+			
+			
+			Tongfinal= convert_float(bieu1)+ convert_float(bieu2);
+			Tongfinal=Tongfinal.toFixed(count_point_meter);
+			
+			bieu3final=convert_float(bieu3)-data.meter.pconvert_meter;
+			bieu3final=bieu3final.toFixed(count_point_meter);
+			
+			TongCP= bieu1*634+ bieu2*2796 + (bieu3-data.meter.pconvert_meter)*631;
+			TongCP=TongCP.toFixed(count_point_meter);
+			
+			vatTongCP=(bieu1*634+ bieu2*2796 + (bieu3-data.meter.pconvert_meter)*631)*10/100;
+			vatTongCP=vatTongCP.toFixed(count_point_meter);
+			
+			TongDT=(bieu1*634+ bieu2*2796 + (bieu3-data.meter.pconvert_meter)*631)+(bieu1*634+ bieu2*2796 + (bieu3-data.meter.pconvert_meter)*631)*10/100;
+			TongDT=TongDT.toFixed(count_point_meter);
+			
+			bieu1CP=bieu1*634;
+			//bieu1CP=bieu1CP.toFixed(count_point_meter);
+		
+			bieu2CP=bieu2*2796;
+			bieu2CP=bieu2CP.toFixed(count_point_meter);
+			
+			bieu3CP=(bieu3-data.meter.pconvert_meter)*631;
+			bieu3CP=bieu3CP.toFixed(count_point_meter);
+			
+			//bieu2CP=set_comma(bieu2CP);
+			
+			$('.doanhthu_TongP').html(set_comma(TongP)); 
+			$('.doanhthu_TongPfinal').html(set_comma(Tongfinal)); 
+			$('.doanhthu_TongCP').html(set_comma(TongCP));
+			$('.doanhthu_vatTongCP').html(set_comma(vatTongCP));
+			$('.doanhthu_TongDT').html(set_comma(TongDT));			
+			
+			$('.doanhthu_b1').html(set_comma(bieu1)); 	
+			$('.doanhthu_b1CP').html(set_comma(bieu1CP)); 
+			
+			$('.doanhthu_b2').html(set_comma(bieu2)); 
+			$('.doanhthu_b2CP').html(set_comma(bieu2CP)); 
+			
+			$('.doanhthu_b3').html(set_comma(bieu3)); 
+			$('.doanhthu_b3CP').html(set_comma(bieu3CP));
+			
+			$('.doanhthu_b3final').html(set_comma(bieu3final));	
+			$('.doanhthu_Q4nhanTong').html(set_comma(Q4nhan)); 
+			$('.doanhthu_Q4nhan').html(set_comma(Q4nhan)); 
+			$('.doanhthu_thang').html($('.chonthang').val()); 	
+			$('.doanhthu_pconvert').html(data.meter.pconvert_meter); 				
+	}
+	
+	function clear_ccsttbl(option){
+		if (option==1){ option='a';}
+		if (option==2){ option='b';}
+		$('.meter'+option).html(' - - - ');
+		$('.level_meter'+option).html(' - - - ');
+		for (i=0; i<20; i++){
+			$('.dauky'+option+i).html('- -');
+			$('.cuoiky'+option+i).html('- -');
+			$('.hieuso'+option+i).html('- -');
+			$('.hsnhan'+option+i).html('- - ');
+			$('.hstonthat'+option+i).html('- -');
+			$('.cto'+option+i).html('- -');
+			$('.ttdz'+option+i).html('- -');
+			$('.cos'+option+i).html('- -');
+		}
+	}
+
+
+	var onlineH1, dataconfirm;	//Lưu giá trị -> confirm
+	var chart = function(serial,value){
+		//clear_ccsttbl();
+		//month = $('.chonnam').val()+'-'+$('.chonthang').val();
+		xncspermission = 0;		
+	
+		$.ajax({
+				url:api_link+'/chotchisothang.php',
+				type:"POST",
+				data:{serial: serial, month: month, token:token, userid:userid},
+				success:function(data){	
+					//alert(data);
+					var n = data.indexOf("dauky");	
+					if (n<0){
+						showalert('Thông báo!', 'Không có dữ liệu!');
+						//loadinpage(crpage, crmenu);
+						//clear_ccsttbl();
+						//return false;
+					}	
+					var m = data.indexOf("cuoiky");	
+						if (m<0&&n>0){ showalert('Thông báo!', 'Không có dữ liệu cuối kỳ!'); } 
+
+					data=JSON.parse(data);
+					onlineH1 = data;
+					dataconfirm = data;
+					xncspermission = data.status;
+					apply_thongso(data);
+
+				
+				}, error: function(e){
+					console.log('e '+e);
+				}
+			
+		}); 
+	}
+	
+	function process1(number){
+        var nfloat=number+'';
+        var position=0, position1=0;
+        //alert(nfloat);
+        nfloat=nfloat.split(".");
+        var v1=nfloat[0],v2=nfloat[1];
+        pos = v1.length;
+        position=pos-3;
+        v1 = v1.substr(0, position) + '.' + v1.substr(position);
+        return v1;
+    }
+	function set_comma(number){
+		//var number = parseFloat(numbers);
+		//number = 100.00*number/100;
+		console.log(number);
+		if (number==NaN||number==undefined||number=='NaN'||number=='--'){
+			return ' - - ';
+		} else {
+			var nfloat=number+'';
+			var n = nfloat.indexOf('.');
+			var v1='',v2='';
+			if (n<0){
+				var position=0;
+				//nfloat=nfloat.split(".");
+				v1=nfloat,v2='';
+				pos = v1.length;
+				if ((pos<=6)&&(pos>3)){ 
+					position=pos-3;
+					v1 = process1(v1);
+				}
+				if ((pos<=9)&&(pos>6)){
+					position=pos-6;
+					var v11 = v1.substr(0, position) + '.';
+					var v12 = process1(v1.substr(position));
+					v1=v11+v12;
+				}
+				if ((pos<=12)&&(pos>9)){
+					position=pos-9;
+					var v11 = v1.substr(0, position) + '.';
+					var remain1 =  v1.substr(position, pos);
+					var v111 = remain1.substr(0, 3) + '.';	
+					var remain2 =  v1.substr(position+3, pos);
+					var v12 = process1(remain2);
+					v1=v11+v111+v12;
+				}
+				if (v1==NaN||v1==undefined) {return ' - - '}
+					else { return v1; }
+			
+			} else {
+				var position=0;
+				nfloat=nfloat.split(".");
+				v1=nfloat[0],v2=nfloat[1];
+				pos = v1.length;
+				if ((pos<=6)&&(pos>3)){ 
+					position=pos-3;
+					v1 = process1(v1);
+				}
+				if ((pos<=9)&&(pos>6)){
+					position=pos-6;
+					var v11 = v1.substr(0, position) + '.' 
+					var v12 = process1(v1.substr(position));
+					v1=v11+v12;
+				}
+				if ((pos<=12)&&(pos>9)){
+					position=pos-9;
+					var v11 = v1.substr(0, position) + '.';
+					var remain1 =  v1.substr(position, pos);
+					var v111 = remain1.substr(0, 3) + '.';	
+					var remain2 =  v1.substr(position+3, pos);
+					var v12 = process1(remain2);
+					v1=v11+v111+v12;
+				}
+				if (v1==NaN||v1==undefined||v2==NaN||v2==undefined) {return '- - '}
+				else { return v1+','+v2; }
+			}
+		}
+    }
+    function convert_float(number){
+        //alert (number);
+        var values = number.split('.').join('');// alert (values);//;replace('.',''); //alert (values); .split(',').join(newchar);
+        values = values.replace(',','.'); //alert (values);
+        var v = parseFloat(values);//var value = parseFloat("554,20".replace(",", ".")); 
+        //alert (v);
+        return v;
+    }
+	
+</script>
+
+  <script type="text/javascript">
+var tableToExcel = (function() {
+
+  var uri = 'data:application/vnd.ms-excel;base64,'
+    , template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head><body><table>{table}</table></body></html>'
+    , base64 = function(s) { return window.btoa(unescape(encodeURIComponent(s))) }
+    , format = function(s, c) { return s.replace(/{(\w+)}/g, function(m, p) { return c[p]; }) }
+  return function(table, name) {
+    if (!table.nodeType) table = document.getElementById(table)
+    var ctx = {worksheet: name || 'Worksheet', table: table.innerHTML}
+	//window.open('data:application/vnd.ms-'+defaults.type+';filename=exportData.xlsx;' + base64data);
+    window.location.href = uri + base64(format(template, ctx))
+  }
+})()
+
+
+
+    </script> 

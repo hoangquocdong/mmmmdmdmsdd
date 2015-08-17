@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]> <html class="lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]> <html class="lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en"> <!--<![endif]-->
+
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+<!-- Stylesheets -->
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <!-- Font awesome icon -->
+  <link rel="stylesheet" href="css/font-awesome.min.css"> 
+  <!-- jQuery UI -->
+  <link rel="stylesheet" href="css/jquery-ui.css"> 
+  <!-- Data tables -->
+  
+  <script src="js/jquery.js"></script>
+  <style>
+* {
+            -webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
+            -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
+            -webkit-tap-highlight-color: rgba(0,0,0,0); /* make transparent link selection, adjust last value opacity 0 to 1.0 */
+          /*  -webkit-user-select: none;                  prevent copy paste, to allow, change 'none' to 'text' */
+}
+html{
+  height: 100%;
+}
+body {
+  min-height: 100%;
+}
+body {
+
+    background:#708EA8 url('img/login/bg.jpg') repeat;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+}
+
+#login-form{
+width:300px;
+height: 464px;
+	background:#E8EAED  url('img/login/login_bg.jpg') repeat;
+	border-radius:8px;
+	margin:auto;
+	opacity: 0.9;
+}
+
+.middle-vertical{
+
+	position: absolute;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+.full-bg{
+	background-size: 100% 100%;
+    background-repeat: no-repeat;
+}
+.login-input{
+	position: relative;
+	display:block; 
+	margin:auto; 
+	border-style: solid;
+	border-width:thin;
+	border-color:#dee1e2;
+	height:45px;
+	width:270px; 
+	border-radius:6px;
+
+}
+.login-btn{
+	position:relative; 
+	display: block; 
+	text-align:center; 
+	margin-top:30px; 
+	border-color:#0F5D99; 
+	background-color:#026DA8;
+}
+.logo {
+	height: 100px;
+	width: 200px;
+	background-image: url('img/login/logo.png');
+	background-size: 179px 45px;
+	background-repeat: no-repeat;
+	position: absolute;
+	top: 83px;
+	left: 60px;
+}
+.social {
+	height: 100px;
+	width: 200px;
+	background-image: url('img/login/social.png');
+	background-size: 194px 64px;
+	background-repeat: no-repeat;
+	position: absolute;
+	top: 372px;
+	left: 52px;
+}
+textarea:focus, input:focus{
+    outline: 0;   
+}
+</style>
+</head>
+<body>
+	<div id="login-form" class="full-bg middle-vertical">
+			<h2 style="text-align: center;color: rgb(20, 77, 121);">Thủy điện IPP NPC</h2>
+			<div class="logo" style=""></div>
+			<div style="margin-top:120px;" class="login-input">
+				<i class="fa fa-user" style=" position: relative; bottom: -12px; left: 20px; color:rgb(11, 111, 166);"></i>
+				<input id="username" style="color:#104269; width: 170px; height:25px; background-color:rgba(255, 255, 255, 0.7); position: absolute;left: 55px;top: 8px;font-size: 18px; font-family: ubuntu, helvetica, arial;font-weight: 300; border:none;" placeholder="Tên đăng nhập">
+			</div>
+			<div style="margin-top:20px;" class="login-input">
+				<i class="fa fa-lock" style=" position: relative; bottom: -12px; left: 20px; color:rgb(11, 111, 166);"></i>
+				<input id="password" type="password" style=" color:#104269; width: 170px; height:25px; background-color:rgba(255, 255, 255, 0.7); position: absolute;left: 55px;top: 8px;font-size: 18px; border:none; " placeholder="********">
+			</div>
+			<div id="login_btn" style="" class="login-btn login-input">
+				<div >
+					<span style="display: block;position: absolute;	margin: 10px 110px;	color: white;font-size: 21px;" id="login_submit">Login</span>
+				</div>
+			</div>
+<!--			<div class="social" style=""></div> !-->
+	</div>
+
+
+
+
+  <script>
+    $(document).ready(function() {
+    	
+    });
+	$("#username").focus();  
+	$('#login_submit').click(function() {
+		 
+		var pass= $('#password').val();
+		if (pass == '123') {
+			showalert('Thông báo!', 'Bạn đang để mật khẩu mặc định, hãy thay đổi mật khẩu mới để bảo mật hơn.',userlogin);
+			//userlogin(); 
+		} else {
+			userlogin(); 
+		}
+    });
+	  
+    // $("#username").keyup(function(event) {
+    //     if (event.keyCode==13) {
+    //       userlogin();
+    //     }
+    // });
+
+
+    $("#password").keyup(function(event) {
+        if (event.keyCode==13) {
+          	var pass= $('#password').val();
+			if (pass == '123') {
+				showalert('Thông báo!', 'Bạn đang để mật khẩu mặc định, hãy thay đổi mật khẩu mới để bảo mật hơn.', userlogin);
+				//userlogin(); 
+			} else {
+				userlogin(); 
+			}
+			
+        }
+    });
+
+        function userlogin(){          
+          var user= $('#username').val(),
+          pass= $('#password').val();
+          $.post('http://mdms.npc.com.vn/mdms2015/apis/login.php',{username:user,password:pass}, function(data){
+			
+			  if (data!=0){
+              	var obj = JSON.parse(data);
+              	var link = obj['link'];
+                window.location = link;  
+              } else {
+                alert('Đăng nhập thất bại');
+              }
+          });
+        }
+
+
+    function showalert(title, content, callbackfnc, zindex, height, width){
+
+	    if (!$('.alertdialog').length) {
+
+			if (title==undefined){ title = 'Thông Báo'; }
+			if (content==undefined){ content = 'Nội Dung Thông Báo'; }
+			if (zindex==undefined){ zindex = 10000; }
+			if (height==undefined){ height = 180; }
+			if (width==undefined){ width = 400; }
+			var $divbg = $('<div id="alertdialog" class="alertdialog" style="height: 100%;background-color: rgba(0,0,0,0.5);position: fixed;top: 0px;left: 0px;right: 0px;z-index: '+zindex+';"></div>').appendTo('body');
+			var $divcontent = $('<div id="alertdialogcontent" style="position: absolute;left: 50%;top: 50%;transform: translate(-50%, -50%);background-color: rgb(255,255,255);height: '+height+'px;width: '+width+'px;z-index: 10001;border-radius: 3px;"><div id="alertdialoginner" style="position: relative; width:100%; height:100%"></div></div>').appendTo($('#alertdialog'));
+			var $alerttitle = $('<div style="height: 50px; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: gray; text-align: center; font-weight: 500; font-size: 18px; padding-top: 13px;">'+title+'</div>').appendTo($('#alertdialoginner'));
+			var $alertcontent = $('<div style="height: 50px; text-align: center; font-weight: 400; font-size: 16px; padding: 13px;">'+content+'</div>').appendTo($('#alertdialoginner'));
+			var $btnalert = $('<div id="btnalert" class="btnalert btn btn-info" style="position: absolute;left: 120px;right: 120px;bottom: 15px;">OK</div>').appendTo($('#alertdialoginner'));
+			//$(".btnalert").focus();
+			//document.getElementById('btnalert').scrollIntoView();
+			$(".btnalert").click(function(){
+					$("#alertdialog").remove(); 
+					//return false;
+					if (typeof callbackfnc === 'function') { callbackfnc(); } 
+			});
+
+		} 
+  }
+
+  </script>
+</body>
+</html>

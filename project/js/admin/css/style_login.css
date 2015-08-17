@@ -1,0 +1,236 @@
+
+<style type="text/css">
+* {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+html {
+	-ms-touch-action: none;
+}
+
+body,ul,li {
+	padding: 0;
+	margin: 0;
+	border: 0;
+}
+
+body {
+	font-size: 12px;
+	font-family: ubuntu, helvetica, arial;
+	overflow: hidden; /* this is important to prevent the whole page to bounce */
+}
+
+#header {
+	position: absolute;
+	z-index: 2;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 45px;
+	line-height: 45px;
+	background: #32394A;
+	padding: 0;
+	color: #eee;
+	font-size: 20px;
+	text-align: center;
+	font-weight: bold;
+}
+
+#footer {
+	position: absolute;
+	z-index: 2;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	height: 48px;
+	line-height: 48px;
+	background: #32394A;
+	text-align: center;
+	color: #eee;
+	padding: 0;
+	font-size: 20px;
+	border-top: 1px solid #444;
+}
+
+#wrapper {
+	position: absolute;
+	z-index: 1;
+	top: 45px;
+	bottom: 48px;
+	left: 0;
+	width: 100%;
+	
+	background: #ccc;
+	overflow: hidden;
+}
+
+#scroller {
+	position: absolute;
+	z-index: 1;
+	-webkit-tap-highlight-color: rgba(0,0,0,0);
+	width: 100%;
+	-webkit-transform: translateZ(0);
+	-moz-transform: translateZ(0);
+	-ms-transform: translateZ(0);
+	-o-transform: translateZ(0);
+	transform: translateZ(0);
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	-webkit-text-size-adjust: none;
+	-moz-text-size-adjust: none;
+	-ms-text-size-adjust: none;
+	-o-text-size-adjust: none;
+	text-size-adjust: none;
+	/*box shadow*/
+	-webkit-box-shadow: 0px -3px 5px 0px rgba(50, 50, 50, 0.75);
+	-moz-box-shadow:    0px -3px 5px 0px rgba(50, 50, 50, 0.75);
+	box-shadow:         0px -3px 5px 0px rgba(50, 50, 50, 0.75);
+}
+	/*
+#scroller ul {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	width: 100%;
+	text-align: left;
+}
+
+#scroller li {
+	padding: 0 10px;
+	background-color: #262C3A;
+	font-size: 14px;
+	list-style: none;
+}
+
+/*********************************************************************BEGIN Style cho Li cua trang chinh****************************************************/
+.parent{border-bottom:0px solid black;position: relative;padding-left: 0px;padding-bottom: 0px;margin-left: 0px;min-height: 68px;border-top: 1px #3E4555 solid;  border-bottom: 1px #191D27 solid;}
+.parent:nth-child(odd) {	background-size: contain;}/*Display difference style of story*/
+.parent:nth-child(even) {background-size: contain;}/*Display difference style of story*/
+.story_list_details {
+	float:left;
+	height:48px;
+	width: 100%;
+	padding:10px;
+	display:table;
+	} 
+.outer{display: table-cell;vertical-align: middle;position: static;} /* display center Text and Image*/
+.inner {	position: relative;color: white;font-weight: bold;font-style: normal;text-transform: uppercase;} /* display center Text and Image*/
+.name_story {font-size:15px;  color: wheat;display:block;line-height:16px;
+font-family: Arial, Helvetica, sans-serif;
+text-decoration: none;
+text-shadow: 0px 1px 1px #212631;
+}
+.name_author {font-size:11px; color: #DBE0E8;display:block;line-height:16px;}
+.info_story {font-size:11px; color: #DBE0E8;display:block;line-height:16px;}
+.list_img {float:left; height:48px; width:33px;margin-right:10px;}
+.list_img img {width: 100%;height:100%;}
+.list_details {float:left; height:48px; }
+.arrow_detail {height:20px;width:20px;}
+/*********************************************************************END Style cho Li cua trang chinh****************************************************/
+/*********************************************************************BEGIN Style cho Li cua trang chuong ****************************************************/
+.parent_chapter{border-bottom:0px solid black;position: relative;padding-left: 0px;padding-bottom: 0px;margin-left: 0px;
+min-height: 68px;border-top: 1px #3E4555 solid;  border-bottom: 1px #191D27 solid;min-height: 28px;line-height:28px;}
+.parent_chapter:nth-child(odd) {background-image: url('');	background-size: contain; vertical-align:middle;}/*Display difference style of story*/
+.parent_chapter:nth-child(even) {background-image: url('');background-size: contain;}/*Display difference style of story*/
+.chapter_index {font-weight:bold; color:white;padding:8px 0px 8px 5px;font-size:12px;}
+.chapter_name{font-weight:bold; color:white;padding:0px;font-size:12px;}
+/*********************************************************************END Style cho Li cua trang chuong****************************************************/
+/*********************************************************************BEGIN Style cho Left Side****************************************************/
+.slmenu {
+	position: ;
+	top: 0px;
+	left: 0px;
+	width: 220px;
+	height: 100%;
+/*	background-color: #262C3A;
+	-webkit-box-shadow: 3px 0px 5px -2px #32394A;
+	box-shadow: 3px 0px 5px -2px #32394A;*/
+	z-index: 2147483647;
+	display: none;
+	background: #5a5959 url(../images/menuBg.gif) top left repeat-y;
+	background-size: contain;
+	overflow-y: auto;
+
+	
+	
+	
+	/*-webkit-overflow-scrolling: touch;*/
+}
+
+.slmenu h3{
+	font-size:14px;
+	font-family: Arial, Helvetica, sans-serif;
+	font-weight: lighter;
+	color:#C8D7FF;
+	text-shadow: 0 1px 0 #272D39;
+	margin:0;
+	padding: 10px 0 10px 10px;
+	background: rgb(67,74,94); /* Old browsers */
+	background: -moz-linear-gradient(top, rgba(67,74,94,1) 0%, rgba(57,64,82,1) 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(67,74,94,1)), color-stop(100%,rgba(57,64,82,1))); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, rgba(67,74,94,1) 0%,rgba(57,64,82,1) 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, rgba(67,74,94,1) 0%,rgba(57,64,82,1) 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, rgba(67,74,94,1) 0%,rgba(57,64,82,1) 100%); /* IE10+ */
+	background: linear-gradient(top, rgba(67,74,94,1) 0%,rgba(57,64,82,1) 100%); /* W3C */
+	border-top:solid #4E5567 1px;
+	border-bottom:solid #242A37 1px;
+}
+
+.slmenu ul {
+	margin: 0;
+	padding: 0;
+	width: inherit;
+}
+
+.slmenu ul li {
+	list-style-type: none;
+	margin: 0px 0;
+}
+
+.slmenu ul li a:link, .slmenu ul li a:visited {
+	border-top: 0px #3E4555 solid;
+	border-bottom: 1px #191D27 solid;
+	color: #DBE0E8;
+	font-size: 13px;
+	font-family: Arial, Helvetica, sans-serif;
+	text-decoration: none;
+	width: 100%;
+	display: block;
+	padding: 6px 0px 6px 10px;
+	text-shadow: 0px 1px 1px #212631;
+}
+
+.slmenu ul li img {
+	margin-right:8px;
+}
+
+.slmenu ul li a:hover, .slmenu ul li a:active {
+	background-color: #32394A;
+}
+		
+
+/*********************************************************************END Style cho Left Side****************************************************/
+
+.object {
+    transition: all 0.22s ease-in-out;
+    -webkit-transition: all 0.22s ease-in-out; /** Chrome & Safari **/
+    -moz-transition: all 0.22s ease-in-out; /** Firefox **/
+    -o-transition: all 0.22s ease-in-out; /** Opera **/
+}
+.move-right{
+	transform: translate(220px,0);
+	-webkit-transform: translate(220px,0);
+	-o-transform: translate(220px,0); 
+	-moz-transform: translate(220px,0);
+}
+.shadow {
+	-webkit-box-shadow: -6px -8px 5px 0px rgba(50, 50, 50, 0.75);
+	-moz-box-shadow:    -6px -8px 5px 0px rgba(50, 50, 50, 0.75);
+	box-shadow:         -6px -8px 5px 0px rgba(50, 50, 50, 0.75);
+}
+</style>

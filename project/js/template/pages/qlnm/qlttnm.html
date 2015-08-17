@@ -1,0 +1,145 @@
+
+        <div class="container">
+
+          <!-- Table -->
+
+            <div class="row">
+
+              <div class="col-md-12">
+
+                <div class="widget">
+
+                <div class="widget-head">
+                  <div class="pull-left"  style="width:100%; text-align:center">Bảng tổng hợp thông tin Chủ đầu tư và thông tin các Nhà máy</div>
+                  <div class="widget-icons pull-right"  style="position: absolute; right: 20px;">
+                    <a href="#" class="wminimize"><i class="fa fa-chevron-up"></i></a> 
+                    <a href="#" class="wclose"><i class="fa fa-times"></i></a>
+                  </div>  
+                  <div class="clearfix"></div>
+                </div>
+
+                  <div class="widget-content">
+					
+					<div class="table-responsive">
+						<table class="table table-striped table-bordered table-hover order-table " style="color:#0C4B7F">
+						  <thead>
+							<tr style="white-space:nowrap; text-align:center;">
+							  <th>Stt</th>
+							  <th>Điện lực</th>
+							  <th>Nhà máy</th>
+							  <th>Đo xa</th>
+							  <th>Cấp điện áp</th>
+							  <th>Công suất</th>
+							  <th colspan="3" style="text-align:center;" >Thông tin chủ đầu tư</th>							  
+							  <th colspan="2" style="text-align:center;">Thông tin nhà máy</th>								  
+							  <th>Ngày vận hành</th>						  
+							</tr>
+							<tr style="white-space:nowrap; text-align:center;">
+							  <th></th>
+							  <th></th>
+							  <th></th>
+							  <th></th>
+							  <th></th>
+							  <th></th>
+							  <th>Công ty</th>							  
+							  <th>Địa chỉ công ty</th>
+							  <th>SĐT công ty</th>							  
+							  <th>Địa chỉ nhà máy</th>
+							  <th>SĐT nhà máy</th>							  
+							  <th></th>						  
+							</tr>							
+						  </thead>
+						  <tbody class="tbody-content">
+								
+						  </tbody>
+						</table>
+					</div>
+					
+					
+                   <div class="widget-foot">
+
+                      
+                        <ul class="pagination pagination-sm pull-right">
+                          <li><a href="#">Prev</a></li>
+                          <li><a href="#">1</a></li>
+                          <li><a href="#">2</a></li>
+                          <li><a href="#">3</a></li>
+                          <li><a href="#">4</a></li>
+                          <li><a href="#">Next</a></li>
+                        </ul>
+                      
+                      <div class="clearfix"></div> 
+
+                    </div>
+
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+
+        </div>
+		 
+
+		<!-- Matter ends -->
+
+<script>
+
+crpage = getpage();
+crmenu = getdefaulthash();
+sendcrpos();
+$('.mainmenu').text(namepage[crpage]);
+$('.listmenu').text(submenu[crmenu]);
+set_loading_pos(0);
+$.ajax({
+  url:'http://mdms.npc.com.vn/mdms2015/apis/qlnm.php',
+      type:"POST",
+      data:{id:userid, token:token},
+      success:function(data){
+          //console.log('e ',data);
+          data = JSON.parse(data);
+          var html = '';
+          $.each(data,function(index, value){
+            var nm = '';
+            $.each(value[1],function(index1, value1){
+              
+              //console.log(value1);
+              //console.log(value1['subinfo']['levelcapacity']);
+
+              nm+='<tr class="underpower" >'+
+                '<td ></td>'+
+				'<td style="color:white;" >'+value[0]['name_pwc']+'</td>'+
+                '<td style="vertical-align: middle; white-space:nowrap; font-weight:bold;">'+value1['name_sub']+'</td>'+
+                '<td style="vertical-align: middle;">'+value1['subinfo']['status']+'</td>'+
+				'<td style="vertical-align: middle;">'+value1['subinfo']['levelvoltage']+'</td>'+
+                '<td style="vertical-align: middle;">'+value1['subinfo']['levelcapacity']+'</td>'+
+                '<td style="vertical-align: middle;">'+value1['insinfo']['name_investor']+'</td><td style="vertical-align: middle;">'+value1['insinfo']['adress_investor']+'</td>'+
+                '<td style="vertical-align: middle;">'+value1['insinfo']['phone_investor']+'</td>'+                
+				'<td style="vertical-align: middle;">'+value1['subinfo']['address_sub']+'</td>'+
+				'<td style="vertical-align: middle;">'+value1['subinfo']['phone_sub']+'</td>'+				
+                value1['subinfo']['startdate']+'</td> <td></td>'+
+              '</tr>';
+
+            });
+			index=index+1;
+            html+='<tr class="power" style="white-space:nowrap;"><td >'+index+'</td>'+
+                  '<td >'+value[0]['name_pwc']+'</td>'+
+                  '<td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>'+
+                  '<td></td>'+                  
+                '</tr>'+nm; 
+          });
+          $('.tbody-content').html(html);
+    		  $('tr:not(.underpower)').click(function(){
+             $(this).nextUntil('tr:not(.underpower)').toggle();
+          });
+		  set_loading_pos(1);
+      },
+      error:function(e){
+          console.log('e '+e);
+      }
+});
+
+</script>
+
+<script src="js/jquery.dataTables.min.js"></script> <!-- Data tables -->

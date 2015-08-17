@@ -1,0 +1,152 @@
+
+        <div class="container">
+
+          <!-- Table -->
+
+            <div class="row">
+
+              <div class="col-md-12">
+
+                <div class="widget">
+
+                <div class="widget-head">
+                  <div class="pull-left" style="width:100%; text-align:center">Bảng tổng hợp thông tin hồ sơ của các nhà máy thủy điện IPP</div>
+                  <div class="widget-icons pull-right" style="position: absolute; right: 20px;">
+                    <a href="#" class="wminimize"><i class="fa fa-chevron-up"></i></a> 
+                    <a href="#" class="wclose"><i class="fa fa-times"></i></a>
+                  </div>  
+                  <div class="clearfix"></div>
+                </div>
+
+                  <div class="widget-content">
+					
+					<div class="table-responsive">
+						<table class="table table-striped table-bordered table-hover order-table" style="color: #0C4B7F;">
+						  <thead>
+							<tr>
+							  <th>Stt</th>
+							  <th>Điện lực</th>
+							  <th>Nhà máy</th>							  
+							  <th>Chủ đầu tư</th>
+							  <th>Loại Hồ Sơ</th>							  
+							  <th>Số hồ sơ</th>							  
+							  <th>Tên hồ sơ</th>								  
+							  <th>Download Hồ sơ </th>
+							  <th>Ngày hiệu lực</th>
+							</tr>
+						  </thead>
+						  <tbody class="tbody-content">
+														
+						  </tbody>
+						</table>
+					</div>
+					
+					
+                   <div class="widget-foot">
+
+                      
+                        <ul class="pagination pagination-sm pull-right">
+                          <li><a href="#">Prev</a></li>
+                          <li><a href="#">1</a></li>
+                          <li><a href="#">2</a></li>
+                          <li><a href="#">3</a></li>
+                          <li><a href="#">4</a></li>
+                          <li><a href="#">Next</a></li>
+                        </ul>
+                      
+                      <div class="clearfix"></div> 
+
+                    </div>
+
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+
+        </div>
+
+
+		<!-- Matter ends -->
+
+
+<script>
+$('tr:not(.underpower)').click(function(){
+  //alert('1');
+   $(this).nextUntil('tr:not(.underpower)').toggle('slow');
+});
+</script>
+
+
+<script type="text/javascript">
+ 
+function datatype(datatype){
+    var rs = 'Hồ sơ';
+    if (datatype == 1){ rs = 'Hồ sơ ban đầu'}
+      else if (datatype == 2){ rs = 'Quyết định'}
+        else if (datatype == 3){ rs = 'Nghiệm thu'}
+          else if (datatype == 4){ rs = 'Bàn giao'}
+            else if (datatype == 5){ rs = 'Hồ sơ ban đầu 5'}
+              else if (datatype == 6){ rs = 'Hồ sơ ban đầu 6'}
+
+    return rs;
+} 
+
+crpage = getpage();
+crmenu = getdefaulthash();
+sendcrpos();
+$('.mainmenu').text(namepage[crpage]);
+$('.listmenu').text(submenu[crmenu]);
+set_loading_pos(0);
+$.ajax({
+  url:'http://mdms.npc.com.vn/mdms2015/apis/qlhs.php',
+      type:"POST",
+      data:{id:userid, token:token},
+      success:function(data){
+          //console.log('e ',data);
+          data = JSON.parse(data);
+          //console.log(data);
+          var html = '';
+          $('.tbody-content').html(html);
+          $.each(data,function(index, value){
+              var nm = '';
+              $.each(value[1],function(index1, value1){
+                
+                  //Lấy thông tin nhà máy - chủ đầu tư
+                  nm+='<tr class="underpower">'+
+                    '<td style="padding:10px;">'+(index+1)+'.'+(index1+1)+'</td><td></td>'+
+                    '<td style="text-align:left;">'+value1['name_sub']+'</td>'+
+                    '<td>'+value1['insinfo']['name_investor']+'</td><td></td><td></td><td></td>'+           
+                    '<td></td><td></td>'+ 
+                  '</tr>';
+                  //Lặp từng hồ sơ trong nhà máy
+                  $.each(value1['hoso'],function(indexhs, valuehs){
+                      nm+='<tr class="underpower">'+
+                          '<td></td><td></td><td></td><td></td><td>'+
+                          datatype(valuehs['datatype'])+'</td><td>'+valuehs['number_file']+'</td><td>'+valuehs['name_file']+'</td>'+           
+                          '<td><a href="'+valuehs['link_file']+'" target="_blank"><i class="fa fa-folder-open-o"></i></a></td><td>'+valuehs['time_start_file']+'</td>'+ 
+                        '</tr>';
+                  });
+              });
+
+              //Lấy thông tin điện lực được cho phép
+              html+='<tr class="power" style="background-color:light green;font-weight: 500;"><td >'+(index+1)+'</td>'+
+                    '<td style="font-weight:bold;" >'+value[0]['name_pwc']+'</td>'+
+                    '<td></td><td></td><td></td><td></td><td></td><td></td><td></td>'+                                      
+                  '</tr>'+nm; 
+          });
+
+          $('.tbody-content').html(html);
+		  $('tr:not(.underpower)').click(function(){
+				//alert('1');
+			   $(this).nextUntil('tr:not(.underpower)').toggle();
+			});
+		  set_loading_pos(1);
+      },
+      error:function(e){
+          console.log('e '+e);
+      }
+});
+
+</script>

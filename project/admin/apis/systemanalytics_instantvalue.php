@@ -9,16 +9,16 @@ require "libs/common_functions.php";
 $userid =  (int)isset($_REQUEST['userid'])? $_REQUEST['userid'] : 0;
 $info =  isset($_REQUEST['info'])? $_REQUEST['info'] : '';
 $time = time();
-$deltatime_instan = 15*60;
+$deltatime_instan = 15*60+5*60;
 $instan_condition = $time - $deltatime_instan;
 
-$deltatime_current = 60*60;
+$deltatime_current = 60*60+10*60;
 $current_condition = $time - $deltatime_current;
 
-$deltatime_profile = 60*60;
+$deltatime_profile = 8*60*60 + 10*60;
 $profile_condition = $time - $deltatime_profile;
 
-$deltatime_history = 60*60;
+$deltatime_history = 8*60*60 + 10*60;
 $history_condition = $time - $deltatime_history;
 
   CONNECT_DB();
@@ -41,14 +41,18 @@ $history_condition = $time - $deltatime_history;
 
     $instan = array();
     while($rs=mysql_fetch_array($result)){
-        $tmp = array(
+        $level_warning= $time - $rs['instan_value'];
+		$status_warning ='green';
+		if ($level_warning > 3*$deltatime_instan ){ $status_warning = 'red';} else if ($level_warning > 2*$deltatime_instan ){ $status_warning = 'orange';}
+		$tmp = array(
                 'serial_meter' => $rs['serial_meter'],
                 'instan_value' => $rs['instan_value'],
                 'last_update' => date('d-m-Y H:i:s', $rs['instan_value']),
                 'id_sub' => $rs['id_sub'],
                 'id_pwc' => $rs['id_pwc'],
                 'name_pwc' => $rs['name_pwc'],
-                'name_sub' => $rs['name_sub']
+                'name_sub' => $rs['name_sub'],
+				'status_warning' => $status_warning
             );
 
         array_push($instan, $tmp);
@@ -66,6 +70,9 @@ $history_condition = $time - $deltatime_history;
 
     $current = array();
     while($rs=mysql_fetch_array($result)){
+		$level_warning= $time - $rs['current_value'];
+		$status_warning ='green';
+		if ($level_warning > 3*$deltatime_current ){ $status_warning = 'red';} else if ($level_warning > 2*$deltatime_current ){ $status_warning = 'orange';}
         $tmp = array(
                 'serial_meter' => $rs['serial_meter'],
                 'current_value' => $rs['current_value'],
@@ -73,7 +80,8 @@ $history_condition = $time - $deltatime_history;
                 'id_sub' => $rs['id_sub'],
                 'id_pwc' => $rs['id_pwc'],
                 'name_pwc' => $rs['name_pwc'],
-                'name_sub' => $rs['name_sub']
+                'name_sub' => $rs['name_sub'],
+				'status_warning' => $status_warning
             );
 
         array_push($current, $tmp);
@@ -91,6 +99,11 @@ $history_condition = $time - $deltatime_history;
 
     $profile = array();
     while($rs=mysql_fetch_array($result)){
+	
+		$level_warning= $time - $rs['profile_value'];
+		$status_warning ='green';
+		if ($level_warning > 3*$deltatime_profile ){ $status_warning = 'red';} else if ($level_warning > 2*$deltatime_profile ){ $status_warning = 'orange';}	
+
         $tmp = array(
                 'serial_meter' => $rs['serial_meter'],
                 'profile_value' => $rs['profile_value'],
@@ -98,7 +111,8 @@ $history_condition = $time - $deltatime_history;
                 'id_sub' => $rs['id_sub'],
                 'id_pwc' => $rs['id_pwc'],
                 'name_pwc' => $rs['name_pwc'],
-                'name_sub' => $rs['name_sub']
+                'name_sub' => $rs['name_sub'],
+				'status_warning' => $status_warning
             );
 
         array_push($profile, $tmp);
@@ -115,6 +129,11 @@ $history_condition = $time - $deltatime_history;
 
     $history = array();
     while($rs=mysql_fetch_array($result)){
+	
+		$level_warning= $time - $rs['history_value'];
+		$status_warning ='green';
+		if ($level_warning > 3*$deltatime_profile ){ $status_warning = 'red';} else if ($level_warning > 2*$deltatime_profile ){ $status_warning = 'orange';}	
+		
         $tmp = array(
                 'serial_meter' => $rs['serial_meter'],
                 'history_value' => $rs['history_value'],
@@ -122,12 +141,40 @@ $history_condition = $time - $deltatime_history;
                 'id_sub' => $rs['id_sub'],
                 'id_pwc' => $rs['id_pwc'],
                 'name_pwc' => $rs['name_pwc'],
-                'name_sub' => $rs['name_sub']
+                'name_sub' => $rs['name_sub'],
+				'status_warning' => $status_warning
             );
 
         array_push($history, $tmp);
     }
 
+
+
+    $sql = 'SELECT  lastactivities.serial_meter, lastactivities.offlineTime, 
+            lastactivities.id_sub, lastactivities.id_pwc, power_company.name_pwc, substation_power.name_sub
+            FROM `lastactivities` 
+            LEFT JOIN `substation_power` ON lastactivities.id_sub = substation_power.id_sub
+            LEFT JOIN `power_company` ON  lastactivities.id_pwc = power_company.id_pwc
+            WHERE lastactivities.onlineTime < lastactivities.offlineTime';
+
+    $result = mysql_query($sql) or die(json_encode($returnarray));
+
+    $listoffline = array();
+    while($rs=mysql_fetch_array($result)){
+    
+        $tmp = array(
+                'serial_meter' => $rs['serial_meter'],
+                'offlineTime' => $rs['offlineTime'],
+                'datetime_format' => date('d-m-Y H:i:s', $rs['offlineTime']),
+                'id_sub' => $rs['id_sub'],
+                'id_pwc' => $rs['id_pwc'],
+                'name_pwc' => $rs['name_pwc'],
+                'name_sub' => $rs['name_sub'],
+                'status_warning' => 10
+            );
+
+        array_push($listoffline, $tmp);
+    }
 
     /*
     * processing ykienphanhoi
@@ -140,6 +187,9 @@ $history_condition = $time - $deltatime_history;
 
     $ykienphanhoi = array();
     while($rs=mysql_fetch_array($result)){
+	
+	$pos=strpos($rs['content'], ' ', 100);
+	$short_content =substr($rs['content'],0,$pos );
         $tmp = array(
                 'ID' => $rs['ID'],
                 'userid' => $rs['userid'],
@@ -148,6 +198,7 @@ $history_condition = $time - $deltatime_history;
                 'email' => $rs['email'],
                 'phone' => $rs['phone'],
                 'content' => $rs['content'],
+                'short_content' => $short_content,				
                 'pcid' => $rs['pcid'],
                 'read_status' => $rs['read_status']
             );
@@ -209,6 +260,7 @@ $history_condition = $time - $deltatime_history;
     $returnarray['datahistory'] = $history;
     $returnarray['dataykien'] = $ykienphanhoi;
     $returnarray['datayh1confirm'] = $h1_not_confirmed;
+    $returnarray['listoffline'] = $listoffline;
 
 	echo json_encode($returnarray);	
 

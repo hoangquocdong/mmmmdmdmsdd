@@ -1,0 +1,397 @@
+
+<!-- Matter -->
+<!--div class="matter"-->
+<div class="container">
+	<div class="row">
+					<div class="col-md-6">
+						<ul id="myTab" class="nav nav-tabs" style="margin-top:5px; display:; ">
+							<li class="active tab_online" id="tab_process"><a href="#process_incident" data-toggle="tab">Ý kiến đang xử lý </a> </li>
+							<li class="tab_message" id="tab_finish"><a href="#finish_incident" data-toggle="tab">Ý kiến đã hoàn thành xử lý</a></li>					
+						</ul>
+						<div id="myTabContent" class="tab-content">
+							<div class="tab-pane fade in active process_incident" id="process_incident">
+								<div class="widget bblue_icon" >
+									<div class="widget-content">
+										<div class="table-responsive">
+											<table class="table table-striped table-bordered table-hover" style="">
+												<thead>
+													<tr>
+													  <th>Stt</th>
+													  <th>Mã </th>
+													  <th>Tên người gửi</th>
+													  <th>SĐT </th>
+													  <th>Nội dung phản hồi</th>
+													  <th>Thời gian gửi</th>	
+											  
+													</tr>
+												</thead>
+												<tbody class="tbody-content" >                                                       
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
+							</div>
+							
+							<div class="tab-pane fade  finish_incident" id="finish_incident">
+								<div class="widget bblue_icon" >
+									<div class="widget-content">
+										<div class="table-responsive">
+											<table class="table table-striped table-bordered table-hover" style="">
+												<thead>
+													<tr>
+													  <th>Stt</th>
+													  <th>Mã </th>
+													  <th>Tên nhà máy</th>
+													  <th>Serial Meter</th>
+													  <th>TG lập phiếu</th>
+													  <th>Người lập</th>	
+											  
+													</tr>
+												</thead>
+												<tbody class="tbody-content-finish" >                                                       
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
+							</div>
+							
+						</div>
+					</div>
+					
+					<div class="col-md-6">
+						<div class="container">
+							<div class="row">					
+								<div class="widget">
+									<div class="widget-head">
+										<div class="pull-left">Chi tiết phiếu xử lý sự cố <span class="instant26" ></span></div>
+										<div class="widget-icons pull-right">
+											<a href="#" class="wminimize"><i class="fa fa-chevron-up"></i></a> 
+											<a href="#" class="wclose"><i class="fa fa-times"></i></a>
+										</div>  
+										<div class="clearfix"></div>
+									</div>
+									<div class="widget-content">
+										<div class="widget-foot" >	
+											<span style="font-weight:bold;">1. Thông tin chung</span>	
+											<span id="status_incident"  class="label" style="margin-left:10px;"></span>
+										</div>									
+										<div class="table-responsive">
+											<table class="table table-striped table-bordered table-hover" style="">
+												<thead>
+													<th nowrap> Các thành phần</th>
+													<th> Nội dung chi tiết</th>
+												</thead>
+												<tbody  > 
+													<tr>
+														<td nowrap> Mã phiếu</td>
+														<td id="id_record" style="color:#346C9B; font-weight:bold;"> </td>											
+													</tr>
+													<tr>
+														<td nowrap> Người gửi</td>
+														<td id="fullname" style="color:#346C9B; font-weight:bold;"> </td>											
+													</tr>
+													<tr>
+														<td nowrap> Số điện thoại</td>
+														<td id="phone" style="color:#346C9B; font-weight:bold;"> </td>											
+													</tr>
+													<tr>
+														<td nowrap> Nội dung sự cố</td>
+														<td id="content" style="color:#346C9B; font-weight:bold;"> </td>											
+													</tr>
+													<tr>
+														<td nowrap> Thời gian lập</td>
+														<td id="time" style="color:#346C9B; font-weight:bold;"> </td>											
+													</tr>											
+												</tbody>
+											</table>
+										</div>
+										<div class="widget-foot" >	
+											<span style="font-weight:bold;">2. Lịch sử xử lý ý kiến phản hồi</span>	
+										</div>	
+										<div class="table-responsive">
+											<table class="table table-striped table-bordered table-hover" style="">
+												<thead>
+													<th> Stt</th>										
+													<th> Nội dung</th>
+													<th> Thời gian </th>
+													<th> Người xử lý</th>											
+												</thead>
+												<tbody class="history_process_body"> 
+											
+												</tbody>
+											</table>
+										</div>	
+										<div class="widget-foot process_update_textarea" >	
+											<span style="font-weight:bold;">3. Tiếp tục cập nhật quá trình xử lý</span>	
+										</div>	
+										<div class="table-responsive process_update_textarea">
+											<textarea class="form-control" rows="3" id="content_process_update"></textarea>
+											<span class="btn btn-primary pull-left" style="margin: 5px;" id="update_process"> Tiếp tục cập nhật </span> 
+											<span class="btn btn-success pull-right" style="margin: 5px;" id="finish_process"> Hoàn thành xử lý</span> 
+										</div>	
+							
+									</div>
+
+								</div>
+							</div>
+						</div>	
+					</div>
+	</div>
+</div>
+<script src="js/jquery-ui.min.js"></script> <!-- jQuery UI -->
+<script src="js/bootstrap-datetimepicker.min.js"></script> <!-- Date picker -->
+<script src="js/custom.js"></script> 
+<script src="js/themes/sand-signika.js"></script>
+
+<script src="js/choosen/chosen.jquery.min.js"></script> <!-- Custom codes -->
+<script src="js/choosen/chosen.proto.min.js"></script> <!-- Custom codes -->
+
+<!-- Menu left + content Page 1 -->
+<script>
+apilink='http://mdms.npc.com.vn/mdms2015/admin/apis/';
+var obj = {}, obj_update={}, obj_finish={} ;
+var manager_incident ='';
+var fullname ='';
+
+jQuery(document).ready(function(){
+	jQuery(".chosen").chosen();
+});	
+$.ajax({
+		url:api_link+'/qluser.php',
+		type:"POST",
+		data:{userid: userid},
+		success:function(data){	
+
+			data=JSON.parse(data);
+			fullname= data.full_name;
+
+			document.getElementById("current_user").placeholder = fullname;
+			document.getElementById("current_user").value = fullname;
+			
+		}, error: function(e){
+			console.log('e '+e);
+		}
+	
+});
+
+load_ykien_manager();
+load_list_detail();
+
+function checksecurity(callbackfnc){
+
+	var inputcontent =  '<div style="text-align: center;font-size: 16px;font-weight: 500;margin-top: 15px;">Thông báo</div>'+
+						'<div style="text-align: center; font-size: 15px;margin-top: 8px;">Bạn hãy nhập mật khẩu xác nhận</div>'+
+						'<div style="margin:18px 10px; "><input type="password" id="inputpassword" placeholder="Mật khẩu" style="width: 100%;"></div>'+
+						'<div class="btnxacnhaninput btn btn-success" style="margin-left:10px;">Xác nhận</div><div class="btn btn-warning btnhuybo" style="margin-left:20px;">Hủy bỏ</div>';
+
+	if (!$('.inputdialog').length) {
+
+	  var $divbg = $('<div id="inputdialog" class="inputdialog" style="height: 100%;background-color: rgba(0,0,0,0.5);position: fixed;top: 0px;left: 0px;right: 0px;z-index: 10002;"></div>').appendTo('body');
+
+	  var $divcontent = $('<div id="inputdialogcontent" style="position: absolute;left: 50%;top: 50%;transform: translate(-50%, -50%);background-color: rgb(255,255,255);height: 200px;width: 360px;z-index: 10001;border-radius: 5px;padding: 10px;"></div>').appendTo($('#inputdialog'));
+	  $('#inputdialogcontent').html(inputcontent);
+	  
+	  $('#inputpassword').focus();
+
+	}
+
+	  $('.btnhuybo').click(function(){
+		  $('#inputdialog').remove();
+	  });
+
+	  $('.btnxacnhaninput').click(function(){
+
+		  var pass= $('#inputpassword').val();
+		  $.post('http://mdms.npc.com.vn/mdms2015/apis/xacnhanpass.php',{userid:userid,password:pass}, function(data){
+			  //alert(data);
+			  if (data == 500){
+				showalert('Thông báo', 'Lỗi kết nối server, bạn hãy thử lại lần sau!', 11000);
+				return false;
+			  } else if (data == 404){
+				showalert('Thông báo', 'Sai mật khẩu, bạn hãy thử lại lần sau!', 11000);
+				return false;
+			  } else if (data == 200) {
+				//console.log('thanh cong');
+				$('#inputdialog').remove();
+				if(callbackfnc) {callbackfnc();}
+				//replace_chiso(csdauky, cscuoiky);
+				return true;
+
+			  }else if (data == 404){
+				showalert('Thông báo', 'Xác nhận mật khẩu thất bại!', 11000);
+				return false;
+			  }
+		  });
+		return false;
+	  });
+
+}
+
+
+function post_ykien_update(){
+	objects = JSON.stringify(obj_update);
+	$.ajax({
+		url:apilink+'ykien_process_update.php',
+			type:"POST",
+			data:{userid:userid, info:objects},
+			success:function(data){
+				//console.log(data);
+				data = JSON.parse(data);
+				//console.log(data);
+				showalert_withcallback('Thông báo', data.content, 11000, load_ykien_manager);
+				//alert (data.content);
+			},
+			error:function(e){
+		          console.log('e '+e);
+		      }
+	});
+	
+}
+
+
+function post_ykien_finish(){
+	objects = JSON.stringify(obj_finish);
+	$.ajax({
+		url:apilink+'ykien_process_finish.php',
+			type:"POST",
+			data:{userid:userid, info:objects},
+			success:function(data){
+				//console.log(data);
+				data = JSON.parse(data);
+				//console.log(data);
+				showalert_withcallback('Thông báo', data.content, 11000, load_ykien_manager);
+				//alert (data.content);
+			},
+			error:function(e){
+		          console.log('e '+e);
+		      }
+	});
+}
+/* ****************** Load Incident Detail********************** */
+function load_list_detail(){
+		
+	$("tr.incident_details").click(function () {
+
+		var current_incident = $(this).data("idincident");
+		$('tr.incident_details').css('background','#FFFFFF');
+		$(this).css('background','#BBFC7F');	
+		$("#status_incident").removeClass('label-success-plus label-info'); 	
+		
+		$.each(manager_ykien,function(index, value){
+			if (parseInt(value['ID']) == parseInt(current_incident)){
+				
+				if (parseInt(value['read_status'])==1) {
+					$("#status_incident").html('Hoàn thành');
+					$("#status_incident").addClass('label-success-plus'); 							
+					$(".process_update_textarea").hide(); 
+				}else {
+					$("#status_incident").html('Đang xử lý');
+					$("#status_incident").addClass('label-info');
+					$(".process_update_textarea").show();  		
+				}			
+				
+				$("#id_record").html(value['ID']);
+				$("#fullname").html(value['fullname']);
+				$("#phone").html(value['phone']);
+				$("#content").html(value['content']);
+				$("#time").html(value['time']);
+				
+				var html='';
+				$.each(value['history_process'],function(index1, value1){
+					html +='<tr><td>'+index1+'</td><td>'+value1['content_process']+
+					'</td><td>'+value1['time_process']+'</td><td>'+value1['user_process']+'</td>'+
+					'</tr>';							
+				});
+				$(".history_process_body").html(html);
+			}
+		});
+		
+	});
+}
+/* ************************************** END********************** */
+
+function load_ykien_manager(){
+	
+	$.ajax({
+			url:apilink+'ykien_manager.php',
+			type:"POST",
+			data:{id:userid, token:token},
+			success:function(data){
+				
+				data = JSON.parse(data);
+				console.log (data);
+				manager_ykien = data;
+				
+				var html='', html1='', stt=1, stt1=1;	
+				$.each(data,function(index, value){
+					if (value['read_status']==0){
+					html +='<tr class="incident_details" data-idincident="'+value['ID']+'"><td>'+stt+'</td><td>'+value['ID']+'</td><td nowrap>'+value['fullname']+'</td><td nowrap>'+value['phone']+'</td>'+
+					'<td>'+value['short_content']+'</td><td nowrap>'+value['time']+'</td>'+
+					'</tr>';
+					stt++;
+					}
+					if (value['read_status']==1){
+					html1 +='<tr class="incident_details" data-idincident="'+value['ID']+'"><td>'+stt1+'</td><td>'+value['ID']+'</td><td nowrap>'+value['fullname']+'</td><td nowrap>'+value['phone']+'</td>'+
+					'<td>'+value['short_content']+'</td><td nowrap>'+value['time']+'</td>'+
+					'</tr>';
+					stt1++;
+					}					
+				});
+				$('.tbody-content').html(html);
+				$('.tbody-content-finish').html(html1);	
+				load_list_detail();
+				
+				/* *******************Update Incident Process History************* */
+				
+				$("#update_process").click(function () {
+					obj_update = {};
+					
+					obj_update['idykien_record'] = $("#id_record").text();
+					obj_update['content_process'] = $("#content_process_update").val();
+					obj_update['time_process'] = Math.floor(Date.now() / 1000);
+					obj_update['user_process'] = fullname;	
+		
+					checksecurity(post_ykien_update);
+
+				});
+				/* *********************************END**************************** */		
+		
+				/* *******************Finish Incident Process ******************** */
+				
+				$("#finish_process").click(function () {
+					obj_finish = {};
+					
+					obj_finish['idykien_record'] = $("#id_record").text();
+					obj_finish['content_process'] = $("#content_process_update").val();
+					obj_finish['time_process'] = Math.floor(Date.now() / 1000);
+					obj_finish['user_process'] = fullname;	
+		
+					checksecurity(post_ykien_finish);
+
+				});
+				
+				/* *********************************END**************************** */						
+			
+			
+			},
+			error:function(e){
+		        console.log('e '+e);
+		    }
+	});
+	
+}
+
+</script>
+
+<style>
+	.nav-tabs>li.active>a{
+		background: #79A9D1 !important;
+		color: white!important;
+		font-weight:bold;
+	}
+	.nav-tabs>li>a: hover {
+		color: white!important;
+	}
+</style>

@@ -5,6 +5,7 @@ header('Access-Control-Max-Age: 1000');
 require "libs/config.php";
 require "libs/db_functions.php";
 require "libs/common_functions.php";
+require "libs/custom_functions.php";
 
 //$id_sub =  isset($_REQUEST['id_sub'])? $_REQUEST['id_sub'] : 0;
 

@@ -13,6 +13,19 @@ function userlogs($useid, $fullname, $action){
 
 }
 
+function useradminlogs($useid, $actioncode){
+
+	$date = new DateTime();
+	$timestamp = $date->getTimestamp();
+
+	$sql = 'INSERT INTO `useradminlogs`(`userid`, `action` , `timestamp`) 
+	VALUES ('.$useid.',"'.$actioncode.'",'.$timestamp.')';
+
+	$result = mysql_query($sql) or die('500');
+
+}
+
+
 function checktoken($id, $token){
 
 	$sql='SELECT * FROM user WHERE ID = '.$id.' AND token = "'.$token.'"';
